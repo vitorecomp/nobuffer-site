@@ -1,0 +1,4 @@
+# /etc/nginx/sites-available/default
+location * {
+  proxy_pass http://localhost:8080/;
+}
