@@ -1,4 +1,14 @@
 # /etc/nginx/sites-available/default
-location * {
-  proxy_pass http://localhost:8080/;
+server {
+    listen   80;
+
+    server_name         http;
+
+    access_log /var/log/nginx/nginx.vhost.access.log;
+    error_log /var/log/nginx/nginx.vhost.error.log;
+
+    location / {
+        proxy_pass http://localhost:8080/;
+    }  
 }
+
