@@ -1,5 +1,6 @@
 # /etc/nginx/sites-available/https
-#  cat $SSL_PATH/certificate.crt $SSL_PATH/ca_bundle.crt > $SSL_PATH/chained_cert.crt
+# cat $SSL_PATH/certificate.crt $SSL_PATH/ca_bundle.crt > $SSL_PATH/chained_cert.crt
+
 server {
     listen 443 ssl;
 
