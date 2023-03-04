@@ -1,0 +1,21 @@
+link(href=require('./assets/css/main.css') rel='stylesheet')
+link(href=require('./assets/css/style.css') rel='stylesheet')
+//- script(src=require('./main.js') defer='defer')
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(content="width=device-width, initial-scale=1" name="viewport")
+    title Vitor Open Dev
+  body
+    include sections/navbar.pug
+
+    include views/main/main.pug
+    include views/open-source/open-source.pug
+    include views/ai/ai.pug
+    include views/backyard-mech/backyard-mech.pug
+    include views/ai-companion/ai-companion.pug
+    include views/contacts/contacts.pug
+  footer 
+    p &copy; 2023 My Simple Website. All rights reserved.
