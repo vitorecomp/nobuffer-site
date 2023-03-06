@@ -3,9 +3,7 @@ name: NodeJS build website
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,3 +28,5 @@ jobs:
       run: |
         npm install
         npm run build
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
