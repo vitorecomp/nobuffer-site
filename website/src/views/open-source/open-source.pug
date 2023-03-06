@@ -1,1 +1,10 @@
-h2 open source
+//- Move it to a a template
+div(class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0")
+    div(class="absolute inset-0 -z-10 overflow-hidden")
+        include background/background-main.pug
+    div(class="mx-auto grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10")
+        div(class="lg:row-start-1 lg:col-start-1 -mt-12 -ml-12 lg:px-8 p-12 lg:sticky lg:top-4 lg:row-span-2 lg:overflow-hidden")
+            include photo-panel/photo-panel-section.pug
+        div(class="lg:row-start-1 lg:col-start-2 lg:col-span-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8")
+            include description/description-section.pug
+            
