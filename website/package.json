@@ -21,8 +21,8 @@
     "build": "webpack --config webpack.config.js --mode production",
     "start:watch": "webpack watch --open --config webpack.config.dev.js --mode development",
     "start:server": "webpack serve --open --config webpack.config.dev.js --mode development",
-    "start:dev": "rm -r ../build/website-dev && npm run build --config webpack.config.dev.js && webpack watch --config webpack.config.de.js --mode development & live-server ../build/website-dev",
-    "start:dev-server": "webpack watch --config webpack.config.dev.js --mode development & live-server ../build/website-dev"
+    "start:dev": "rm -r ../build-dev/website && npm run build --config webpack.config.dev.js && webpack watch --config webpack.config.de.js --mode development & live-server ../build-dev/website",
+    "start:dev-server": "webpack watch --config webpack.config.dev.js --mode development & live-server ../build-dev/website"
   },
   "keywords": [],
   "author": "",
