@@ -1,16 +1,16 @@
-name: NodeJS build website
+name: NodeJS build Main Website
 
 on:
   push:
     branches: [ "master" ]
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: website-dinamic
+        working-directory: website
 
     strategy:
       matrix:
