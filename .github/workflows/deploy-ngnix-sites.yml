@@ -25,5 +25,5 @@ jobs:
           git pull --rebase
           cd reverse-proxy
           echo "===========================" >> ${{ secrets.HOME_PATH }}/exec-logs/pipeline.log
-          echo '`date +"%Y-%m-%d %H:%M:%S"`' >> ${{ secrets.HOME_PATH }}/exec-logs/pipeline.log
+          echo `date +"%Y-%m-%d %H:%M:%S"` >> ${{ secrets.HOME_PATH }}/exec-logs/pipeline.log
           sh deploy.sh >> ${{ secrets.HOME_PATH }}/exec-logs/pipeline.log
