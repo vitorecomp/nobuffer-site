@@ -17,10 +17,10 @@ jobs:
         key: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          mkdir -p /home/vitor_ecomp/exec-logs
-          cd /home/vitor_ecomp/nobuffer-site
+          mkdir -p ${{ secrets.HOME_PATH }}/exec-logs
+          cd ${{ secrets.HOME_PATH }}/workspace/nobuffer-site
           git reset --hard
           git checkout master
           git pull --rebase
           cd reverse-proxy
-          sh deploy.sh >> /home/vitor_ecomp/exec-logs/`date +"%Y-%m-%d_%H:%M:%S"`.txt
+          sh deploy.sh >> ${{ secrets.HOME_PATH }}/exec-logs/`date +"%Y-%m-%d_%H:%M:%S"`.txt
