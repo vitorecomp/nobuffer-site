@@ -16,8 +16,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-          rm /etc/nginx/sites-available/*
-          rm /etc/nginx/sites-enabled/*
+          rm -f /etc/nginx/sites-available/*
+          rm -f /etc/nginx/sites-enabled/*
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
       with:
