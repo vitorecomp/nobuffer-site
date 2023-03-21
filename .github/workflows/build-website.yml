@@ -3,7 +3,7 @@ name: NodeJS build Main Website
 on:
   push:
     branches: [ "master" ]
-name: Build the main website with webpack
+name: Build the Main Website
 on:
   push:
     branches:

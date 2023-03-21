@@ -1,5 +1,5 @@
 # the machine should have the repo on the home
-name: deploy the nginx gateway service proxy
+name: Deploy the Nginx
 on:
   push:
     branches:
