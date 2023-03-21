@@ -1,8 +1,7 @@
 # the machine should have the repo on the home
 name: deploy the nginx gateway service proxy
 on:
-  push:
-    - master
+  push: ["master"]
 jobs:
 
   build:
