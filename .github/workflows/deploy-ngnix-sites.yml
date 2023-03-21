@@ -20,6 +20,8 @@ jobs:
           rm -f /etc/nginx/sites-enabled/*
   deploy:
     name: deploy
+    runs-on: ubuntu-latest
+    steps:
     - name: copy file via ssh password
       uses: appleboy/scp-action@v0.1.3
       with:
@@ -30,7 +32,10 @@ jobs:
         target: "/etc/nginx/sites-available/"
         strip_components: 1
         needs: clean
-
+  enable-sites:
+    name: enable-sites
+    runs-on: ubuntu-latest
+    steps:
     - name: create symlinks
       uses: appleboy/ssh-action@v0.1.8
       with:
