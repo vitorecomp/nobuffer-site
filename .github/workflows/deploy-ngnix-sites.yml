@@ -1,16 +1,21 @@
+# the machine should have the repo on the home
 name: remote ssh command
-on: [push]
+on:
+  push:
+    - master
 jobs:
 
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
+    - name: multiple command
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: whoami
+        script: |
+          cd /home/vitor_ecomp/nobuffer-site
+          git pull --rebase

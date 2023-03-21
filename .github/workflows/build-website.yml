@@ -6,7 +6,7 @@ on:
 name: Build the main website with webpack
 on:
   push:
-    - main
+    - master
 jobs:
   build:
     runs-on: ubuntu-latest
