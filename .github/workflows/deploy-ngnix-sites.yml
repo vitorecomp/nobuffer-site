@@ -5,11 +5,19 @@ on:
     branches:
       - "master"
 jobs:
-  copy-nginx-files:
-    name: Build
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - name: delete old deploys
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+          rm /etc/nginx/sites-available/*
+          rm /etc/nginx/sites-enabled/*
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
       with:
@@ -19,16 +27,11 @@ jobs:
         source: "reverse-proxy/*.dev"
         target: "/etc/nginx/sites-available"
         strip_components: 1
-
-  create-symlink:
-    name: deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: multiple command
+    - name: create symlinks
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-          for file in `ls *.dev`; do echo "creating the symbolic link of $file"; ln -s /etc/nginx/sites-available/$file /etc/nginx/sites-enabled/$file;done
+          for file in `ls /etc/nginx/sites-available/*.dev`; do echo "creating the symbolic link of $file"; ln -s /etc/nginx/sites-available/$file /etc/nginx/sites-enabled/$file;done
