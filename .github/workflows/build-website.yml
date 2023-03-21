@@ -1,13 +1,7 @@
-name: NodeJS build Main Website
-
-on:
-  push:
-    branches: [ "master" ]
 name: Build the Main Website
 on:
   push:
-    branches:
-      - "master"
+    branches: [ "master" ]
 jobs:
   build:
     runs-on: ubuntu-latest
