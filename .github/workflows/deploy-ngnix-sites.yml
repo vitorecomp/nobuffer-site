@@ -21,6 +21,7 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
+    needs: clean
     steps:
     - name: copy file via ssh password
       uses: appleboy/scp-action@v0.1.3
@@ -31,10 +32,11 @@ jobs:
         source: "reverse-proxy"
         target: "/etc/nginx/sites-available"
         strip_components: 1
-        needs: clean
+
   enable-sites:
     name: enable-sites
     runs-on: ubuntu-latest
+    needs: deploy
     steps:
     - name: create symlinks
       uses: appleboy/ssh-action@v0.1.8
@@ -44,4 +46,3 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           for file in `ls /etc/nginx/sites-available/*.dev`; do echo "creating the symbolic link of $file"; ln -s /etc/nginx/sites-available/$file /etc/nginx/sites-enabled/$file;done
-        needs: deploy
