@@ -5,9 +5,22 @@ on:
     branches:
       - "master"
 jobs:
-
-  build:
+  copy-nginx-files:
     name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        source: "reverse-proxy/*.dev"
+        target: "/etc/nginx/sites-avaiable/"
+
+  create-symlink:
+    name: deploy
     runs-on: ubuntu-latest
     steps:
     - name: multiple command
@@ -16,14 +29,5 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
         script: |
-          mkdir -p ${{ secrets.HOME_PATH }}/exec-logs
-          cd ${{ secrets.HOME_PATH }}/workspace/nobuffer-site
-          git reset --hard
-          git checkout master
-          git pull --rebase
-          cd reverse-proxy
-          echo "===========================" >> ${{ secrets.HOME_PATH }}/logs/pipeline.log
-          echo `date +"%Y-%m-%d %H:%M:%S"` >> ${{ secrets.HOME_PATH }}/logs/pipeline.log
-          sh deploy.sh >> ${{ secrets.HOME_PATH }}/logs/pipeline.log
+          for file in `ls *.dev`; do echo "creating the symbolic link of $file"; ln -s /etc/nginx/sites-available/$file /etc/nginx/sites-enabled/$file;done
