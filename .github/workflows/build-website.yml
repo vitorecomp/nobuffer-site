@@ -3,7 +3,10 @@ name: NodeJS build Main Website
 on:
   push:
     branches: [ "master" ]
-
+name: Build the main website with webpack
+on:
+  push:
+    - main
 jobs:
   build:
     runs-on: ubuntu-latest
