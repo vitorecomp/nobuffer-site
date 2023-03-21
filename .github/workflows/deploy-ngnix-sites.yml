@@ -1,0 +1,26 @@
+# the machine should have the repo on the home
+name: deploy the nginx gateway service proxy
+on:
+  push:
+    - master
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: multiple command
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          mkdir -p /home/vitor_ecomp/exec-logs
+          cd /home/vitor_ecomp/nobuffer-site
+          git reset --hard
+          git checkout master
+          git pull --rebase
+          cd reverse-proxy
+          sh deploy.sh >> /home/vitor_ecomp/exec-logs/`date +"%Y-%m-%d_%H:%M:%S"`.txt
