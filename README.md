@@ -2,7 +2,7 @@
 
 > All the files on the build folder are automatic generated.
 
-[![NodeJS build Main Website](https://github.com/vitorecomp/nobuffer-site/actions/workflows/build-website.yml/badge.svg)](https://github.com/vitorecomp/nobuffer-site/actions/workflows/build-website.yml)
+[![Build the Main Website](https://github.com/vitorecomp/nobuffer-site/actions/workflows/build-website.yml/badge.svg)](https://github.com/vitorecomp/nobuffer-site/actions/workflows/build-website.yml)
 [![deploy the nginx gateway service proxy](https://github.com/vitorecomp/nobuffer-site/actions/workflows/deploy-ngnix-sites.yml/badge.svg)](https://github.com/vitorecomp/nobuffer-site/actions/workflows/deploy-ngnix-sites.yml)
 
 Collection of my static sites code, this will be composed from the dynamic code
