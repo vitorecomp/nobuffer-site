@@ -47,4 +47,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-          for file in `ls /etc/nginx/sites-available/*.dev`; do echo "creating the symbolic link of $file"; ln -s /etc/nginx/sites-available/$file /etc/nginx/sites-enabled/$file;done
+          for file in `ls /etc/nginx/sites-available/*.dev`; do echo "creating the symbolic link of $file"; ln -s /etc/nginx/sites-available/$file /etc/nginx/sites-enabled/$file ; done
