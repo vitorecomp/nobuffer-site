@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: enable-sites
     steps:
-    - name: create symlinks
+    - name: install all the certifications
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.HOST }}
