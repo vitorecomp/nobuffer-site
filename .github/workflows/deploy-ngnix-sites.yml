@@ -49,3 +49,18 @@ jobs:
         script: |
           cd /etc/nginx/sites-available/
           for file in `ls *.dev`; do echo "creating the symbolic link of $file"; ln -s /etc/nginx/sites-available/$file /etc/nginx/sites-enabled/$file ; done
+
+  certbot:
+    name: certbot
+    runs-on: ubuntu-latest
+    needs: enable-sites
+    steps:
+    - name: create symlinks
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+          cd /etc/nginx/sites-available/
+          for file in `ls *.dev`; do echo "creating the cert for $file"; certbot --nginx -d $file -n ; done
