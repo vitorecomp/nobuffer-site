@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{pug,html,js}"],
+  content: ['./src/**/*.{pug,html,js}'],
   theme: {
     extend: {},
   },
@@ -10,4 +10,4 @@ module.exports = {
     // require('@tailwindcss/line-clamp'),
     require('@tailwindcss/aspect-ratio'),
   ],
-}
+};

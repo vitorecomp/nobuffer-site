@@ -1,21 +1,23 @@
-link(href=require('./assets/css/main.css') rel='stylesheet')
-link(href=require('./assets/css/style.css') rel='stylesheet')
+link(href=require('./assets/css/main.css'), rel='stylesheet')
+link(href=require('./assets/css/style.css'), rel='stylesheet')
 //- script(src=require('./main.js') defer='defer')
 
 doctype html
-html(lang="en")
+html.scroll-smooth(lang='en')
   head
-    meta(charset="utf-8")
-    meta(content="width=device-width, initial-scale=1" name="viewport")
+    meta(charset='utf-8')
+    meta(content='width=device-width, initial-scale=1', name='viewport')
     title Vitor Open Dev
   body
     include sections/navbar.pug
+    include sections/dot-nav.pug
 
+    include views/background/background-main.pug
     include views/main/main.pug
     include views/open-source/open-source.pug
     include views/ai/ai.pug
     include views/backyard-mech/backyard-mech.pug
     include views/ai-companion/ai-companion.pug
-  footer(class="relative z-10 bg-white pt-20 pb-10 lg:pt-[120px] lg:pb-20")
+  footer.relative.z-10.bg-white.pt-20.pb-10(class='lg:pt-[120px] lg:pb-20')
     include views/contacts/contacts.pug
     //- p &copy; 2023 Vieira Vitor Dev Website. All rights reserved.
