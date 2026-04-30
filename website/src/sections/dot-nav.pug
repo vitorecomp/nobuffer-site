@@ -1,0 +1,67 @@
+.fixed.inset-y-0.right-0.pointer-events-none.z-50.w-full
+  .max-w-7xl.mx-auto.h-full.relative
+    .absolute.right-6.transform.pointer-events-auto(class='lg:right-8 top-1/2 -translate-y-1/2')
+      ul.space-y-4.flex.flex-col.items-center
+        li
+          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+            href='#main',
+            class='hover:bg-teal-600',
+            aria-label='Main'
+          )
+        li
+          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+            href='#open-source',
+            class='hover:bg-teal-600',
+            aria-label='Open Source'
+          )
+        li
+          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+            href='#ai',
+            class='hover:bg-teal-600',
+            aria-label='AI'
+          )
+        li
+          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+            href='#backyard-mech',
+            class='hover:bg-teal-600',
+            aria-label='Backyard Mech'
+          )
+        li
+          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+            href='#ai-companion',
+            class='hover:bg-teal-600',
+            aria-label='AI Companion'
+          )
+
+script.
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('#main, #open-source, #ai, #backyard-mech, #ai-companion');
+    const dots = document.querySelectorAll('.dot-nav-item');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.6,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          dots.forEach((dot) => {
+            if (dot.getAttribute('href') === `#${id}`) {
+              dot.classList.remove('bg-gray-300', 'h-3');
+              dot.classList.add('bg-teal-600', 'h-6');
+            } else {
+              dot.classList.add('bg-gray-300', 'h-3');
+              dot.classList.remove('bg-teal-600', 'h-6');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+  });
