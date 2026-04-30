@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = window.innerWidth;
   const height = window.innerHeight * 3;
 
-  const cellsX = Math.ceil(width / (cellSize * 3));
-  const cellsY = Math.ceil(height / cellSize);
+  const cellsX = Math.ceil(width / (cellSize * 2));
+  const cellsY = Math.ceil((height / cellSize) * 2);
 
   container.innerHTML = '';
   const numChanges = 300;
-  const probability = 0.5;
+  const probability = 0.3;
 
   function changeState() {
     () => {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const box = activeBoxes[index];
           if (box) {
             box.style.opacity = '0';
-            setTimeout(() => box.remove(), 15000); // Wait for 2s transition
+            setTimeout(() => box.remove(), 2000); 
             activeBoxes.splice(index, 1);
           }
         }
@@ -44,9 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', `M${posX} ${posY}h${cellSize * 3}v${cellSize}h-${cellSize * 3}Z`);
-    path.setAttribute('stroke-width', '0');
+    path.setAttribute('stroke', '#e5e7eb');
+    path.setAttribute('fill', '#d1d5dc');
+    path.setAttribute('stroke-width', '1');
     path.style.opacity = '1';
-    path.style.transition = 'opacity 15s ease-in-out';
+    path.style.transition = 'opacity 2s ease-in-out';
 
     container.appendChild(path);
 
@@ -62,14 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial population
   for (let x = -cellsX; x < cellsX + 2; x++) {
     for (let y = -cellsY; y < cellsY + 2; y++) {
-      const posX = x * cellSize * 3;
-      const posY = y * cellSize;
-
-      console.log('blocks', +(Math.abs(x) + Math.abs(y)));
       if (Math.random() < probability) {
         activeBoxes.push(createBox(x, y));
       }
 
+      const posX = x * cellSize * 3;
+      const posY = y * cellSize;
       const gridPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       gridPath.setAttribute(
         'd',
@@ -83,6 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // // Dynamic update
-  // changeState();
-  // setInterval(changeState, 30000);
+  changeState();
+  setInterval(changeState, 3000);
 });
