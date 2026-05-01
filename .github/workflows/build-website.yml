@@ -15,4 +15,4 @@ jobs:
 
     - name: Submit Build to Cloud Build
       run: |
-        gcloud builds submit --config cloudbuild.yaml --substitutions=_BUCKET_NAME=${{ vars.GCS_BUCKET_NAME }}
+        gcloud builds submit --config website/cloudbuild.yaml --substitutions=_BUCKET_NAME=${{ vars.GCS_BUCKET_NAME }}
