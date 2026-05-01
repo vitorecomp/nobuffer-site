@@ -1,0 +1,30 @@
+name: Terraform Prod
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: infra/envs/prod
+
+    # - name: Terraform Apply
+    #   run: terraform apply -auto-approve
+    #   working-directory: infra/envs/prod
+    #   env:
+    #     TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
+    #     TF_VAR_bucket_name: ${{ vars.GCS_BUCKET_NAME }}
