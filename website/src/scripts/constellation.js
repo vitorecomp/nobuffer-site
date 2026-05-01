@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const maxDistance = 150;
 
   try {
-    // Try WebGL (Three.js)
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
     camera.position.z = 500;
@@ -105,66 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animateWebGL();
   } catch (e) {
-    console.warn('WebGL failed, falling back to 2D Canvas:', e);
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    container.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const canvasStarsCount = 200;
-    const stars = [];
-
-    for (let i = 0; i < canvasStarsCount; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-      });
-    }
-
-    function animateCanvas() {
-      ctx.clearRect(0, 0, width, height);
-
-      ctx.fillStyle = 'red'; // Red
-      for (let i = 0; i < canvasStarsCount; i++) {
-        const star = stars[i];
-        star.x += star.vx;
-        star.y += star.vy;
-
-        if (star.x < 0 || star.x > width) star.vx *= -1;
-        if (star.y < 0 || star.y > height) star.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      for (let i = 0; i < canvasStarsCount; i++) {
-        for (let j = i + 1; j < canvasStarsCount; j++) {
-          const s1 = stars[i];
-          const s2 = stars[j];
-          const dx = s1.x - s2.x;
-          const dy = s1.y - s2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < maxDistance) {
-            ctx.beginPath();
-            ctx.moveTo(s1.x, s1.y);
-            ctx.lineTo(s2.x, s2.y);
-            ctx.strokeStyle = `rgba(255, 0, 0, ${1 - dist / maxDistance})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-
-      requestAnimationFrame(animateCanvas);
-    }
-
-    animateCanvas();
+    console.warn('WebGL failed', e);
   }
 });

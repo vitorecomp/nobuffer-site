@@ -10,32 +10,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const cellsY = Math.ceil((height / cellSize) * 2);
 
   container.innerHTML = '';
-  const numChanges = 300;
+  const numChanges = 50;
   const probability = 0.3;
+  const speed = 5;
+  let pass = 1;
 
   function changeState() {
-    () => {
-      pass = pass * -1;
-      // Fade out some boxes
+    pass = pass * -1;
+    // Fade out some boxes
 
-      if (pass < 0) {
-        for (let i = 0; i < Math.min(activeBoxes.length, numChanges); i++) {
-          const index = Math.floor(Math.random() * activeBoxes.length);
-          const box = activeBoxes[index];
-          if (box) {
-            box.style.opacity = '0';
-            setTimeout(() => box.remove(), 2000); 
-            activeBoxes.splice(index, 1);
-          }
-        }
-      } else {
-        for (let i = 0; i < numChanges; i++) {
-          const x = Math.floor(Math.random() * (endX - startX)) + startX;
-          const y = Math.floor(Math.random() * (endY - startY)) + startY;
-          activeBoxes.push(createBox(x, y));
+    if (pass < 0) {
+      for (let i = 0; i < Math.min(activeBoxes.length, numChanges); i++) {
+        const index = Math.floor(Math.random() * activeBoxes.length);
+        const box = activeBoxes[index];
+        if (box) {
+          box.style.opacity = '0';
+          setTimeout(() => box.remove(), 10000 / speed);
+          activeBoxes.splice(index, 1);
         }
       }
-    };
+    } else {
+      for (let i = 0; i < numChanges; i++) {
+        const x = Math.floor(Math.random() * (cellsX * 2 + 2)) - cellsX;
+        const y = Math.floor(Math.random() * (cellsY * 2 + 2)) - cellsY;
+        activeBoxes.push(createBox(x, y));
+      }
+    }
   }
 
   function createBox(x, y) {
@@ -47,8 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     path.setAttribute('stroke', '#e5e7eb');
     path.setAttribute('fill', '#d1d5dc');
     path.setAttribute('stroke-width', '1');
-    path.style.opacity = '1';
-    path.style.transition = 'opacity 2s ease-in-out';
+    path.style.opacity = '0';
+    path.style.transition = `opacity ${10 / speed}s ease-in-out`;
+
+    setTimeout(() => (path.style.opacity = '1'), 10 / speed);
 
     container.appendChild(path);
 
@@ -59,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const activeBoxes = [];
-  let pass = 1;
 
   // Initial population
   for (let x = -cellsX; x < cellsX + 2; x++) {
@@ -84,5 +85,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // // Dynamic update
   changeState();
-  setInterval(changeState, 3000);
+  setInterval(changeState, 5000 / speed);
 });
