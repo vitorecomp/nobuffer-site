@@ -8,4 +8,4 @@ steps:
   args: ['run', 'build']
   dir: 'website'
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['-m', 'rsync', '-r', 'build/website', 'gs://${_BUCKET_NAME}']
+  args: ['-m', 'rsync', '-d', '-r', 'build/website', 'gs://${_BUCKET_NAME}']
