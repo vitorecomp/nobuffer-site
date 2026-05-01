@@ -3,31 +3,31 @@
     .absolute.right-6.transform.pointer-events-auto(class='lg:right-8 top-1/2 -translate-y-1/2')
       ul.space-y-4.flex.flex-col.items-center
         li
-          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+          a.dot-nav-item.block.w-3.h-3.bg-gray-400.rounded-full.transition-all.duration-200(
             href='#main',
             class='hover:bg-teal-600',
             aria-label='Main'
           )
         li
-          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+          a.dot-nav-item.block.w-3.h-3.bg-gray-400.rounded-full.transition-all.duration-200(
             href='#open-source',
             class='hover:bg-teal-600',
             aria-label='Open Source'
           )
         li
-          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+          a.dot-nav-item.block.w-3.h-3.bg-gray-400.rounded-full.transition-all.duration-200(
             href='#ai',
             class='hover:bg-teal-600',
             aria-label='AI'
           )
         li
-          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+          a.dot-nav-item.block.w-3.h-3.bg-gray-400.rounded-full.transition-all.duration-200(
             href='#backyard-mech',
             class='hover:bg-teal-600',
             aria-label='Backyard Mech'
           )
         li
-          a.dot-nav-item.block.w-3.h-3.bg-gray-300.rounded-full.transition-all.duration-200(
+          a.dot-nav-item.block.w-3.h-3.bg-gray-400.rounded-full.transition-all.duration-200(
             href='#ai-companion',
             class='hover:bg-teal-600',
             aria-label='AI Companion'
@@ -50,10 +50,10 @@ script.
           const id = entry.target.getAttribute('id');
           dots.forEach((dot) => {
             if (dot.getAttribute('href') === `#${id}`) {
-              dot.classList.remove('bg-gray-300', 'h-3');
+              dot.classList.remove('bg-gray-400', 'h-3');
               dot.classList.add('bg-teal-600', 'h-6');
             } else {
-              dot.classList.add('bg-gray-300', 'h-3');
+              dot.classList.add('bg-gray-400', 'h-3');
               dot.classList.remove('bg-teal-600', 'h-6');
             }
           });
