@@ -4,6 +4,6 @@ variable "bucket_name" {
 }
 
 variable "domain" {
-  description = "The domain name for the SSL certificate"
-  type        = string
+  description = "The domain names for the SSL certificate"
+  type        = list(string)
 }

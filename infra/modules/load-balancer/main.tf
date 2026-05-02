@@ -8,12 +8,21 @@ resource "google_storage_bucket" "website_bucket" {
   force_destroy = true
 
   uniform_bucket_level_access = true
+  public_access_prevention    = "inherited"
 
   website {
     main_page_suffix = "index.html"
     not_found_page   = "404.html"
   }
 }
+
+# Make the bucket public for static website hosting
+resource "google_storage_bucket_iam_member" "public_read" {
+  bucket = google_storage_bucket.website_bucket.name
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"
+}
+
 # Reserve a static external IP address
 resource "google_compute_global_address" "nobuffer_site_ip" {
   name = "nobuffer-site-ip"
@@ -43,9 +52,12 @@ resource "google_compute_url_map" "nobuffer_site_url_map" {
 
 # Create a Managed SSL Certificate
 resource "google_compute_managed_ssl_certificate" "nobuffer_site_cert" {
-  name = "nobuffer-site-cert"
+  name = "nobuffer-site-cert-v2"
   managed {
-    domains = [var.domain]
+    domains = var.domain
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
