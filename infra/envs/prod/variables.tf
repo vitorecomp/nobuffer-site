@@ -13,3 +13,8 @@ variable "bucket_name" {
   description = "The name of the bucket to create"
   type        = string
 }
+
+variable "domain" {
+  description = "The domain name for the SSL certificate"
+  type        = string
+}

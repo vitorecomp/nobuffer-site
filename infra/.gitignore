@@ -5,6 +5,12 @@
 .terraform/*
 .terraform.d/*
 
+**/.terraform
+**/.terraform.d
+
+.terraform
+.terraform.d
+
 # .tfstate files
 *.tfstate
 *.tfstate.*

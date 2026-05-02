@@ -3,28 +3,15 @@ provider "google" {
   region  = var.region
 }
 
-# Create the GCS Bucket for static website hosting
-resource "google_storage_bucket" "default" {
-  name          = var.bucket_name
-  location      = "US"
-  force_destroy = true
-
-  website {
-    main_page_suffix = "index.html"
-    not_found_page   = "404.html"
-  }
-}
-
-# Make the bucket public
-resource "google_storage_bucket_iam_member" "public_rule" {
-  bucket = google_storage_bucket.default.name
-  role   = "roles/storage.objectViewer"
-  member = "allUsers"
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
 }
 
 module "load_balancer" {
   source      = "../../modules/load-balancer"
-  bucket_name = google_storage_bucket.default.name
+  bucket_name = var.bucket_name
+  domain      = var.domain
 }
 
 # Output the Load Balancer IP
