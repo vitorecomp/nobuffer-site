@@ -88,16 +88,17 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(changeState, 5000 / speed);
 });
 
-// Stretch the planetary background so it ends where the AI section begins
+// Stretch the planetary background so it ends where the box background ends
 document.addEventListener('DOMContentLoaded', () => {
   const planetary = document.getElementById('planettary-background');
-  const aiSection = document.getElementById('ai');
-  if (!planetary || !aiSection) return;
+  const boxBackground = document.getElementById('box-background');
+  if (!planetary || !boxBackground) return;
 
   function sizePlanetaryBackground() {
+    const boxRect = boxBackground.getBoundingClientRect();
+    const boxBottom = boxRect.bottom + window.scrollY;
     const planetaryTop = planetary.getBoundingClientRect().top + window.scrollY;
-    const aiTop = aiSection.getBoundingClientRect().top + window.scrollY;
-    planetary.style.height = `${Math.max(aiTop - planetaryTop, 0)}px`;
+    planetary.style.height = `${Math.max(boxBottom - planetaryTop, 0)}px`;
   }
 
   sizePlanetaryBackground();
