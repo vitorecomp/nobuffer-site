@@ -62,9 +62,9 @@ typings/
 
 # build output
 
-build-dev
+build/
 
-build-dev/website/index.html
+build-dev/
 
 # Terraform
 *.tfvars

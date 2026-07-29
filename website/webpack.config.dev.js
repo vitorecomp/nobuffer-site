@@ -10,4 +10,7 @@ module.exports = {
     path: path.join(__dirname, '../build-dev/website'),
     clean: true,
   },
+  devServer: {
+    watchFiles: ['src/**/*'],
+  },
 };

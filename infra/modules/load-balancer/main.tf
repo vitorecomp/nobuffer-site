@@ -100,7 +100,3 @@ resource "google_compute_global_forwarding_rule" "nobuffer_site_forwarding_rule"
   ip_address            = google_compute_global_address.nobuffer_site_ip.address
   load_balancing_scheme = "EXTERNAL_MANAGED"
 }
-
-output "load_balancer_ip" {
-  value = google_compute_global_address.nobuffer_site_ip.address
-}

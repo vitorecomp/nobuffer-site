@@ -1,9 +1,9 @@
 steps:
-- name: 'node:18'
+- name: 'node:22'
   entrypoint: 'npm'
-  args: ['install']
+  args: ['ci']
   dir: 'website'
-- name: 'node:18'
+- name: 'node:22'
   entrypoint: 'npm'
   args: ['run', 'build']
   dir: 'website'

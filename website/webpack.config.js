@@ -13,12 +13,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.pug$/,
-        loader: PugPlugin.loader,
-      },
-      {
         test: /\.(css|sass|scss)$/i,
-        use: ['css-loader', 'sass-loader', 'postcss-loader'],
+        use: ['css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.(ico|png|jp?g|webp|svg)$/,
