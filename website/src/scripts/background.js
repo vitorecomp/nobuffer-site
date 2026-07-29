@@ -87,3 +87,19 @@ document.addEventListener('DOMContentLoaded', () => {
   changeState();
   setInterval(changeState, 5000 / speed);
 });
+
+// Stretch the planetary background so it ends where the AI section begins
+document.addEventListener('DOMContentLoaded', () => {
+  const planetary = document.getElementById('planettary-background');
+  const aiSection = document.getElementById('ai');
+  if (!planetary || !aiSection) return;
+
+  function sizePlanetaryBackground() {
+    const planetaryTop = planetary.getBoundingClientRect().top + window.scrollY;
+    const aiTop = aiSection.getBoundingClientRect().top + window.scrollY;
+    planetary.style.height = `${Math.max(aiTop - planetaryTop, 0)}px`;
+  }
+
+  sizePlanetaryBackground();
+  window.addEventListener('resize', sizePlanetaryBackground);
+});

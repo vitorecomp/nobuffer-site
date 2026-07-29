@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!container) return;
 
   const width = window.innerWidth * 2;
-  const height = window.innerHeight * 3;
+  const height = container.clientHeight || window.innerHeight * 3;
 
   const numStars = 2000;
   const maxDistance = 150;
