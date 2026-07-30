@@ -1,59 +1,131 @@
 require(../assets/img/logo-color.png)
 require(../assets/img/logo.svg)
 
-//- a(href="https://github.com/vitorecomp"  target="_blank" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page") Github
-//- a(href="https://cases.vitorx86.dev" target="_blank"  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium") Portfolio
-//- a(href="https://blog.vitorx86.dev" target="_blank" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium") Blog
-//- a(href="https://resume.vitorx86.dev" target="_blank" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium") Resume
-//- a(href="https://www.linkedin.com/in/vieiravitor" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium") Social
-
 nav(class="relative z-20")
   .mx-auto.max-w-7xl.px-6(class='lg:px-8')
     .relative.flex.h-16.items-center.justify-between
-      .flex.flex-1.items-center.justify-start(class='sm:items-stretch sm:justify-start') 
+      .flex.flex-1.items-center.justify-start(class='sm:items-stretch sm:justify-start')
       .absolute.inset-y-0.right-0.flex.items-center.pr-2(class='sm:static sm:inset-auto sm:ml-6 sm:pr-0')
-        .hidden(class='sm:ml-6 sm:block')
-          .flex.space-x-4
-            //- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"
-            a.bg-gray-900.text-white.rounded-md.px-3.py-2.text-sm.font-medium(
-              href='#',
-              aria-current='page'
-            ) Github
-            a.text-gray-900.rounded-md.px-3.py-2.text-sm.font-medium(
-              href='#',
-              class='hover:bg-gray-700 hover:text-white'
-            ) Portfolio
-            a.text-gray-900.rounded-md.px-3.py-2.text-sm.font-medium(
-              href='#',
-              class='hover:bg-gray-700 hover:text-white'
-            ) Blog
-            a.text-gray-900.rounded-md.px-3.py-2.text-sm.font-medium(
-              href='#',
-              class='hover:bg-gray-700 hover:text-white'
-            ) Curriculum
-            a.text-gray-900.rounded-md.px-3.py-2.text-sm.font-medium(
-              href='#',
-              class='hover:bg-gray-700 hover:text-white'
-            ) Social
-            img.hidden.h-9.w-auto(class='lg:block', src=require('../assets/img/logo.svg'), alt='Main Logo')
+        //- Mobile hamburger: "$ ls" to list the links
+        button#mobile-menu-button.inline-flex.items-center.gap-2.rounded-md.bg-gray-900.px-3.py-2.font-mono.text-sm.text-green-400.shadow-md(
+          type='button',
+          class='sm:hidden hover:bg-gray-800',
+          aria-controls='mobile-menu',
+          aria-expanded='false'
+        )
+          svg.w-5.h-5(
+            fill='none',
+            stroke='currentColor',
+            stroke-width='2',
+            viewBox='0 0 24 24',
+            xmlns='http://www.w3.org/2000/svg',
+            aria-hidden='true'
+          )
+            path(
+              stroke-linecap='round',
+              stroke-linejoin='round',
+              d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+            )
+          span
+            span.text-gray-500 $&nbsp;
+            | ls
 
-    //-   Mobile menu, show/hide based on menu state.
-  #mobile-menu(class='sm:hidden')
-    .space-y-1.px-2.pt-2.pb-3
-      //-   Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"
-      a.bg-gray-900.text-white.block.rounded-md.px-3.py-2.text-base.font-medium(
-        href='#',
-        aria-current='page'
-      ) Dashboard
-      a.text-gray-300.block.rounded-md.px-3.py-2.text-base.font-medium(
-        href='#',
-        class='hover:bg-gray-700 hover:text-white'
-      ) Team
-      a.text-gray-300.block.rounded-md.px-3.py-2.text-base.font-medium(
-        href='#',
-        class='hover:bg-gray-700 hover:text-white'
-      ) Projects
-      a.text-gray-300.block.rounded-md.px-3.py-2.text-base.font-medium(
-        href='#',
-        class='hover:bg-gray-700 hover:text-white'
-      ) Calendar
+        .hidden(class='sm:ml-6 sm:block')
+          .flex.items-center.space-x-2.font-mono.text-sm
+            a.group.rounded-md.px-3.py-2.text-gray-900.transition-colors.duration-150(
+              href='https://github.com/vitorecomp',
+              target='_blank',
+              class='hover:bg-gray-900 hover:text-green-400'
+            )
+              span.text-gray-400(class='group-hover:text-gray-500') ./
+              | github
+            a.group.rounded-md.px-3.py-2.text-gray-900.transition-colors.duration-150(
+              href='https://cases.vitorx86.dev',
+              target='_blank',
+              class='hover:bg-gray-900 hover:text-green-400'
+            )
+              span.text-gray-400(class='group-hover:text-gray-500') ./
+              | portfolio
+            a.group.rounded-md.px-3.py-2.text-gray-900.transition-colors.duration-150(
+              href='https://blog.vitorx86.dev',
+              target='_blank',
+              class='hover:bg-gray-900 hover:text-green-400'
+            )
+              span.text-gray-400(class='group-hover:text-gray-500') ./
+              | blog
+            a.group.rounded-md.px-3.py-2.text-gray-900.transition-colors.duration-150(
+              href='https://resume.vitorx86.dev',
+              target='_blank',
+              class='hover:bg-gray-900 hover:text-green-400'
+            )
+              span.text-gray-400(class='group-hover:text-gray-500') ./
+              | resume
+            a.group.rounded-md.px-3.py-2.text-gray-900.transition-colors.duration-150(
+              href='https://www.linkedin.com/in/vieiravitor',
+              target='_blank',
+              class='hover:bg-gray-900 hover:text-green-400'
+            )
+              span.text-gray-400(class='group-hover:text-gray-500') ./
+              | social
+            img.hidden.h-9.w-auto.ml-2(class='lg:block', src=require('../assets/img/logo.svg'), alt='Main Logo')
+
+  //- Mobile menu — terminal panel, toggled by the "$ ls" button
+  #mobile-menu.hidden(class='sm:hidden')
+    .mx-4.mb-3.rounded-lg.bg-gray-900.p-3.font-mono.text-base.shadow-lg
+      p.px-3.pb-2.text-xs.text-gray-500 $ ls ./links
+      .space-y-1
+        a.block.rounded-md.px-3.py-2.text-gray-300(
+          href='https://github.com/vitorecomp',
+          target='_blank',
+          class='hover:bg-gray-800 hover:text-green-400'
+        )
+          span.text-gray-500 ./
+          | github
+        a.block.rounded-md.px-3.py-2.text-gray-300(
+          href='https://cases.vitorx86.dev',
+          target='_blank',
+          class='hover:bg-gray-800 hover:text-green-400'
+        )
+          span.text-gray-500 ./
+          | portfolio
+        a.block.rounded-md.px-3.py-2.text-gray-300(
+          href='https://blog.vitorx86.dev',
+          target='_blank',
+          class='hover:bg-gray-800 hover:text-green-400'
+        )
+          span.text-gray-500 ./
+          | blog
+        a.block.rounded-md.px-3.py-2.text-gray-300(
+          href='https://resume.vitorx86.dev',
+          target='_blank',
+          class='hover:bg-gray-800 hover:text-green-400'
+        )
+          span.text-gray-500 ./
+          | resume
+        a.block.rounded-md.px-3.py-2.text-gray-300(
+          href='https://www.linkedin.com/in/vieiravitor',
+          target='_blank',
+          class='hover:bg-gray-800 hover:text-green-400'
+        )
+          span.text-gray-500 ./
+          | social
+
+script.
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    if (!button || !menu) return;
+
+    button.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      button.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+      });
+    });
+  });
