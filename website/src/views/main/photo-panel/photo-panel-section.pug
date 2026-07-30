@@ -3,34 +3,112 @@
   .overflow-hidden.relative.z-10.mx-auto(
     class='w-[400px] h-[400px] bg-[#DED3C7] rounded-[55%_45%_40%_60%/60%_40%_60%_40%]'
   )
-    img.w-full.h-full.object-cover(src=require('../../../assets/img/logo.svg'), alt='Photo')
+    img.w-full.h-full.object-cover(
+      class='object-[60%] scale-150 origin-[60%_20%]',
+      src=require('../../../assets/profile_picture.png'),
+      alt='Profile picture'
+    )
 
-  // Orbital Lines and Stars (SVG)
+  // Orbit — back half, sits behind the photo so stars pass behind it
+  svg.absolute.transform.pointer-events-none.z-0(
+    class='top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px]',
+    viewBox='0 0 480 480',
+    fill='none',
+    xmlns='http://www.w3.org/2000/svg'
+  )
+    g(transform='rotate(-20 240 240)')
+      // Top arc of the orbit line
+      path(d='M 20 240 A 220 100 0 0 1 460 240', stroke='#7D6755', stroke-width='1')
+
+      // Star 1 — visible only on the back half of the orbit
+      path(
+        d='M 0 -10 Q 0 0 10 0 Q 0 0 0 10 Q 0 0 -10 0 Q 0 0 0 -10 Z',
+        fill='#7D6755',
+        opacity='0'
+      )
+        animateMotion(
+          dur='14s',
+          repeatCount='indefinite',
+          path='M 460 240 A 220 100 0 1 1 20 240 A 220 100 0 1 1 460 240'
+        )
+        animate(
+          attributeName='opacity',
+          calcMode='discrete',
+          values='0;0.7',
+          keyTimes='0;0.5',
+          dur='14s',
+          repeatCount='indefinite'
+        )
+
+      // Star 2 — back half, opposite phase
+      path(
+        d='M 0 -10 Q 0 0 10 0 Q 0 0 0 10 Q 0 0 -10 0 Q 0 0 0 -10 Z',
+        fill='#7D6755',
+        opacity='0'
+      )
+        animateMotion(
+          dur='14s',
+          begin='-7s',
+          repeatCount='indefinite',
+          path='M 460 240 A 220 100 0 1 1 20 240 A 220 100 0 1 1 460 240'
+        )
+        animate(
+          attributeName='opacity',
+          calcMode='discrete',
+          values='0;0.7',
+          keyTimes='0;0.5',
+          dur='14s',
+          begin='-7s',
+          repeatCount='indefinite'
+        )
+
+  // Orbit — front half, drawn above the photo
   svg.absolute.transform.pointer-events-none.z-20(
     class='top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px]',
     viewBox='0 0 480 480',
     fill='none',
     xmlns='http://www.w3.org/2000/svg'
   )
-    // Ellipse
-    ellipse(
-      cx='240',
-      cy='240',
-      rx='220',
-      ry='160',
-      stroke='#7D6755',
-      stroke-width='1',
-      transform='rotate(-20 240 240)'
-    )
+    g(transform='rotate(-20 240 240)')
+      // Bottom arc of the orbit line
+      path(d='M 20 240 A 220 100 0 0 0 460 240', stroke='#7D6755', stroke-width='1')
 
-    // Star 1 (Top Left-ish)
-    path(
-      d='M 80 110 Q 80 120 90 120 Q 80 120 80 130 Q 80 120 70 120 Q 80 120 80 110 Z',
-      fill='#7D6755'
-    )
+      // Star 1 — visible only on the front half of the orbit
+      path(
+        d='M 0 -10 Q 0 0 10 0 Q 0 0 0 10 Q 0 0 -10 0 Q 0 0 0 -10 Z',
+        fill='#7D6755'
+      )
+        animateMotion(
+          dur='14s',
+          repeatCount='indefinite',
+          path='M 460 240 A 220 100 0 1 1 20 240 A 220 100 0 1 1 460 240'
+        )
+        animate(
+          attributeName='opacity',
+          calcMode='discrete',
+          values='1;0',
+          keyTimes='0;0.5',
+          dur='14s',
+          repeatCount='indefinite'
+        )
 
-    // Star 2 (Bottom Right-ish)
-    path(
-      d='M 400 350 Q 400 360 410 360 Q 400 360 400 370 Q 400 360 390 360 Q 400 360 400 350 Z',
-      fill='#7D6755'
-    )
+      // Star 2 — front half, opposite phase
+      path(
+        d='M 0 -10 Q 0 0 10 0 Q 0 0 0 10 Q 0 0 -10 0 Q 0 0 0 -10 Z',
+        fill='#7D6755'
+      )
+        animateMotion(
+          dur='14s',
+          begin='-7s',
+          repeatCount='indefinite',
+          path='M 460 240 A 220 100 0 1 1 20 240 A 220 100 0 1 1 460 240'
+        )
+        animate(
+          attributeName='opacity',
+          calcMode='discrete',
+          values='1;0',
+          keyTimes='0;0.5',
+          dur='14s',
+          begin='-7s',
+          repeatCount='indefinite'
+        )

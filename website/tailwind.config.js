@@ -2,7 +2,11 @@
 module.exports = {
   content: ['./src/**/*.{pug,html,js}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),
