@@ -23,6 +23,13 @@ module.exports = {
           filename: 'img/[name].[hash:8][ext][query]',
         },
       },
+      {
+        test: /\.stl$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'models/[name].[hash:8][ext][query]',
+        },
+      },
     ],
   },
   devtool: 'eval',

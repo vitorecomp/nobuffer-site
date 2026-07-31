@@ -9,3 +9,7 @@ steps:
   dir: 'website'
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['-m', 'rsync', '-d', '-r', 'build/website', 'gs://${_BUCKET_NAME}']
+# index.html references content-hashed assets that rsync -d deletes on the next
+# deploy, so the CDN must never serve a stale copy of it
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['setmeta', '-h', 'Cache-Control:no-cache', 'gs://${_BUCKET_NAME}/index.html']
