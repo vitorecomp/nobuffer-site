@@ -255,6 +255,14 @@ document.addEventListener('DOMContentLoaded', () => {
     pos.lerp(target, 0.06);
     atom.position.set(pos.x, pos.y, 0);
 
+    // Publish the atom's page-space position (scroll-independent); the robot
+    // panel aims its shadow light from here every frame
+    const rect = container.getBoundingClientRect();
+    window.__atomLight = {
+      x: rect.left + window.scrollX + width / 2 + pos.x,
+      y: rect.top + window.scrollY + height / 2 - pos.y,
+    };
+
     field.rotation.y += 0.004;
     field.rotation.x += 0.0015;
     cube.rotation.y += 0.01;

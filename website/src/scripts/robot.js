@@ -1,7 +1,7 @@
 // AR3 robot arm rendered from the real open-source design.
 // Meshes + kinematics: ar3_core ROS package (MIT, (c) 2021 Dexter Ong),
 // robot design by Annin Robotics (open-source AR2/AR3). See
-// src/assets/models/ATTRIBUTION.md.
+// ATTRIBUTION.md at the repository root.
 //
 // The chain below is the ar3.urdf joint table verbatim (meters/radians,
 // ROS z-up). Because the exported URDF frames are irregular, the IK is
@@ -10,10 +10,14 @@
 // axis at the home pose, then drive a planar 2-link solution from those
 // measurements. The arm chases the mouse inside the panel and idles outside.
 document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('robot-arm-container');
-  if (!container || typeof THREE === 'undefined') return;
-  if (typeof THREE.STLLoader === 'undefined') {
-    console.warn('STLLoader missing — robot arm disabled');
+  // The outer panel is the visible card; the robot renders into an inner
+  // stage div that CSS shifts sideways, so the camera stays centered on the
+  // model (no perspective skew) while the whole canvas moves.
+  const panel = document.getElementById('robot-arm-container');
+  const container = document.getElementById('robot-arm-stage');
+  if (!panel || !container || typeof THREE === 'undefined') return;
+  if (typeof THREE.GLTFLoader === 'undefined') {
+    console.warn('GLTFLoader missing — robot arm disabled');
     return;
   }
 
@@ -25,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setSize(width, height);
   renderer.domElement.style.width = '100%';
   renderer.domElement.style.height = '100%';
@@ -46,6 +52,29 @@ document.addEventListener('DOMContentLoaded', () => {
   rimLight.position.set(200, 100, 200);
   scene.add(rimLight);
 
+  // The teal "atom" floating over this section is the shadow light source:
+  // constellation.js publishes its page position each frame and this spot
+  // follows it. The matcap materials ignore lights, so its visible effect is
+  // the soft shadow the arm casts on the invisible floor plane below.
+  const atomLight = new THREE.SpotLight(0xffffff, 0.3);
+  atomLight.angle = Math.PI / 4;
+  atomLight.castShadow = true;
+  atomLight.shadow.mapSize.set(2048, 2048);
+  atomLight.shadow.camera.near = 50;
+  atomLight.shadow.camera.far = 8000;
+  atomLight.shadow.bias = -0.0002;
+  atomLight.position.set(-600, 900, 400); // fallback until the atom reports in
+  scene.add(atomLight);
+  scene.add(atomLight.target);
+
+  const shadowCatcher = new THREE.Mesh(
+    new THREE.PlaneGeometry(4000, 4000),
+    new THREE.ShadowMaterial({ opacity: 0.25 })
+  );
+  shadowCatcher.rotation.x = -Math.PI / 2;
+  shadowCatcher.receiveShadow = true;
+  scene.add(shadowCatcher);
+
   // --- AR3 URDF joint table (ar3_core/ar3_description/urdf/ar3.urdf) ---------
   const PX_PER_M = 500; // same visual scale as before (1px ≈ 2mm)
   const CHAIN = [
@@ -58,17 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     { xyz: [-0.000294, 0, 0.02117], rpy: [0, 0, 3.1416], axis: [0, 0, 1], mesh: 'link_6' },
   ];
 
-  const MODEL_URLS = {
-    base_link: require('../assets/models/base_link.stl'),
-    link_1: require('../assets/models/link_1.stl'),
-    link_2: require('../assets/models/link_2.stl'),
-    link_3: require('../assets/models/link_3.stl'),
-    link_4: require('../assets/models/link_4.stl'),
-    link_5: require('../assets/models/link_5.stl'),
-    link_6: require('../assets/models/link_6.stl'),
-  };
+  // Whole painted robot in one editable GLB (see tmp/paint_robot.py -- export)
+  const MODEL_URL = require('../assets/models/robot.glb');
 
-  // Procedural "brushed metal" matcaps (the STL meshes carry no UVs, so a
+  // Procedural "brushed metal" matcaps (the robot meshes carry no UVs, so a
   // matcap is how they get surface texture), tinted with the site's primary
   // teal: radial metal shading + turning rings + machining speckle.
   function makeMatcap(hi, mid, lo) {
@@ -94,17 +116,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return new THREE.CanvasTexture(cnv);
   }
 
+  // Palette matched to the reference photo: warm PLA gold with orange-tinted
+  // shadows, matte near-black hardware, bright galvanized steel details
   const bodyMat = new THREE.MeshMatcapMaterial({
-    matcap: makeMatcap('#fff2a8', '#f5c400', '#6b4e00'), // industrial machine yellow
+    matcap: makeMatcap('#ffe98f', '#f0bd00', '#7a5600'), // printed PLA yellow
   });
   const baseMat = new THREE.MeshMatcapMaterial({
-    matcap: makeMatcap('#8f979d', '#23282e', '#0b0e11'), // black joint sections
+    matcap: makeMatcap('#787c82', '#1e2023', '#08090b'), // matte black hardware
   });
   const metalMat = new THREE.MeshMatcapMaterial({
-    matcap: makeMatcap('#ffffff', '#c3c9cf', '#565b61'), // machined aluminum
+    matcap: makeMatcap('#fafbfc', '#bfc5cb', '#5a5f66'), // galvanized steel
   });
-  const blackMat = new THREE.MeshPhongMaterial({ color: 0x14161c, shininess: 30 });
-  const detailMat = new THREE.MeshPhongMaterial({ color: 0xd1d5db, shininess: 100 });
+  const blackMat = new THREE.MeshPhongMaterial({ color: 0x17181c, shininess: 25 });
+  const detailMat = new THREE.MeshPhongMaterial({ color: 0xd4d8dc, shininess: 100 });
 
   // --- Build the chain ---------------------------------------------------------
   const stage = new THREE.Group(); // panel placement + yaw alignment + scale
@@ -115,200 +139,23 @@ document.addEventListener('DOMContentLoaded', () => {
   robot.rotation.x = -Math.PI / 2; // ROS z-up -> three.js y-up
   stage.add(robot);
 
-  // The STL of each link contains several solid bodies stored as contiguous
-  // triangle ranges (found by connected-component analysis of the meshes).
-  // These ranges are the stepper motors, shaft couplers, the forearm's
-  // structural tube and side cover — everything that is black hardware on
-  // the real robot, while the castings around them are painted yellow.
-  // Hardware bodies inside each link STL (found by connected-component
-  // analysis), typed by finish: 'nema' motors get silver end caps around a
-  // black laminated center stack, 'metal' couplers are bare aluminum, and
-  // 'black' is plain black hardware.
-  const HARDWARE_RANGES = {
-    base_link: [
-      { r: [640, 695], type: 'nema' }, // NEMA17 rear housing (visible back face)
-      { r: [696, 1119], type: 'metal' }, // shaft coupler
-      { r: [1120, 1461], type: 'nema' }, // NEMA17 body
-      { r: [3894, 4505], type: 'metal' }, // coupler housing
-    ],
-    link_1: [
-      { r: [4694, 5719], type: 'nema' }, // NEMA23 body
-      { r: [8148, 8491], type: 'metal' }, // aluminum motor spacer plates
-      { r: [8492, 9663], type: 'nema' }, // NEMA23 body
-      { r: [9664, 10281], type: 'gearmotor', gearFrac: 0.45, gearEnd: 1 }, // J2 NEMA23 + planetary gearbox
-    ],
-    link_2: [
-      { r: [3690, 3745], type: 'nema' }, // J3 motor rear housing (visible back face)
-      { r: [3746, 4169], type: 'metal' }, // shaft coupler
-      { r: [4170, 4511], type: 'nema' }, // J3 NEMA17 body
-    ],
-    link_3: [
-      { r: [2804, 3399], type: 'metal' }, // shaft coupler
-      { r: [5510, 5537], type: 'nema' }, // wrist motor rear housing (visible back face)
-      { r: [5538, 5925], type: 'nema' }, // wrist stepper body
-    ],
-    link_4: [
-      { r: [1344, 1687], type: 'black' }, // forearm structural square tube
-      { r: [1688, 2107], type: 'black' }, // J5 drive tube
-      { r: [2108, 3387], type: 'black' }, // motor mount plate
-      { r: [9266, 10349], type: 'black' }, // side cover (painted yellow by the link_4 branch)
-    ],
-    link_5: [
-      { r: [0, 27], type: 'nema' }, // motor box
-      { r: [400, 697], type: 'metal' }, // coupler
-      { r: [698, 1035], type: 'metal' }, // coupler
-      { r: [3504, 4115], type: 'nema' }, // J6 stepper body
-    ],
+  // robot.glb is exported from the painted Blender scene (tmp/paint_robot.py
+  // -- export): every solid body inside the original STLs — motors, gearboxes,
+  // couplers, brackets, pulleys, covers — was identified by connected-component
+  // analysis and baked into one flat-shaded mesh per link and finish, named
+  // "<link>__<material>". The file's node transforms only pose the arm for
+  // editing in Blender; here each mesh is re-parented under its joint group
+  // (which already carries the URDF transform) and gets the site's matcap.
+  const MAT_BY_NAME = {
+    pla_yellow: bodyMat, // printed castings
+    hw_black: baseMat, // covers, tubes, printed pulleys, mounts
+    motor_stack: baseMat, // stepper laminated center stacks
+    aluminum: metalMat, // planetary gearboxes, shaft couplers
+    steel: metalMat, // motor brackets, stepper end caps
   };
 
-  // Extract the "painted outer wall" of a part: triangles beyond `cut` along
-  // the given local axis ('x' | 'z') AND whose faces point that way. The
-  // normal test keeps top/bottom surfaces out of the paint, avoiding speckle
-  // artifacts where curved geometry straddles the cut plane.
-  // Returns [painted, rest].
-  function splitOuterWall(geometry, axis, cut, sign) {
-    const pos = geometry.attributes.position;
-    const nor = geometry.attributes.normal;
-    const readP = axis === 'x' ? (i) => pos.getX(i) : (i) => pos.getZ(i);
-    const readN = axis === 'x' ? (i) => nor.getX(i) : (i) => nor.getZ(i);
-    const painted = { p: [], n: [] };
-    const rest = { p: [], n: [] };
-    for (let i = 0; i < pos.count; i += 3) {
-      const pc = (readP(i) + readP(i + 1) + readP(i + 2)) / 3;
-      const nc = (readN(i) + readN(i + 1) + readN(i + 2)) / 3;
-      const isOuter = (pc - cut) * sign > 0 && nc * sign > 0.35;
-      const dst = isOuter ? painted : rest;
-      for (let j = i; j < i + 3; j++) {
-        dst.p.push(pos.getX(j), pos.getY(j), pos.getZ(j));
-        dst.n.push(nor.getX(j), nor.getY(j), nor.getZ(j));
-      }
-    }
-    return [painted, rest].map((side) => {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute('position', new THREE.Float32BufferAttribute(side.p, 3));
-      g.setAttribute('normal', new THREE.Float32BufferAttribute(side.n, 3));
-      return g;
-    });
-  }
-
-  // Split a (non-indexed STL) geometry into [insideRanges, rest] by triangle
-  // index, so hardware bodies and castings get separate materials
-  function splitByTriangleRanges(geometry, ranges) {
-    const pos = geometry.attributes.position;
-    const nor = geometry.attributes.normal;
-    const inside = { p: [], n: [] };
-    const rest = { p: [], n: [] };
-    const triCount = pos.count / 3;
-    for (let t = 0; t < triCount; t++) {
-      const dst = ranges.some(([a, b]) => t >= a && t <= b) ? inside : rest;
-      for (let j = t * 3; j < t * 3 + 3; j++) {
-        dst.p.push(pos.getX(j), pos.getY(j), pos.getZ(j));
-        dst.n.push(nor.getX(j), nor.getY(j), nor.getZ(j));
-      }
-    }
-    return [inside, rest].map((side) => {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute('position', new THREE.Float32BufferAttribute(side.p, 3));
-      g.setAttribute('normal', new THREE.Float32BufferAttribute(side.n, 3));
-      return g;
-    });
-  }
-
-  // Shaft axis of a motor body: the bbox dimension most unlike the other
-  // two (the motor cross-section is square)
-  function motorAxis(geometry) {
-    geometry.computeBoundingBox();
-    const bb = geometry.boundingBox;
-    const axes = ['x', 'y', 'z'];
-    const size = axes.map((a) => bb.max[a] - bb.min[a]);
-    let axis = 0;
-    let best = -1;
-    for (let i = 0; i < 3; i++) {
-      const d =
-        Math.abs(size[i] - size[(i + 1) % 3]) + Math.abs(size[i] - size[(i + 2) % 3]);
-      if (d > best) {
-        best = d;
-        axis = i;
-      }
-    }
-    return {
-      bb,
-      min: bb.min[axes[axis]],
-      max: bb.max[axes[axis]],
-      length: size[axis],
-      getter: ['getX', 'getY', 'getZ'][axis],
-    };
-  }
-
-  // Partition a motor body's triangles into silver/black by a predicate on
-  // the centroid coordinate along the shaft axis
-  function splitMotorBy(geometry, isSilver) {
-    const { getter } = motorAxis(geometry);
-    const pos = geometry.attributes.position;
-    const nor = geometry.attributes.normal;
-    const silver = { p: [], n: [] };
-    const black = { p: [], n: [] };
-    for (let i = 0; i < pos.count; i += 3) {
-      const c = (pos[getter](i) + pos[getter](i + 1) + pos[getter](i + 2)) / 3;
-      const dst = isSilver(c) ? silver : black;
-      for (let j = i; j < i + 3; j++) {
-        dst.p.push(pos.getX(j), pos.getY(j), pos.getZ(j));
-        dst.n.push(nor.getX(j), nor.getY(j), nor.getZ(j));
-      }
-    }
-    return [silver, black].map((side) => {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute('position', new THREE.Float32BufferAttribute(side.p, 3));
-      g.setAttribute('normal', new THREE.Float32BufferAttribute(side.n, 3));
-      return g;
-    });
-  }
-
-  // Plain NEMA: silver end caps around the black laminated center stack
-  function splitMotorCaps(geometry) {
-    const { min, max, length } = motorAxis(geometry);
-    const lo = min + length * 0.16;
-    const hi = max - length * 0.16;
-    return splitMotorBy(geometry, (c) => c < lo || c > hi);
-  }
-
-  // Geared NEMA (motor + planetary gearbox in one body): the whole gearbox
-  // section at the output end is aluminum, plus a rear cap; the rest is the
-  // black motor stack. gearEnd: +1 = gearbox at the axis max end, -1 = min.
-  function splitGearMotor(geometry, gearFrac, gearEnd) {
-    const { min, max, length } = motorAxis(geometry);
-    if (gearEnd > 0) {
-      const gearCut = max - length * gearFrac;
-      const capCut = min + length * 0.12;
-      return splitMotorBy(geometry, (c) => c > gearCut || c < capCut);
-    }
-    const gearCut = min + length * gearFrac;
-    const capCut = max - length * 0.12;
-    return splitMotorBy(geometry, (c) => c < gearCut || c > capCut);
-  }
-
-  // Add a link's hardware bodies, each with its finish
-  function addHardware(holder, geometry, entries) {
-    for (const e of entries) {
-      const [piece] = splitByTriangleRanges(geometry, [e.r]);
-      if (e.type === 'metal') {
-        holder.add(new THREE.Mesh(piece, metalMat));
-      } else if (e.type === 'nema') {
-        const [caps, stack] = splitMotorCaps(piece);
-        holder.add(new THREE.Mesh(caps, metalMat));
-        holder.add(new THREE.Mesh(stack, baseMat));
-      } else if (e.type === 'gearmotor') {
-        const [silver, stack] = splitGearMotor(piece, e.gearFrac, e.gearEnd);
-        holder.add(new THREE.Mesh(silver, metalMat));
-        holder.add(new THREE.Mesh(stack, baseMat));
-      } else {
-        holder.add(new THREE.Mesh(piece, baseMat));
-      }
-    }
-  }
-
   const joints = [];
-  const loader = new THREE.STLLoader();
+  const holders = {}; // link name -> joint group the link's meshes attach to
   let parent = robot;
 
   CHAIN.forEach((seg) => {
@@ -328,67 +175,30 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       parent = jointGroup;
     }
-    const holder = parent;
-    loader.load(MODEL_URLS[seg.mesh], (geometry) => {
-      // Yellow castings; hardware rendered per finish: NEMA motors get
-      // silver end caps around a black center stack, couplers are aluminum,
-      // covers/mounts stay black
-      const entries = HARDWARE_RANGES[seg.mesh];
-      if (!entries) {
-        holder.add(new THREE.Mesh(geometry, bodyMat));
-        return;
-      }
-      const plainRanges = entries.map((e) => e.r);
-      if (seg.mesh === 'link_2') {
-        // Lower arm: paint BOTH flat side walls black (lateral axis is Z).
-        // The outer skins sit within ~8mm of the z extremes; the interior
-        // pocket surfaces are much deeper in and stay yellow.
-        const [, casting] = splitByTriangleRanges(geometry, plainRanges);
-        casting.computeBoundingBox();
-        const bb = casting.boundingBox;
-        const [outerPlus, rest] = splitOuterWall(casting, 'z', bb.max.z - 0.008, 1);
-        const [outerMinus, inner] = splitOuterWall(rest, 'z', bb.min.z + 0.008, -1);
-        holder.add(new THREE.Mesh(inner, bodyMat));
-        holder.add(new THREE.Mesh(outerPlus, baseMat));
-        holder.add(new THREE.Mesh(outerMinus, baseMat));
-        addHardware(holder, geometry, entries);
-        return;
-      }
-      if (seg.mesh === 'link_4') {
-        // Nothing moves — only the paint swaps sides: the side cover is
-        // painted yellow like the casting, and the casting's OTHER side
-        // (opposite the cover, relative to the structural tube) goes black.
-        const [cover] = splitByTriangleRanges(geometry, [[9266, 10349]]);
-        const [, casting] = splitByTriangleRanges(geometry, plainRanges);
+    holders[seg.mesh] = parent;
+  });
 
-        const [tube] = splitByTriangleRanges(geometry, [[1344, 1687]]);
-        tube.computeBoundingBox();
-        cover.computeBoundingBox();
-        const tubeCx = (tube.boundingBox.min.x + tube.boundingBox.max.x) / 2;
-        const coverCx = (cover.boundingBox.min.x + cover.boundingBox.max.x) / 2;
-        // Paint boundary at the tube's OUTER face (opposite the cover): only
-        // outward-FACING wall triangles beyond it go black, so top/bottom
-        // surfaces never catch stray paint
-        const plusIsOuter = coverCx <= tubeCx;
-        const sign = plusIsOuter ? 1 : -1;
-        const cut = plusIsOuter
-          ? tube.boundingBox.max.x - 0.002
-          : tube.boundingBox.min.x + 0.002;
-        const [outer, inner] = splitOuterWall(casting, 'x', cut, sign);
+  // Blender appends ".001"-style suffixes to names when they collide during
+  // an import/edit session; strip them so edited re-exports keep working
+  const baseName = (name) => (name || '').replace(/\.\d+$/, '');
 
-        holder.add(new THREE.Mesh(cover, bodyMat));
-        holder.add(new THREE.Mesh(inner, bodyMat));
-        holder.add(new THREE.Mesh(outer, baseMat));
-        addHardware(
-          holder,
-          geometry,
-          entries.filter((e) => e.r[0] !== 9266)
-        );
-        return;
-      }
-      const [, casting] = splitByTriangleRanges(geometry, plainRanges);
-      holder.add(new THREE.Mesh(casting, bodyMat));
-      addHardware(holder, geometry, entries);
+  new THREE.GLTFLoader().load(MODEL_URL, (gltf) => {
+    const meshes = [];
+    gltf.scene.traverse((child) => {
+      if (child.isMesh) meshes.push(child);
+    });
+    meshes.forEach((mesh) => {
+      const holder = holders[baseName(mesh.name).split('__')[0]];
+      if (!holder) return;
+      mesh.material = MAT_BY_NAME[baseName(mesh.material.name)] || bodyMat;
+      mesh.castShadow = true;
+      mesh.position.set(0, 0, 0);
+      // The glTF exporter converted the vertex data to Y-up (x,z,-y);
+      // rotate +90° about X to recover the ROS Z-up link-local frame the
+      // URDF joint chain expects.
+      mesh.rotation.set(Math.PI / 2, 0, 0);
+      mesh.scale.set(1, 1, 1);
+      holder.add(mesh);
     });
   });
 
@@ -404,24 +214,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const palm = new THREE.Mesh(new THREE.BoxGeometry(0.052, 0.016, 0.024), blackMat);
   palm.position.y = 0.02;
   gripper.add(palm);
+  // Like the photo: bright steel bracket fingers with dark rubber pads
   const fingerGeo = new THREE.BoxGeometry(0.01, 0.05, 0.016);
-  const fingerL = new THREE.Mesh(fingerGeo, blackMat);
-  const fingerR = new THREE.Mesh(fingerGeo, blackMat);
+  const fingerL = new THREE.Mesh(fingerGeo, detailMat);
+  const fingerR = new THREE.Mesh(fingerGeo, detailMat);
   fingerL.position.set(-0.018, 0.053, 0);
   fingerR.position.set(0.018, 0.053, 0);
   gripper.add(fingerL);
   gripper.add(fingerR);
   const padGeo = new THREE.BoxGeometry(0.004, 0.038, 0.012);
-  const padL = new THREE.Mesh(padGeo, detailMat);
+  const padL = new THREE.Mesh(padGeo, blackMat);
   padL.position.set(0.007, 0.004, 0);
   fingerL.add(padL);
-  const padR = new THREE.Mesh(padGeo, detailMat);
+  const padR = new THREE.Mesh(padGeo, blackMat);
   padR.position.set(-0.007, 0.004, 0);
   fingerR.add(padR);
 
   const tip = new THREE.Object3D();
   tip.position.set(0, 0.078, 0);
   gripper.add(tip);
+
+  [palm, fingerL, fingerR, padL, padR].forEach((m) => {
+    m.castShadow = true;
+  });
 
   // --- Self-calibration at the home pose ------------------------------------------
   scene.updateMatrixWorld(true);
@@ -477,6 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
     baseX = 0;
     baseY = -height / 3 + 16;
     stage.position.set(baseX, baseY, -planeZ);
+    shadowCatcher.position.set(baseX, baseY, 0);
+    atomLight.target.position.set(baseX, baseY + 150, 0);
   }
   place();
 
@@ -484,7 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const mouseTarget = new THREE.Vector2();
   const target = new THREE.Vector2(100, 150);
 
-  container.addEventListener('mousemove', (event) => {
+  // Track the mouse over the whole visible panel, but map coordinates into
+  // the (possibly CSS-shifted) stage the canvas actually lives in.
+  panel.addEventListener('mousemove', (event) => {
     const rect = container.getBoundingClientRect();
     mouseInside = true;
     mouseTarget.set(
@@ -492,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
       height / 2 - (event.clientY - rect.top)
     );
   });
-  container.addEventListener('mouseleave', () => {
+  panel.addEventListener('mouseleave', () => {
     mouseInside = false;
   });
 
@@ -531,6 +350,18 @@ document.addEventListener('DOMContentLoaded', () => {
   function animate(time) {
     const dt = clamp((time - lastTime) / 1000, 0.001, 0.05);
     lastTime = time;
+
+    // Aim the shadow light from wherever the atom currently floats,
+    // converting its published page coords into this canvas's scene space
+    const atomPos = window.__atomLight;
+    if (atomPos) {
+      const rect = container.getBoundingClientRect();
+      atomLight.position.set(
+        atomPos.x - (rect.left + window.scrollX) - width / 2,
+        height / 2 - (atomPos.y - (rect.top + window.scrollY)),
+        250
+      );
+    }
 
     // Collision bounds: the panel walls and the table the base plate sits on
     const floorY = baseY + 10;

@@ -89,23 +89,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Stretch the planetary background (and the atom canvas overlay, which shares
-// its footprint) so they end where the box background ends
+// its footprint) so they end together with the #ai section
 document.addEventListener('DOMContentLoaded', () => {
-  const boxBackground = document.getElementById('box-background');
+  const aiSection = document.getElementById('ai');
   const layers = [
     document.getElementById('planettary-background'),
     document.getElementById('constellation-canvas-container'),
   ].filter(Boolean);
-  if (!boxBackground || !layers.length) return;
+  if (!aiSection || !layers.length) return;
 
   function sizePlanetaryBackground() {
-    const boxBottom = boxBackground.getBoundingClientRect().bottom + window.scrollY;
+    const aiBottom = aiSection.getBoundingClientRect().bottom + window.scrollY;
     for (const layer of layers) {
       const top = layer.getBoundingClientRect().top + window.scrollY;
-      layer.style.height = `${Math.max(boxBottom - top, 0)}px`;
+      layer.style.height = `${Math.max(aiBottom - top, 0)}px`;
     }
   }
 
   sizePlanetaryBackground();
   window.addEventListener('resize', sizePlanetaryBackground);
+  // Section positions can shift as images/fonts finish loading, unlike the
+  // old viewport-only anchor, so re-measure once everything has loaded
+  window.addEventListener('load', sizePlanetaryBackground);
 });

@@ -1,5 +1,5 @@
 //- Move it to a a template
-#open-source.relative.isolate.overflow-hidden.px-6.py-24(, class='sm:py-32 lg:overflow-visible lg:px-0')
+#open-source.relative.isolate.overflow-hidden.px-6.pt-24.pb-6(, class='sm:pt-32 sm:pb-8 lg:overflow-visible lg:px-0')
   .mx-auto.grid.max-w-2xl.grid-cols-1.gap-y-16.gap-x-8(
     class='lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10'
   )
@@ -7,7 +7,9 @@
       class='lg:row-start-1 lg:col-start-1 lg:px-8 lg:sticky lg:top-4 lg:row-span-2'
     )
       include robot-panel/robot-panel-section.pug
+    //- relative + z-10 lifts the text above the sticky robot card, whose
+    //- translucent dark background otherwise paints over (and dims) it
     div(
-      class='lg:row-start-1 lg:col-start-2 lg:col-span-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8'
+      class='lg:relative lg:z-10 lg:row-start-1 lg:col-start-2 lg:col-span-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8'
     )
       include description/description-section.pug

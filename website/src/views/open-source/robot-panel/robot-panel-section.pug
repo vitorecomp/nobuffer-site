@@ -1,5 +1,12 @@
-#robot-arm-container.rounded-xl.shadow-xl.ring-1.overflow-hidden(
-  class='w-full h-[28rem] sm:h-[32rem] lg:w-[min(50vw_+_38rem,100vw_-_4rem)] lg:max-w-none ring-gray-400/10 bg-gray-900/60'
+#robot-arm-container.relative.rounded-xl.shadow-xl.ring-1.overflow-hidden.w-full(
+  class='h-[50vh] lg:w-[90vw] lg:max-w-none ring-gray-400/10 bg-gray-900/60'
 )
+  //- Shift the stage so the robot's center lands on the hero's #whoami
+  //- column center: the hero is a centered max-w-7xl px-8 grid with two
+  //- cols and gap-x-8, and this card's left edge sits 1rem left of the
+  //- viewport. min/max cover viewports below/above the 80rem max-width.
+  #robot-arm-stage.absolute.inset-y-0.left-0.w-full(
+    class='lg:left-[calc(max(0px,50vw_-_40rem)_+_min(25vw,20rem)_-_45vw_+_1.5rem)]'
+  )
 
 script(src=require('../../../scripts/robot.js'))

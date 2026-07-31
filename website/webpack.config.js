@@ -24,7 +24,7 @@ module.exports = {
         },
       },
       {
-        test: /\.stl$/i,
+        test: /\.glb$/i,
         type: 'asset/resource',
         generator: {
           filename: 'models/[name].[hash:8][ext][query]',
