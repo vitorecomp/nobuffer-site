@@ -210,15 +210,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Mouse follow ------------------------------------------------------------
-  // The canvas and the planetary section are positioned independently, so
-  // never assume their rects coincide: the resting spot is anchored to the
-  // section's top-left corner, then converted into canvas space.
+  // The canvas and the page elements are positioned independently, so never
+  // assume their rects coincide: the resting spot hugs the left edge of the
+  // open-source intro text (#open-source-title), vertically centered on it,
+  // then converts into canvas space. Falls back to the planetary section's
+  // top-left corner if the anchor is missing.
   const home = new THREE.Vector2();
   function updateHome() {
     const cRect = container.getBoundingClientRect();
-    const sRect = section.getBoundingClientRect();
-    const px = sRect.left - cRect.left + Math.max(150, sRect.width * 0.12);
-    const py = sRect.top - cRect.top + Math.max(240, sRect.height * 0.08);
+    const anchor = document.getElementById('open-source-title');
+    let px;
+    let py;
+    if (anchor) {
+      const aRect = anchor.getBoundingClientRect();
+      px = aRect.left - cRect.left - 80; // orbit clearance left of the text
+      // sit beside the "Some of my contributions..." heading, just above
+      // the intro paragraph the anchor marks
+      py = aRect.top - cRect.top - 40;
+    } else {
+      const sRect = section.getBoundingClientRect();
+      px = sRect.left - cRect.left + Math.max(150, sRect.width * 0.12);
+      py = sRect.top - cRect.top + Math.max(240, sRect.height * 0.08);
+    }
     home.set(px - width / 2, height / 2 - py);
   }
   updateHome();

@@ -1,7 +1,9 @@
 //- Self-contained robot card, the counterpart of the main section's photo
 //- panel: fills its column in the section's inner grid
+//- lg: top margin matches the description block's p-12, so the canvas and
+//- the text column start together; height trimmed so the card stays level
 #robot-arm-container.relative.overflow-hidden.w-full(
-  class='h-[28rem] sm:h-[32rem]'
+  class='h-[28rem] sm:h-[32rem] lg:mt-12 lg:h-[28rem]'
 )
   #robot-arm-stage.absolute.inset-0
 
