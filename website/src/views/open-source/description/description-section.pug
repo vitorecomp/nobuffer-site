@@ -1,10 +1,27 @@
 div(class='lg:pr-4')
   div(class='lg:max-w-lg')
-    //- On lg the text sits on the robot card's dark glass, so colors flip
-    //- to the light variants; below lg it stacks on white and stays dark
-    p.font-mono.text-sm.leading-7.text-teal-600(class='lg:text-teal-400')
-      span.text-gray-400(class='lg:text-gray-500') ~$&nbsp;
+    //- The text sits on the glass card at every breakpoint, so the palette
+    //- is the light variant of the main section's description
+    p.font-mono.text-sm.leading-7.text-teal-400
+      span.text-gray-500 ~$&nbsp;
       | git log --author=vitor
-    h1.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl lg:text-white') Some of my contributions to the community
-    p.mt-6.font-mono.text-lg.leading-8.text-gray-700(class='lg:text-gray-300')
-      | I love open source — it's where I learned to code, where I go to tinker, and where I give back. Building in the open, reading other people's code, and shipping patches that anyone can use is what makes software fun for me. Here are some of the projects I've contributed to.
+    h1.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-white(class='sm:text-4xl') Some of my contributions to the community
+    p.mt-6.font-mono.text-lg.leading-8.text-gray-300
+      | I love open source — it's where I learned to code, where I go to tinker, and where I give back. Building in the open, reading other people's code, and shipping patches that anyone can use is what makes software fun for me. Take a look at my GitHub to find the projects I've built and contributed to.
+    .mt-8
+      a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-6.py-4.font-mono.text-base.text-green-400.shadow-md.transform.transition-all.duration-200(
+        href='https://github.com/vitorecomp',
+        target='_blank',
+        class='hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
+      )
+        span.text-gray-500 $
+        span ./open_github.sh
+        svg.w-6.h-6.text-green-400(
+          fill='currentColor',
+          viewBox='0 0 24 24',
+          xmlns='http://www.w3.org/2000/svg',
+          aria-hidden='true'
+        )
+          path(
+            d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'
+          )

@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // becomes a tile whose corners are the centroids of the faces around it, so
   // neighboring tiles share edges exactly — a seamless interlocking honeycomb
   // covering the whole sphere (12 of the tiles are pentagons, by geometry).
-  const FIELD_R = 85;
+  const FIELD_R = 40;
 
   const ico = new THREE.IcosahedronGeometry(FIELD_R, 2);
   const posAttr = ico.attributes.position;
@@ -210,10 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Mouse follow ------------------------------------------------------------
+  // The canvas and the planetary section are positioned independently, so
+  // never assume their rects coincide: the resting spot is anchored to the
+  // section's top-left corner, then converted into canvas space.
   const home = new THREE.Vector2();
   function updateHome() {
-    const px = Math.max(150, width * 0.12);
-    const py = Math.max(240, height * 0.08);
+    const cRect = container.getBoundingClientRect();
+    const sRect = section.getBoundingClientRect();
+    const px = sRect.left - cRect.left + Math.max(150, sRect.width * 0.12);
+    const py = sRect.top - cRect.top + Math.max(240, sRect.height * 0.08);
     home.set(px - width / 2, height / 2 - py);
   }
   updateHome();
@@ -223,16 +228,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let mouseInside = false;
 
   window.addEventListener('mousemove', (event) => {
-    const rect = section.getBoundingClientRect();
+    // Hover detection uses the planetary section (the dark area)...
+    const sRect = section.getBoundingClientRect();
     mouseInside =
-      event.clientX >= rect.left &&
-      event.clientX <= rect.right &&
-      event.clientY >= rect.top &&
-      event.clientY <= rect.bottom;
+      event.clientX >= sRect.left &&
+      event.clientX <= sRect.right &&
+      event.clientY >= sRect.top &&
+      event.clientY <= sRect.bottom;
 
     if (mouseInside) {
-      const px = event.clientX - rect.left;
-      const py = event.clientY - rect.top;
+      // ...but the target maps through the canvas rect, since that is the
+      // coordinate system the atom is actually rendered in
+      const cRect = container.getBoundingClientRect();
+      const px = event.clientX - cRect.left;
+      const py = event.clientY - cRect.top;
       target.set(px - width / 2, height / 2 - py);
     } else {
       target.copy(home);

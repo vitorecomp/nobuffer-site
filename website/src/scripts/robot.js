@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { xyz: [-0.000294, 0, 0.02117], rpy: [0, 0, 3.1416], axis: [0, 0, 1], mesh: 'link_6' },
   ];
 
-  // Whole painted robot in one editable GLB (see tmp/paint_robot.py -- export)
+  // Whole painted robot in one editable GLB (tooling in helper/scripts/)
   const MODEL_URL = require('../assets/models/robot.glb');
 
   // Procedural "brushed metal" matcaps (the robot meshes carry no UVs, so a
@@ -139,13 +139,14 @@ document.addEventListener('DOMContentLoaded', () => {
   robot.rotation.x = -Math.PI / 2; // ROS z-up -> three.js y-up
   stage.add(robot);
 
-  // robot.glb is exported from the painted Blender scene (tmp/paint_robot.py
-  // -- export): every solid body inside the original STLs — motors, gearboxes,
-  // couplers, brackets, pulleys, covers — was identified by connected-component
-  // analysis and baked into one flat-shaded mesh per link and finish, named
-  // "<link>__<material>". The file's node transforms only pose the arm for
-  // editing in Blender; here each mesh is re-parented under its joint group
-  // (which already carries the URDF transform) and gets the site's matcap.
+  // robot.glb was exported from the painted Blender scene (helper/scripts/
+  // paint_robot.py) and UV-unwrapped + texture-baked by helper/scripts/
+  // bake_texture.py: every solid body inside the original STLs — motors,
+  // gearboxes, couplers, brackets, pulleys, covers — was identified by
+  // connected-component analysis and baked into one flat-shaded mesh per link
+  // and finish, named "<link>__<material>". The file's node transforms only
+  // pose the arm for editing in Blender; here each mesh is re-parented under
+  // its joint group (which already carries the URDF transform).
   const MAT_BY_NAME = {
     pla_yellow: bodyMat, // printed castings
     hw_black: baseMat, // covers, tubes, printed pulleys, mounts
@@ -153,6 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
     aluminum: metalMat, // planetary gearboxes, shaft couplers
     steel: metalMat, // motor brackets, stepper end caps
   };
+
+  // When the GLB carries the baked texture atlas (base color x ambient
+  // occlusion, UV-unwrapped in Blender), render it through NEUTRAL matcaps:
+  // shading comes from the matcap, color comes from the atlas — so texture
+  // edits painted in Blender show up here unchanged.
+  const plasticShade = new THREE.MeshMatcapMaterial({
+    matcap: makeMatcap('#ffffff', '#d9d9d9', '#4a4a4a'),
+  });
+  const metalShade = new THREE.MeshMatcapMaterial({
+    matcap: makeMatcap('#ffffff', '#e9edf0', '#6a7076'),
+  });
 
   const joints = [];
   const holders = {}; // link name -> joint group the link's meshes attach to
@@ -187,10 +199,25 @@ document.addEventListener('DOMContentLoaded', () => {
     gltf.scene.traverse((child) => {
       if (child.isMesh) meshes.push(child);
     });
+    const bySource = new Map(); // glTF material uuid -> matcap-with-atlas clone
     meshes.forEach((mesh) => {
       const holder = holders[baseName(mesh.name).split('__')[0]];
       if (!holder) return;
-      mesh.material = MAT_BY_NAME[baseName(mesh.material.name)] || bodyMat;
+      const src = mesh.material;
+      if (src.map) {
+        let mat = bySource.get(src.uuid);
+        if (!mat) {
+          // treat the atlas texels as-is (the matcap pipeline is unmanaged)
+          src.map.encoding = THREE.LinearEncoding;
+          src.map.needsUpdate = true;
+          mat = (src.metalness > 0.5 ? metalShade : plasticShade).clone();
+          mat.map = src.map;
+          bySource.set(src.uuid, mat);
+        }
+        mesh.material = mat;
+      } else {
+        mesh.material = MAT_BY_NAME[baseName(src.name)] || bodyMat;
+      }
       mesh.castShadow = true;
       mesh.position.set(0, 0, 0);
       // The glTF exporter converted the vertex data to Y-up (x,z,-y);
