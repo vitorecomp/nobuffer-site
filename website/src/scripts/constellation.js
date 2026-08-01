@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let py;
     if (anchor) {
       const aRect = anchor.getBoundingClientRect();
-      px = aRect.left - cRect.left - 80; // orbit clearance left of the text
+      px = aRect.left - cRect.left - 140; // orbit clearance left of the text
       // sit beside the "Some of my contributions..." heading, just above
       // the intro paragraph the anchor marks
       py = aRect.top - cRect.top - 40;
@@ -240,9 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const target = home.clone();
   let mouseInside = false;
 
+  // The atom only chases the mouse inside the open-source section; anywhere
+  // else it drifts back to its rest point beside the heading
+  const followArea = document.getElementById('open-source') || section;
+
   window.addEventListener('mousemove', (event) => {
-    // Hover detection uses the planetary section (the dark area)...
-    const sRect = section.getBoundingClientRect();
+    const sRect = followArea.getBoundingClientRect();
     mouseInside =
       event.clientX >= sRect.left &&
       event.clientX <= sRect.right &&
