@@ -1,5 +1,60 @@
-div(class='lg:pr-4')
-  div(class='lg:max-w-lg')
-    p.text-base.font-semibold.leading-7.text-indigo-600 Ai is the future...
-    h1.mt-2.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl') We all love AI
-    p.mt-6.text-xl.leading-8.text-gray-700 Some of the amazing articles in AI are: ...
+div
+  //- Terminal eyebrow keeps the site identity inside the anime-style panel
+  p.font-mono.text-sm.leading-7.text-teal-400
+    span.text-white ~$&nbsp;
+    | git log --grep=ai --since=2012
+
+  //- Big tracked-out banner title with its Japanese subtitle,
+  //- like the MESSAGE / メッセージ lockup on anime promo sites
+  h1.mt-4.font-mono.text-6xl.font-extrabold.text-white(class='sm:text-7xl tracking-[0.35em]') AI
+  .mt-3.flex.items-center.gap-3
+    span.text-xs.text-blue-400 ◤
+    span.font-mono.text-sm.tracking-widest.text-gray-400 人工知能 — artificial intelligence
+
+  //- The quiet three-line whisper before the loud statement
+  p.mt-8.font-mono.text-sm.leading-7.text-gray-300
+    | Before the hype. Genetic algorithms, OCR, computer vision, LLMs.
+    br
+    | Building it, was really amazing.
+
+  //- Bold statement as stacked white highlight boxes, black text
+  .mt-8.space-y-3
+    p.w-fit.bg-white.px-5.py-3.font-mono.text-2xl.font-bold.leading-none.text-gray-900(class='sm:text-3xl') Working with AI
+    p.ml-8.w-fit.bg-white.px-5.py-3.font-mono.text-2xl.font-bold.leading-none.text-gray-900(class='sm:text-3xl') since 2012.
+
+  p.mt-8.font-mono.text-lg.leading-8.text-gray-300
+    | More than a decade of AI projects — from genetic-algorithm training,
+    | advanced OCR, Fine tuning Models to document search. Most of them live in my
+    | repos, but one is running live right now: an AI anime character
+    | generator you can try in your browser.
+
+  //- A few of those projects, as quiet mono tags
+  .mt-6.flex.flex-wrap.gap-2
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-indigo-300(class='border-indigo-400/40') genetic-training
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-indigo-300(class='border-indigo-400/40') ai-advanced-ocr
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-indigo-300(class='border-indigo-400/40') gemini-document-search
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-indigo-300(class='border-indigo-400/40') cpp-ai-libs
+
+  .mt-10
+    a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
+      href='https://demo.vitorx86.dev',
+      target='_blank',
+      class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
+    )
+      span.text-gray-500 $
+      span ./generate_character.sh
+      svg.h-5.w-5.text-green-400(
+        class='sm:h-6 sm:w-6',
+        fill='none',
+        stroke='currentColor',
+        stroke-width='2',
+        viewBox='0 0 24 24',
+        xmlns='http://www.w3.org/2000/svg',
+        aria-hidden='true'
+      )
+        path(
+          stroke-linecap='round',
+          stroke-linejoin='round',
+          d='M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z'
+        )
+    p.mt-3.font-mono.text-xs.text-gray-500 # AI anime character generator — live demo

@@ -9,14 +9,15 @@ div(class='lg:pr-4')
     #open-source-title.p.mt-6.font-mono.text-lg.leading-8.text-gray-300
       | I love open source — it's where I learned to code, where I go to tinker, and where I give back. Building in the open, reading other people's code, and shipping patches that anyone can use is what makes software fun for me. Take a look at my GitHub to find the projects I've built and contributed to.
     .mt-8
-      a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-6.py-4.font-mono.text-base.text-green-400.shadow-md.transform.transition-all.duration-200(
+      a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
         href='https://github.com/vitorecomp',
         target='_blank',
-        class='hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
+        class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
       )
         span.text-gray-500 $
         span ./open_github.sh
-        svg.w-6.h-6.text-green-400(
+        svg.w-5.h-5.text-green-400(
+          class='sm:w-6 sm:h-6',
           fill='currentColor',
           viewBox='0 0 24 24',
           xmlns='http://www.w3.org/2000/svg',

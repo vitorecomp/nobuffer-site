@@ -1,5 +1,49 @@
-img.max-w-none.rounded-xl.bg-gray-900.shadow-xl.ring-1(
-  class='w-[48rem] ring-gray-400/10 sm:w-[57rem]',
-  src='https://tailwindui.com/img/component-images/dark-project-app-screenshot.png',
-  alt=''
-)
+//- Blue diagonal panel in the style of anime promo sites: a skewed slab with
+//- floating card cutouts. The whole shape is a link to the live generator.
+.flex.flex-col.items-center
+  a.group.relative.block(
+    href='https://demo.vitorx86.dev',
+    target='_blank',
+    class='w-[230px] h-[330px] sm:w-[340px] sm:h-[470px]',
+    aria-label='Open the AI anime character generator'
+  )
+    //- Outline echo sitting behind the slab
+    .absolute.inset-0.rounded-sm.border-2(
+      class='-skew-x-[12deg] border-blue-400/40 translate-x-4 translate-y-4'
+    )
+
+    //- The blue slab itself
+    .absolute.inset-0.overflow-hidden.rounded-sm.shadow-2xl.transition-transform.duration-300(
+      class='-skew-x-[12deg] bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 group-hover:-translate-y-2'
+    )
+      //- Giant watermark kanji: 生成 — "generate"
+      span.absolute.-bottom-6.-left-2.select-none.font-bold(
+        class='text-[9rem] sm:text-[13rem] leading-none text-white/10'
+      ) 生成
+
+    //- Un-skewed content floating over the slab
+    .absolute.inset-0.flex.flex-col.items-center.justify-center.gap-5
+      //- Placeholder character card: the character is yours to generate
+      .relative.rotate-3.rounded-lg.bg-white.p-2.shadow-xl.transition-transform.duration-300(
+        class='w-28 h-40 sm:w-40 sm:h-56 group-hover:rotate-6'
+      )
+        .flex.h-full.w-full.items-center.justify-center.rounded.border-2.border-dashed.border-gray-300
+          span.font-mono.text-5xl.text-gray-400(class='sm:text-6xl') ?
+        //- Sparkle badge pinned to the card corner
+        span.absolute.-top-3.-right-3.flex.h-8.w-8.items-center.justify-center.rounded-full.bg-indigo-600.text-base.text-white.shadow-md ✦
+      p.px-4.text-center.font-mono.text-xs.tracking-widest.text-blue-100(class='sm:text-sm') 「キャラクター生成」
+
+    //- Vertical kana strip along the edge
+    span.absolute.top-6.select-none.font-mono.text-xs.tracking-widest(
+      class='-right-1 sm:right-0 text-blue-200/80 [writing-mode:vertical-rl]'
+    ) AIアニメキャラクター
+
+    //- Floating white cards drifting around the slab
+    .absolute.-top-4.-right-5.h-12.w-9.rotate-12.rounded-sm.bg-white.shadow-lg
+    .absolute.bottom-12.-left-7.h-10.w-8.-rotate-6.rounded-sm.shadow-md(class='bg-white/90')
+    .absolute.-right-8.h-9.w-7.rotate-45.rounded-sm.shadow(class='top-1/3 bg-white/70')
+
+  //- Caption under the panel
+  p.mt-10.font-mono.text-xs.text-gray-500
+    span.text-teal-400 »&nbsp;
+    | click to open — demo.vitorx86.dev
