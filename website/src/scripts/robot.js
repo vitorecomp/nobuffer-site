@@ -156,15 +156,44 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // When the GLB carries the baked texture atlas (base color x ambient
-  // occlusion, UV-unwrapped in Blender), render it through NEUTRAL matcaps:
-  // shading comes from the matcap, color comes from the atlas — so texture
-  // edits painted in Blender show up here unchanged.
+  // occlusion, UV-unwrapped in Blender), render it through a CEL matcap:
+  // flat white with one hard-edged shadow lune. A smooth radial ramp would
+  // put photographic gradients on every cylinder and break the hand-drawn
+  // illusion — the atlas's posterized bands are the shading.
+  function makeCelMatcap(base, shadow) {
+    const cnv = document.createElement('canvas');
+    cnv.width = cnv.height = 256;
+    const g = cnv.getContext('2d');
+    g.fillStyle = shadow;
+    g.fillRect(0, 0, 256, 256);
+    g.fillStyle = base;
+    g.beginPath();
+    g.arc(104, 104, 142, 0, Math.PI * 2); // off-center: lower-right lune stays shadow
+    g.fill();
+    return new THREE.CanvasTexture(cnv);
+  }
   const plasticShade = new THREE.MeshMatcapMaterial({
-    matcap: makeMatcap('#ffffff', '#d9d9d9', '#4a4a4a'),
+    matcap: makeCelMatcap('#ffffff', '#c2c4c8'),
   });
   const metalShade = new THREE.MeshMatcapMaterial({
-    matcap: makeMatcap('#ffffff', '#e9edf0', '#6a7076'),
+    matcap: makeCelMatcap('#ffffff', '#cdd0d4'),
   });
+
+  // Comic ink silhouette: an inverted-hull copy of every mesh, pushed out
+  // along its normals and drawn back-face only, keeps the outer contour
+  // inked from every viewing angle (a baked texture can't do that).
+  const OUTLINE_M = 0.006; // meters; ~3px at PX_PER_M (ref uses heavy marker)
+  const outlineMat = new THREE.MeshBasicMaterial({ color: 0x14161a, side: THREE.BackSide });
+  outlineMat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader.replace(
+      '#include <begin_vertex>',
+      `#include <begin_vertex>\ntransformed += normal * ${OUTLINE_M};`
+    );
+  };
+  function addOutline(mesh) {
+    // child at identity: inherits the mesh transform, follows animation
+    mesh.add(new THREE.Mesh(mesh.geometry, outlineMat));
+  }
 
   const joints = [];
   const holders = {}; // link name -> joint group the link's meshes attach to
@@ -194,40 +223,59 @@ document.addEventListener('DOMContentLoaded', () => {
   // an import/edit session; strip them so edited re-exports keep working
   const baseName = (name) => (name || '').replace(/\.\d+$/, '');
 
-  new THREE.GLTFLoader().load(MODEL_URL, (gltf) => {
-    const meshes = [];
-    gltf.scene.traverse((child) => {
-      if (child.isMesh) meshes.push(child);
-    });
-    const bySource = new Map(); // glTF material uuid -> matcap-with-atlas clone
-    meshes.forEach((mesh) => {
-      const holder = holders[baseName(mesh.name).split('__')[0]];
-      if (!holder) return;
-      const src = mesh.material;
-      if (src.map) {
-        let mat = bySource.get(src.uuid);
-        if (!mat) {
-          // treat the atlas texels as-is (the matcap pipeline is unmanaged)
-          src.map.encoding = THREE.LinearEncoding;
-          src.map.needsUpdate = true;
-          mat = (src.metalness > 0.5 ? metalShade : plasticShade).clone();
-          mat.map = src.map;
-          bySource.set(src.uuid, mat);
+  // The model sits below the fold: fetch the GLB only when the panel is
+  // close to scrolling into view instead of on DOMContentLoaded.
+  function loadRobot() {
+    new THREE.GLTFLoader().load(MODEL_URL, (gltf) => {
+      const meshes = [];
+      gltf.scene.traverse((child) => {
+        if (child.isMesh) meshes.push(child);
+      });
+      const bySource = new Map(); // glTF material uuid -> matcap-with-atlas clone
+      meshes.forEach((mesh) => {
+        const holder = holders[baseName(mesh.name).split('__')[0]];
+        if (!holder) return;
+        const src = mesh.material;
+        if (src.map) {
+          let mat = bySource.get(src.uuid);
+          if (!mat) {
+            // treat the atlas texels as-is (the matcap pipeline is unmanaged)
+            src.map.encoding = THREE.LinearEncoding;
+            src.map.needsUpdate = true;
+            mat = (src.metalness > 0.5 ? metalShade : plasticShade).clone();
+            mat.map = src.map;
+            bySource.set(src.uuid, mat);
+          }
+          mesh.material = mat;
+        } else {
+          mesh.material = MAT_BY_NAME[baseName(src.name)] || bodyMat;
         }
-        mesh.material = mat;
-      } else {
-        mesh.material = MAT_BY_NAME[baseName(src.name)] || bodyMat;
-      }
-      mesh.castShadow = true;
-      mesh.position.set(0, 0, 0);
-      // The glTF exporter converted the vertex data to Y-up (x,z,-y);
-      // rotate +90° about X to recover the ROS Z-up link-local frame the
-      // URDF joint chain expects.
-      mesh.rotation.set(Math.PI / 2, 0, 0);
-      mesh.scale.set(1, 1, 1);
-      holder.add(mesh);
+        mesh.castShadow = true;
+        mesh.position.set(0, 0, 0);
+        // The glTF exporter converted the vertex data to Y-up (x,z,-y);
+        // rotate +90° about X to recover the ROS Z-up link-local frame the
+        // URDF joint chain expects.
+        mesh.rotation.set(Math.PI / 2, 0, 0);
+        mesh.scale.set(1, 1, 1);
+        holder.add(mesh);
+        addOutline(mesh);
+      });
     });
-  });
+  }
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          loadRobot();
+        }
+      },
+      { rootMargin: '600px' }
+    );
+    io.observe(panel);
+  } else {
+    loadRobot();
+  }
 
   const [J1, J2, J3, J4, J5, J6] = joints;
 
@@ -264,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
   [palm, fingerL, fingerR, padL, padR].forEach((m) => {
     m.castShadow = true;
   });
+  [palm, fingerL, fingerR].forEach(addOutline); // gripper joins the inked look
 
   // --- Self-calibration at the home pose ------------------------------------------
   scene.updateMatrixWorld(true);
