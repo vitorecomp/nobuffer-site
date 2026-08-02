@@ -10,6 +10,12 @@
           )
         li
           a.dot-nav-item.block.w-3.h-3.bg-gray-400.rounded-full.transition-all.duration-200(
+            href='#portfolio',
+            class='hover:bg-teal-600',
+            aria-label='Portfolio'
+          )
+        li
+          a.dot-nav-item.block.w-3.h-3.bg-gray-400.rounded-full.transition-all.duration-200(
             href='#open-source',
             class='hover:bg-teal-600',
             aria-label='Open Source'
@@ -35,7 +41,7 @@
 
 script.
   document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('#main, #open-source, #ai, #backyard-mech, #ai-companion');
+    const sections = document.querySelectorAll('#main, #open-source, #ai, #backyard-mech, #ai-companion, #portfolio');
     const dots = document.querySelectorAll('.dot-nav-item');
 
     const observerOptions = {

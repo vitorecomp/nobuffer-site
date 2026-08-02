@@ -1,1 +1,23 @@
-.div
+//- Alissa herself — transparent PNG floating over a soft glow that matches
+//- her race jacket, with the outline-echo device from the AI section
+.flex.flex-col.items-center
+  .relative(class='w-[260px] sm:w-[360px]')
+    //- Soft pink glow behind the character
+    .absolute.rounded-full.blur-3xl(
+      class='inset-x-6 top-10 bottom-6 bg-pink-500/20',
+      aria-hidden='true'
+    )
+    //- Outline echo sitting behind her
+    .absolute.inset-0.rounded-sm.border-2(
+      class='border-pink-400/40 translate-x-4 translate-y-4',
+      aria-hidden='true'
+    )
+    img.relative.w-full(
+      src=require('../../../assets/img/alissa.png'),
+      alt='Alissa, the AI racing companion — an anime girl in a pink racing jacket'
+    )
+
+  //- Caption under the panel
+  p.mt-8.font-mono.text-xs.text-gray-500
+    span.text-teal-400 »&nbsp;
+    | alissa — pit crew online

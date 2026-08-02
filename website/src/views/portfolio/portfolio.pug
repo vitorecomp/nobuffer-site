@@ -1,0 +1,127 @@
+//- Portfolio: terminal-window cards over the light page background.
+//- Add a project = add one entry to the array below.
+-
+  const projects = [
+    {
+      name: 'turbovec',
+      desc: 'A vector index built on TurboQuant — Rust core with Python bindings, made for fast similarity search.',
+      tags: ['rust', 'python', 'vector-search'],
+      href: 'https://github.com/vitorecomp/turbovec',
+    },
+    {
+      name: 'ruscene',
+      desc: 'A Lucene-style full-text search engine implemented from scratch in Rust.',
+      tags: ['rust', 'search-engine'],
+      href: 'https://github.com/vitorecomp/ruscene',
+    },
+    {
+      name: 'alissa',
+      desc: 'AI racing companion — tuning help, diagnostics and race insights for old shitboxes.',
+      tags: ['ai', 'telemetry', 'racing'],
+      href: 'https://github.com/vitorecomp/alissa-ai-racing-companion',
+    },
+    {
+      name: 'esp32-watch-so',
+      desc: 'A tiny operating system for ESP32-based watches, written close to the metal.',
+      tags: ['c++', 'esp32', 'embedded'],
+      href: 'https://github.com/vitorecomp/esp32-watch-so',
+    },
+    {
+      name: 'ai-advanced-ocr',
+      desc: 'Experiments pushing OCR beyond the basics with modern AI models.',
+      tags: ['python', 'ai', 'ocr'],
+      href: 'https://github.com/vitorecomp/ai-advanced-ocr',
+    },
+    {
+      name: 'go-ls',
+      desc: 'A complete ls rewritten in Go — everything the original does, plus extra features.',
+      tags: ['go', 'cli'],
+      href: 'https://github.com/vitorecomp/go-ls',
+    },
+  ]
+
+#portfolio.relative.px-6.pt-16.pb-16(class='sm:pt-24 sm:pb-24 lg:px-8')
+  .mx-auto.max-w-7xl
+    //- Terminal eyebrow + heading, light-background lockup (same as the hero)
+    .max-w-2xl
+      p.font-mono.text-base.leading-7.text-teal-600
+        span.text-gray-400 ~$&nbsp;
+        | ls ~/projects
+      h1.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
+        | Portfolio
+      p.mt-6.font-mono.text-lg.leading-8.text-gray-700
+        | Selected projects from my repos — systems code in Rust and Go, AI
+        | experiments, embedded toys, and the tools in between. All open source.
+
+    //- Each project is a little terminal window; the whole card is a link
+    ul.mt-12.grid.grid-cols-1.gap-6(class='sm:grid-cols-2 lg:grid-cols-3')
+      each project in projects
+        li
+          a.group.flex.h-full.flex-col.overflow-hidden.rounded-lg.bg-gray-900.shadow-md.ring-1.transform.transition-all.duration-200(
+            href=project.href,
+            target='_blank',
+            class='ring-gray-400/10 hover:-translate-y-1 hover:shadow-xl'
+          )
+            //- Title bar with traffic-light dots
+            .flex.items-center.gap-2.border-b.px-4.py-3(
+              class='border-gray-700/60 bg-gray-800/60'
+            )
+              span.h-3.w-3.rounded-full(class='bg-red-500/80', aria-hidden='true')
+              span.h-3.w-3.rounded-full(class='bg-yellow-500/80', aria-hidden='true')
+              span.h-3.w-3.rounded-full(class='bg-green-500/80', aria-hidden='true')
+              span.ml-2.truncate.font-mono.text-xs.text-gray-400= '~/projects/' + project.name
+            //- Window body
+            .flex.flex-1.flex-col.px-5.py-5
+              p.font-mono.text-sm.leading-6.text-gray-300= project.desc
+              .mt-4.flex.flex-wrap.gap-2
+                each tag in project.tags
+                  span.rounded.border.px-2.py-1.font-mono.text-xs.text-teal-300(
+                    class='border-teal-400/40'
+                  )= tag
+              p.mt-auto.pt-5.font-mono.text-sm.text-green-400
+                span.text-gray-500 $&nbsp;
+                | ./open_repo.sh
+                span.ml-2.inline-block.transition-transform.duration-200(
+                  class='group-hover:translate-x-1'
+                ) &rarr;
+
+    //- Everything else lives on GitHub and on the cases site
+    .mt-14.flex.flex-wrap.items-center.justify-center.gap-4(class='sm:gap-6')
+      a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
+        href='https://github.com/vitorecomp?tab=repositories',
+        target='_blank',
+        class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
+      )
+        span.text-gray-500 $
+        span ./view_all_repos.sh
+        svg.h-5.w-5.text-green-400(
+          class='sm:h-6 sm:w-6',
+          fill='none',
+          stroke='currentColor',
+          stroke-width='2',
+          viewBox='0 0 24 24',
+          xmlns='http://www.w3.org/2000/svg',
+          aria-hidden='true'
+        )
+          path(stroke-linecap='round', stroke-linejoin='round', d='M8.25 4.5l7.5 7.5-7.5 7.5')
+      a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
+        href='https://cases.vitorx86.dev',
+        target='_blank',
+        class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
+      )
+        span.text-gray-500 $
+        span ./open_cases.sh
+        svg.h-5.w-5.text-green-400(
+          class='sm:h-6 sm:w-6',
+          fill='none',
+          stroke='currentColor',
+          stroke-width='2',
+          viewBox='0 0 24 24',
+          xmlns='http://www.w3.org/2000/svg',
+          aria-hidden='true'
+        )
+          path(
+            stroke-linecap='round',
+            stroke-linejoin='round',
+            d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'
+          )

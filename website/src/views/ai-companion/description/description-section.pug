@@ -1,5 +1,45 @@
-div(class='lg:pr-4')
-  div(class='lg:max-w-lg')
-    p.text-base.font-semibold.leading-7.text-indigo-600 The power of AI is amazing
-    h1.mt-2.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl') In conjuction with my car, i start to develop a Ai companion...
-    p.mt-6.text-xl.leading-8.text-gray-700 Some of its features are
+div(class='lg:max-w-lg')
+  //- Terminal eyebrow, dark-panel variant (same lockup as the AI section)
+  p.font-mono.text-sm.leading-7.text-teal-400
+    span.text-white ~$&nbsp;
+    | ./alissa --diagnose ./old-shitbox
+
+  h1.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-white(class='sm:text-4xl')
+    | Meet Alissa, a AI racing companion
+
+  p.mt-6.font-mono.text-lg.leading-8.text-gray-300
+    | Alissa is an open-source AI racing companion can be used together of your
+    | racing shitbox. She reads the car's telemetry and OBD data to help with tuning,
+    | runs diagnostics when something inevitably breaks, and turns lap data
+    | into racing insights — a pit crew for cars that never had one.
+
+  //- Capabilities as quiet mono tags, pink to match her race jacket
+  .mt-6.flex.flex-wrap.gap-2
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-pink-300(class='border-pink-400/40') tuning
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-pink-300(class='border-pink-400/40') diagnostics
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-pink-300(class='border-pink-400/40') racing-insights
+    span.rounded.border.px-2.py-1.font-mono.text-xs.text-pink-300(class='border-pink-400/40') obd-telemetry
+
+  .mt-10
+    a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
+      href='https://github.com/vitorecomp/alissa-ai-racing-companion',
+      target='_blank',
+      class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
+    )
+      span.text-gray-500 $
+      span ./clone_alissa.sh
+      svg.h-5.w-5.text-green-400(
+        class='sm:h-6 sm:w-6',
+        fill='none',
+        stroke='currentColor',
+        stroke-width='2',
+        viewBox='0 0 24 24',
+        xmlns='http://www.w3.org/2000/svg',
+        aria-hidden='true'
+      )
+        path(
+          stroke-linecap='round',
+          stroke-linejoin='round',
+          d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'
+        )
+    p.mt-3.font-mono.text-xs.text-gray-500 # github.com/vitorecomp/alissa-ai-racing-companion
