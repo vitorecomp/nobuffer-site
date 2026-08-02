@@ -12,6 +12,8 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     // require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio'),
+    // NOT @tailwindcss/aspect-ratio: it disables the native aspect-* core
+    // utilities (aspect-square in backyard-mech.pug), and nothing here uses
+    // its aspect-w-*/aspect-h-* classes.
   ],
 };

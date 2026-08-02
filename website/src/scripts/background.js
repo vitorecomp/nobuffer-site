@@ -88,11 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(changeState, 5000 / speed);
 });
 
-// Stretch the planetary background (and the atom canvas overlay, which shares
-// its footprint) so they end together with the #ai section
+// Stretch the diagonal grid background (and the planetary background and atom
+// canvas overlay, which share its footprint) so they end together with the
+// #ai section
 document.addEventListener('DOMContentLoaded', () => {
   const aiSection = document.getElementById('ai');
   const layers = [
+    document.getElementById('box-background'),
     document.getElementById('planettary-background'),
     document.getElementById('constellation-canvas-container'),
   ].filter(Boolean);

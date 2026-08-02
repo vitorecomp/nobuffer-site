@@ -1,13 +1,13 @@
-//- Move it to a a template
-#backyard-mech.relative.isolate.overflow-hidden.px-6.pt-6.pb-24(, class='sm:pt-8 sm:pb-32 lg:overflow-visible lg:px-0')
-  .mx-auto.grid.max-w-2xl.grid-cols-1.gap-y-16.gap-x-8(
-    class='lg:mx-0 lg:max-w-none lg:grid-cols-1 lg:items-center lg:gap-y-10'
+#backyard-mech.relative.isolate.z-10.px-6(class='lg:px-0')
+  #bottom-detail.pointer-events-none.absolute.z-10.bg-teal-600(
+    class='left-1/2 -translate-x-1/2 -bottom-32 sm:-bottom-40 lg:-bottom-36 w-48 h-48 sm:w-80 sm:h-64 lg:w-[30rem]',
+    aria-hidden='true'
   )
-    .flex.justify-center(class='lg:mx-auto lg:w-full lg:max-w-7xl lg:gap-x-8 lg:px-8')
-      h1.mt-2.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl') Backyard Mech
-    div(class='lg:mx-auto lg:w-full lg:max-w-7xl lg:gap-x-8 lg:px-8')
-      img.mx-auto.max-w-none.rounded-xl.bg-gray-900.shadow-xl.ring-1(
-        class='w-[48rem] ring-gray-400/10 sm:w-[57rem]',
-        src='https://tailwindui.com/img/component-images/dark-project-app-screenshot.png',
-        alt=''
-      )
+
+  .relative.mx-auto.w-full.max-w-2xl.overflow-hidden.rounded-xl(
+    class='lg:mx-auto lg:max-w-none lg:w-[90vw]'
+  )
+
+    include carousel/carousel-mech.pug
+
+script(src=require('../../scripts/carousel.js'))

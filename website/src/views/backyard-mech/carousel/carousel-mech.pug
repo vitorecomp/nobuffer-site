@@ -1,0 +1,29 @@
+//- Same content-column idiom as main/ai/ai-companion (mx-auto max-w-7xl
+//- px-8) so the carousel's image/text align with the rest of the site,
+//- instead of the ad-hoc padding this used before.
+.relative.mx-auto.w-full.max-w-7xl.px-6.py-6(class='sm:px-10 sm:py-10 lg:px-8 lg:py-12')
+  #carousel-mech.grid.grid-cols-1.items-center.gap-8(class='sm:gap-10 lg:grid-cols-2 lg:gap-12')
+    .relative.order-1.flex.justify-center(class='lg:order-2')
+      #carousel-photo-stage.relative.w-full.max-w-md.aspect-square
+
+    .relative.order-2(class='lg:order-1')
+      #carousel-text-container
+
+      .mt-8.flex.items-center(class='sm:mt-10')
+        #carousel-counter.flex.items-center.font-mono.text-sm
+
+        button#carousel-next-button.flex.items-center.justify-center.rounded-full.bg-gray-900.text-white.shadow-lg.transition-transform.duration-200.h-12.w-12(
+          type='button',
+          class='sm:h-14 sm:w-14 hover:scale-105',
+          aria-label='Show next car'
+        )
+          svg.h-5.w-5(
+            class='sm:h-6 sm:w-6',
+            fill='none',
+            stroke='currentColor',
+            stroke-width='2',
+            viewBox='0 0 24 24',
+            xmlns='http://www.w3.org/2000/svg',
+            aria-hidden='true'
+          )
+            path(stroke-linecap='round', stroke-linejoin='round', d='M9 5l7 7-7 7')
