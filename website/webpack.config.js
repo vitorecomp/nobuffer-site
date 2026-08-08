@@ -30,6 +30,13 @@ module.exports = {
           filename: 'models/[name].[hash:8][ext][query]',
         },
       },
+      {
+        test: /\.pdf$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'files/[name].[hash:8][ext][query]',
+        },
+      },
     ],
   },
   devtool: 'eval',
@@ -43,6 +50,10 @@ module.exports = {
       css: {
         // output filename of extracted CSS file from source style defined in Pug
         filename: 'assets/css/[name].[contenthash:8].css',
+      },
+      loaderOptions: {
+        // also resolve source files referenced in <a href>, e.g. the resume PDF
+        sources: [{ tag: 'a', attributes: ['href'] }],
       },
     }),
   ],
