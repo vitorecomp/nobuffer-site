@@ -1,29 +1,29 @@
 // Backyard Mech carousel: slide data + rendering + controls all live here.
-// Add a car by pushing another require() onto `photos` -- the title derives
-// from the filename ("tube-car" -> "Tube Car") and the slides, counter, and
-// click handling all render from the array. The matching markup shell lives
-// in views/backyard-mech/backyard-mech.pug.
+// Add a car by pushing another slide object onto `slides` -- the photos,
+// counter, and click handling all render from the array. The matching
+// markup shell lives in views/backyard-mech/backyard-mech.pug.
 document.addEventListener('DOMContentLoaded', () => {
-  const photos = [
-    require('../assets/img/cars/subaru.png'),
-    require('../assets/img/cars/peugeot.png'),
-    require('../assets/img/cars/tube-car.png')
+
+  const slides = [
+    {
+      photo: require('../assets/img/cars/subaru.png'),
+      title: 'Subaru',
+      subtitle: '// nick: subarin',
+      tagline: '// An abandoned GC8 that became my first restoration during the pandemic. Today it is a full racing build, running a custom Speeduino distro and a self-built body control system.'
+    },
+    {
+      photo: require('../assets/img/cars/peugeot.png'),
+      title: 'NFS Peugeot',
+      subtitle: '// nick: 106 Peugeot',
+      tagline: "// My current daily driver — when it's running. Mostly stock: I modeled a few aero parts and let Alissa handle sound and body control."
+    },
+    {
+      photo: require('../assets/img/cars/tube-car.png'),
+      title: 'Racing Dream',
+      subtitle: '// nick: tube car',
+      tagline: '// The most ambitious project of the three: a car built from zero, pushing Alissa to her maximum by combining combustion and electric motors.'
+    }
   ];
-
-  const titleFromPhoto = (photo) => {
-    const base = photo.split('/').pop().split('.')[0];
-    return base
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  };
-
-  const slides = photos.map((photo) => ({
-    photo,
-    title: titleFromPhoto(photo),
-    subtitle: '// TODO: nickname',
-    tagline: '// TODO: write about this build.'
-  }));
 
   const photoStage = document.getElementById('carousel-photo-stage');
   const textContainer = document.getElementById('carousel-text-container');
