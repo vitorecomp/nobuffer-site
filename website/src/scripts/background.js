@@ -100,16 +100,29 @@ document.addEventListener('DOMContentLoaded', () => {
   ].filter(Boolean);
   if (!aiSection || !layers.length) return;
 
+  // Mobile browsers fire `resize` continuously while scrolling (URL bar
+  // show/hide), and getBoundingClientRect() wobbles by subpixel fractions
+  // with scroll position. Writing those raw values resized the constellation
+  // canvas on every event -- and resizing a canvas clears it, which flickered
+  // on phones. Round the target and skip writes that change nothing.
   function sizePlanetaryBackground() {
     const aiBottom = aiSection.getBoundingClientRect().bottom + window.scrollY;
     for (const layer of layers) {
       const top = layer.getBoundingClientRect().top + window.scrollY;
-      layer.style.height = `${Math.max(aiBottom - top, 0)}px`;
+      const next = Math.max(Math.round(aiBottom - top), 0);
+      const current = parseInt(layer.style.height, 10);
+      if (!Number.isNaN(current) && Math.abs(next - current) <= 1) continue;
+      layer.style.height = `${next}px`;
     }
   }
 
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(sizePlanetaryBackground, 150);
+  });
+
   sizePlanetaryBackground();
-  window.addEventListener('resize', sizePlanetaryBackground);
   // Section positions can shift as images/fonts finish loading, unlike the
   // old viewport-only anchor, so re-measure once everything has loaded
   window.addEventListener('load', sizePlanetaryBackground);

@@ -265,6 +265,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   new ResizeObserver(() => {
+    // setSize() clears the canvas until the next frame paints, so skip
+    // no-op notifications rather than blank the layer for nothing
+    if (container.clientWidth === width && container.clientHeight === height) return;
     width = container.clientWidth;
     height = container.clientHeight;
     renderer.setSize(width, height);
