@@ -36,6 +36,15 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
+/* Touch devices get a full-size tap target on the mobile menu button
+   without changing its visual padding on desktop */
+@media (pointer: coarse) {
+  #mobile-menu-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* Respect reduced-motion: stop the pulsing cursors, the SMIL orbit cubes
    (SMIL ignores CSS animation overrides, so hide the moving groups and keep
    the static arcs), and instant-jump anchor scrolling. The JS animation

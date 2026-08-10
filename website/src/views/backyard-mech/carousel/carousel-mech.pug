@@ -26,7 +26,9 @@
             | pandemic. Today it is a full racing build, running a custom
             | Speeduino distro and a self-built body control system.
 
-      .mt-8.flex.flex-col.items-start(class='sm:mt-10 sm:pb-10 lg:pb-40 lg:mt-auto')
+      //- hidden until carousel.js boots: without JS these controls are dead
+      //- weight next to the static noscript slide
+      #carousel-controls.mt-8.hidden.flex-col.items-start(class='sm:mt-10 sm:pb-10 lg:pb-40 lg:mt-auto')
         #carousel-counter.flex.items-center.font-mono.text-sm
 
         //- Both controls below the counter, following the terminal-button

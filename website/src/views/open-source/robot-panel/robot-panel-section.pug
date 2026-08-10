@@ -6,6 +6,11 @@
   class='h-[28rem] sm:h-[32rem] lg:mt-12 lg:h-[28rem]'
 )
   #robot-arm-stage.absolute.inset-0
+  //- Placeholder: no-JS visitors read the static text; robot.js swaps it to
+  //- a loading line, removes it when the model boots, or reports failure
+  #robot-arm-placeholder.absolute.inset-0.flex.items-center.justify-center
+    p.px-6.text-center.font-mono.text-xs.text-gray-400
+      | # ar3 robot arm — interactive 3D (needs JavaScript + WebGL)
 
 
 script(src=require('../../../scripts/robot.js'))

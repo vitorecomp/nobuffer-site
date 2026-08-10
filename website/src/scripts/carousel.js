@@ -33,6 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!photoStage || !textContainer || !counter || !nextButton || !prevButton) return;
 
+  // The controls ship hidden so no-JS visitors never see dead buttons
+  const controls = document.getElementById('carousel-controls');
+  if (controls) {
+    controls.classList.remove('hidden');
+    controls.classList.add('flex');
+  }
+
   const photoEls = [];
   const textEls = [];
   const indexEls = [];
@@ -139,7 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const preload = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
+          // Warm both neighbors so the first click OR swipe in either
+          // direction swaps instantly
           ensureLoaded((currentIndex + 1) % slides.length);
+          ensureLoaded((currentIndex - 1 + slides.length) % slides.length);
           preload.disconnect();
         }
       },
@@ -213,6 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.addEventListener('keydown', (event) => {
     if (!carouselVisible) return;
+    // Bare arrows only: Alt+Left is browser-back, and modified arrows are
+    // never meant for the carousel
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     if (event.key === 'ArrowRight') step(1);
     else if (event.key === 'ArrowLeft') step(-1);
   });

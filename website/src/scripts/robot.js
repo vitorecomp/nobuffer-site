@@ -15,9 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // model (no perspective skew) while the whole canvas moves.
   const panel = document.getElementById('robot-arm-container');
   const container = document.getElementById('robot-arm-stage');
-  if (!panel || !container || typeof THREE === 'undefined') return;
+  const placeholder = document.getElementById('robot-arm-placeholder');
+  const setPlaceholder = (text) => {
+    const p = placeholder && placeholder.querySelector('p');
+    if (p) p.textContent = text;
+  };
+  if (!panel || !container || typeof THREE === 'undefined') {
+    setPlaceholder('# ar3 robot arm — 3D unavailable on this connection');
+    return;
+  }
   if (typeof THREE.GLTFLoader === 'undefined') {
     console.warn('GLTFLoader missing — robot arm disabled');
+    setPlaceholder('# ar3 robot arm — 3D unavailable on this connection');
     return;
   }
 
@@ -226,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // The model sits below the fold: fetch the GLB only when the panel is
   // close to scrolling into view instead of on DOMContentLoaded.
   function loadRobot() {
+    setPlaceholder('$ ./render_ar3.sh — loading model...');
     const loader = new THREE.GLTFLoader();
     // robot.glb ships Draco-compressed; wire the matching r128 decoder when
     // its loader script made it in (if not, the load errors and the panel
@@ -269,9 +279,12 @@ document.addEventListener('DOMContentLoaded', () => {
         holder.add(mesh);
         addOutline(mesh);
       });
+      if (placeholder) placeholder.remove();
       // If the loop is paused (reduced motion / off-screen), still show the
       // freshly dressed arm as a static frame
       if (!running) renderer.render(scene, camera);
+    }, undefined, () => {
+      setPlaceholder('# ar3 robot arm — model failed to load');
     });
   }
   if ('IntersectionObserver' in window) {

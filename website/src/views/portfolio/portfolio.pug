@@ -44,8 +44,8 @@
   .mx-auto.max-w-7xl
     //- Terminal eyebrow + heading, light-background lockup (same as the hero)
     .max-w-2xl
-      p.font-mono.text-base.leading-7.text-teal-700
-        span.text-gray-500 ~$&nbsp;
+      p.font-mono.font-bold.text-base.leading-7.text-teal-400
+        span.text-white ~$&nbsp;
         | ls ~/projects
       h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
         | Portfolio
@@ -54,7 +54,7 @@
         | experiments, embedded toys, and the tools in between. All open source.
 
     //- Each project is a little terminal window; the whole card is a link
-    ul.mt-12.grid.grid-cols-1.gap-6(class='sm:grid-cols-2 lg:grid-cols-3')
+    ul.mt-12.mx-auto.w-full.max-w-5xl.grid.grid-cols-1.gap-6(class='sm:grid-cols-2 lg:grid-cols-3')
       each project in projects
         li
           a.group.flex.h-full.flex-col.overflow-hidden.rounded-lg.bg-gray-900.shadow-md.ring-1.transform.transition-all.duration-200(

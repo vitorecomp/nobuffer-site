@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{pug,html,js}'],
+  future: {
+    // Wrap every hover: variant in @media (hover: hover) so touch devices
+    // never get sticky first-tap hover states
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       fontFamily: {

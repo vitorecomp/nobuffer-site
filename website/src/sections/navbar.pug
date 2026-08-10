@@ -65,6 +65,27 @@ nav(class="relative z-20")
               span.text-gray-500(class='group-hover:text-gray-400') ./
               | social
 
+  //- Without JS the $ ls toggle is dead; give phones a static link panel
+  noscript
+    .mx-4.mb-3.rounded-lg.bg-gray-900.p-3.font-mono.text-base.shadow-lg(class='sm:hidden')
+      p.px-3.pb-2.text-xs.text-gray-400 $ ls ./links
+      .space-y-1
+        a.block.rounded-md.px-3.py-2.text-gray-300(href='https://github.com/vitorecomp', target='_blank', rel='noopener')
+          span.text-gray-400 ./
+          | github
+        a.block.rounded-md.px-3.py-2.text-gray-300(href='https://cases.vitorx86.dev', target='_blank', rel='noopener')
+          span.text-gray-400 ./
+          | portfolio
+        a.block.rounded-md.px-3.py-2.text-gray-300(href='https://blog.vitorx86.dev', target='_blank', rel='noopener')
+          span.text-gray-400 ./
+          | blog
+        a.block.rounded-md.px-3.py-2.text-gray-300(href=require('../assets/files/vitor-vieira-resume.pdf'), target='_blank', rel='noopener')
+          span.text-gray-400 ./
+          | resume
+        a.block.rounded-md.px-3.py-2.text-gray-300(href='https://www.linkedin.com/in/vieiravitor', target='_blank', rel='noopener')
+          span.text-gray-400 ./
+          | social
+
   //- Mobile menu — terminal panel, toggled by the "$ ls" button
   #mobile-menu.hidden(class='sm:hidden')
     .mx-4.mb-3.rounded-lg.bg-gray-900.p-3.font-mono.text-base.shadow-lg

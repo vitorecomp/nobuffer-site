@@ -1,4 +1,6 @@
-.fixed.inset-y-0.right-0.pointer-events-none.z-50.w-full
+//- Desktop/tablet accelerator only: on phones the dots overlap the content
+//- edge and duplicate what thumb-scrolling already does
+.fixed.inset-y-0.right-0.pointer-events-none.z-50.hidden.w-full(class='sm:block')
   .max-w-7xl.mx-auto.h-full.relative
     .absolute.right-6.transform.pointer-events-auto(class='lg:right-8 top-1/2 -translate-y-1/2')
       ul.space-y-4.flex.flex-col.items-center

@@ -2,7 +2,7 @@ doctype html
 html.scroll-smooth(lang='en')
   head
     meta(charset='utf-8')
-    meta(content='width=device-width, initial-scale=1', name='viewport')
+    meta(content='width=device-width, initial-scale=1, viewport-fit=cover', name='viewport')
     title Vitor Open Dev
     meta(
       name='description',
@@ -15,7 +15,9 @@ html.scroll-smooth(lang='en')
       content='Google developer who loves coding, tinkering with hardware, and everything open source.'
     )
     meta(property='og:url', content='https://www.vitorx86.dev/')
-    - const ogImage = require('./assets/img/profile_picture.webp')
+    //- JPEG, not webp: LinkedIn's scraper (the share surface that matters
+    //- for a recruiter-first site) has a history of mishandling webp
+    - const ogImage = require('./assets/img/og-image.jpg')
     meta(property='og:image', content='https://www.vitorx86.dev/' + ogImage)
     meta(name='twitter:card', content='summary')
     link(rel='canonical', href='https://www.vitorx86.dev/')
@@ -75,5 +77,6 @@ html.scroll-smooth(lang='en')
       include views/backyard-mech/backyard-mech.pug
       include views/ai-companion/ai-companion.pug
 
-    footer.relative.z-10.bg-white.pb-10(class='lg:pb-20')
+    //- max() keeps the terminal sign-off above notched phones' home indicator
+    footer.relative.z-10.bg-white(class='pb-[max(2.5rem,env(safe-area-inset-bottom))] lg:pb-20')
       include views/contacts/contacts.pug

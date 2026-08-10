@@ -15,7 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const speed = 5;
   let pass = 1;
 
+  // The grid spans only the top of the page; stop churning cells once the
+  // visitor has scrolled past it
+  let gridOnScreen = true;
+  if ('IntersectionObserver' in window) {
+    const host = document.getElementById('box-background');
+    if (host) {
+      new IntersectionObserver((entries) => {
+        gridOnScreen = entries.some((e) => e.isIntersecting);
+      }).observe(host);
+    }
+  }
+
   function changeState() {
+    if (!gridOnScreen) return;
     if (document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     pass = pass * -1;
     // Fade out some boxes
