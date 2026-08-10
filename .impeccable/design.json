@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-09T21:40:33-03:00",
+  "title": "Design System: vitorx86.dev",
+  "extensions": {
+    "colorMeta": {
+      "prompt-teal": {
+        "role": "primary",
+        "displayName": "Prompt Teal",
+        "canonical": "#0d9488",
+        "tonalRamp": ["#134e4a", "#115e59", "#0f766e", "#0d9488", "#14b8a6", "#2dd4bf", "#5eead4", "#ccfbf1"]
+      },
+      "phosphor-green": {
+        "role": "secondary",
+        "displayName": "Phosphor Green",
+        "canonical": "#4ade80",
+        "tonalRamp": ["#14532d", "#166534", "#15803d", "#16a34a", "#22c55e", "#4ade80", "#86efac", "#dcfce7"]
+      },
+      "anime-indigo": {
+        "role": "tertiary",
+        "displayName": "Anime Indigo (AI section guest)",
+        "canonical": "#a5b4fc",
+        "tonalRamp": ["#312e81", "#3730a3", "#4338ca", "#4f46e5", "#6366f1", "#818cf8", "#a5b4fc", "#e0e7ff"]
+      },
+      "jacket-pink": {
+        "role": "tertiary",
+        "displayName": "Jacket Pink (AI-companion guest)",
+        "canonical": "#f9a8d4",
+        "tonalRamp": ["#831843", "#9d174d", "#be185d", "#db2777", "#ec4899", "#f472b6", "#f9a8d4", "#fce7f3"]
+      },
+      "terminal-ink": {
+        "role": "neutral",
+        "displayName": "Terminal Ink",
+        "canonical": "#111827",
+        "tonalRamp": ["#111827", "#1f2937", "#374151", "#4b5563", "#6b7280", "#9ca3af", "#d1d5db", "#f3f4f6"]
+      },
+      "midnight-garage": {
+        "role": "neutral",
+        "displayName": "Midnight Garage",
+        "canonical": "#14142f",
+        "tonalRamp": ["#0a0a18", "#14142f", "#1e1e46", "#28285e", "#3b3b78", "#5c5ca0", "#8f8fc4", "#c9c9e6"]
+      },
+      "snow-paper": {
+        "role": "neutral",
+        "displayName": "Snow Paper",
+        "canonical": "#FFFAFA",
+        "tonalRamp": ["#1c1917", "#44403c", "#78716c", "#a8a29e", "#d6d3d1", "#e7e5e4", "#f5f5f4", "#FFFAFA"]
+      },
+      "clay-blob": {
+        "role": "neutral",
+        "displayName": "Clay Blob",
+        "canonical": "#DED3C7",
+        "tonalRamp": ["#4a4036", "#6b5d4f", "#8c7a68", "#ad9782", "#c4b0a0", "#DED3C7", "#ebe4db", "#f7f3ee"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero title with pulsing cursor; AI banner variant goes 800 weight with 0.35em tracking." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles — gray-900 on light, white on dark panels." },
+      "body": { "displayName": "Body", "purpose": "Section copy — gray-700 on light, gray-300 on dark." },
+      "label": { "displayName": "Label / Eyebrow", "purpose": "The ~$ prompt lockup that opens every section." },
+      "tag": { "displayName": "Tag / Caption", "purpose": "Chips, card title bars, # comment captions." }
+    },
+    "shadows": [
+      { "name": "resting-card", "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)", "purpose": "Terminal buttons and cards at rest (shadow-md)." },
+      { "name": "hover-prominent", "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)", "purpose": "Hover state; link panels and mobile menu (shadow-lg)." },
+      { "name": "showcase", "value": "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)", "purpose": "Section glass cards and card hover peaks (shadow-xl)." },
+      { "name": "slab", "value": "0 25px 50px -12px rgb(0 0 0 / 0.25)", "purpose": "The skewed anime promo slab (shadow-2xl)." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1) 200ms", "purpose": "Default for hover lifts, color shifts, dot-nav growth." },
+      { "name": "ease-quick", "value": "cubic-bezier(0.4, 0, 0.2, 1) 150ms", "purpose": "Nav link color inversion." },
+      { "name": "cursor-pulse", "value": "cubic-bezier(0.4, 0, 0.6, 1) 2s infinite", "purpose": "The ▌ block cursor after hero/footer headlines (Tailwind animate-pulse)." },
+      { "name": "orbit", "value": "linear 14s infinite (SMIL animateMotion)", "purpose": "Cubes orbiting the hero portrait." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "content-column", "value": "80rem (max-w-7xl)" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Terminal Button",
+      "kind": "button",
+      "refersTo": "button-terminal",
+      "description": "The signature CTA: a shell command you can press.",
+      "html": "<a class=\"ds-btn-terminal\" href=\"#\"><span class=\"ds-btn-prefix\">$</span><span>./view_all_repos.sh</span><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.25 4.5l7.5 7.5-7.5 7.5\"/></svg></a>",
+      "css": ".ds-btn-terminal { display: inline-flex; align-items: center; gap: 12px; background: #111827; color: #4ade80; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.875rem; text-decoration: none; padding: 12px 20px; border: 1px solid #374151; border-radius: 8px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); } .ds-btn-terminal:hover { background: #1f2937; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); transform: translateY(-2px); } .ds-btn-terminal:focus-visible { outline: 2px solid #2dd4bf; outline-offset: 2px; } .ds-btn-prefix { color: #6b7280; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Navbar link named as an executable; inverts to a dark pill on hover.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link\" href=\"#\"><span class=\"ds-nav-prefix\">./</span>github</a><a class=\"ds-nav-link\" href=\"#\"><span class=\"ds-nav-prefix\">./</span>portfolio</a><a class=\"ds-nav-link\" href=\"#\"><span class=\"ds-nav-prefix\">./</span>blog</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 8px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.875rem; } .ds-nav-link { color: #111827; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: color 0.15s, background-color 0.15s; } .ds-nav-link .ds-nav-prefix { color: #9ca3af; } .ds-nav-link:hover { background: #111827; color: #4ade80; } .ds-nav-link:hover .ds-nav-prefix { color: #6b7280; } .ds-nav-link:focus-visible { outline: 2px solid #0d9488; outline-offset: 2px; }"
+    },
+    {
+      "name": "Tag Chip",
+      "kind": "chip",
+      "refersTo": "tag-chip",
+      "description": "Quiet mono capability tag; accent follows the section (teal / indigo / pink).",
+      "html": "<div class=\"ds-chip-row\"><span class=\"ds-chip\">rust</span><span class=\"ds-chip\">vector-search</span><span class=\"ds-chip ds-chip-pink\">racing-insights</span></div>",
+      "css": ".ds-chip-row { display: flex; gap: 8px; flex-wrap: wrap; } .ds-chip { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.75rem; color: #2dd4bf; border: 1px solid rgba(45, 212, 191, 0.4); border-radius: 4px; padding: 4px 8px; } .ds-chip-pink { color: #f9a8d4; border-color: rgba(244, 114, 182, 0.4); }"
+    },
+    {
+      "name": "Terminal Window Card",
+      "kind": "card",
+      "refersTo": "card-terminal",
+      "description": "Project card as a mini terminal window: traffic lights, path title, pinned action footer. Whole card is the link.",
+      "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-card-bar\"><span class=\"ds-dot ds-dot-r\"></span><span class=\"ds-dot ds-dot-y\"></span><span class=\"ds-dot ds-dot-g\"></span><span class=\"ds-card-path\">~/projects/turbovec</span></div><div class=\"ds-card-body\"><p class=\"ds-card-desc\">A vector index built on TurboQuant — Rust core with Python bindings.</p><p class=\"ds-card-action\"><span class=\"ds-card-prefix\">$</span> ./open_repo.sh <span class=\"ds-card-arrow\">→</span></p></div></a>",
+      "css": ".ds-card { display: flex; flex-direction: column; width: 320px; background: #111827; border-radius: 8px; overflow: hidden; text-decoration: none; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid rgba(156, 163, 175, 0.1); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); } .ds-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); } .ds-card-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: rgba(31, 41, 55, 0.6); border-bottom: 1px solid rgba(55, 65, 81, 0.6); } .ds-dot { width: 12px; height: 12px; border-radius: 9999px; } .ds-dot-r { background: rgba(239, 68, 68, 0.8); } .ds-dot-y { background: rgba(234, 179, 8, 0.8); } .ds-dot-g { background: rgba(34, 197, 94, 0.8); } .ds-card-path { margin-left: 8px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.75rem; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-card-body { display: flex; flex-direction: column; flex: 1; padding: 20px; } .ds-card-desc { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.875rem; line-height: 1.5; color: #d1d5db; margin: 0; } .ds-card-action { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.875rem; color: #4ade80; margin: 20px 0 0; } .ds-card-prefix { color: #6b7280; } .ds-card-arrow { display: inline-block; margin-left: 8px; transition: transform 0.2s; } .ds-card:hover .ds-card-arrow { transform: translateX(4px); }"
+    },
+    {
+      "name": "Eyebrow Lockup",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "The section-opening prompt: muted ~$ prefix, teal command, then the mono headline with optional pulsing cursor.",
+      "html": "<div class=\"ds-lockup\"><p class=\"ds-eyebrow\"><span class=\"ds-eyebrow-prefix\">~$&nbsp;</span>cat ./contacts.txt</p><h2 class=\"ds-lockup-title\">Let's connect<span class=\"ds-cursor\">▌</span></h2></div>",
+      "css": ".ds-lockup { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; } .ds-eyebrow { font-size: 1rem; line-height: 1.75; color: #0d9488; margin: 0; } .ds-eyebrow-prefix { color: #9ca3af; } .ds-lockup-title { margin: 8px 0 0; font-size: 1.875rem; font-weight: 700; letter-spacing: -0.025em; color: #111827; } .ds-cursor { color: #0d9488; animation: ds-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; } @keyframes ds-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Hacker's Garage",
+    "overview": "The whole site is a developer's terminal session that happens to live in a garage. Every section opens as a shell command, every link is named like an executable, and the things being worked on — race cars, ESP32 watches, robots, an anime AI companion — sit beside the code as equals. The register is playful but precise: the jokes live in the copy, while the pixels stay disciplined — one typeface, one content column, consistent lockups, production-grade alignment. Light and dark alternate like a garage with the door open: a snow-white page for the workbench sections, full-bleed dark panels with faint diagonal blueprint grids for the showcase moments. Terminal-dark objects float on the light page; on dark panels, content glows in phosphor green and bright teal instead.",
+    "keyCharacteristics": [
+      "Terminal grammar everywhere: ~$ prompt eyebrows, $ command CTAs, ./executable link names, # comment captions.",
+      "One typeface (JetBrains Mono) carrying the entire hierarchy.",
+      "Alternating light page / full-bleed dark panels with 45° blueprint grid textures.",
+      "Interactive elements are 'floating terminals': dark, rounded-lg, real shadows, hover lift.",
+      "Each themed section may bring one guest accent from its own artwork; the house accents stay teal and green."
+    ],
+    "rules": [
+      { "name": "The Prompt Rule", "body": "Accents go where a terminal would put them: teal for prompts and ambient marks, green for anything executable (links, buttons, actions). If it isn't a prompt or an action, it stays neutral.", "section": "colors" },
+      { "name": "The Guest Accent Rule", "body": "A themed section may introduce exactly one accent family taken from its own artwork (indigo/blue from the anime promo, pink from Alissa's jacket). Guest accents never appear outside their section; the house accents (teal, green) appear everywhere.", "section": "colors" },
+      { "name": "The One Font Rule", "body": "JetBrains Mono is the only typeface on the site. New work never introduces a second family — emphasis comes from weight, size, and the palette's voices.", "section": "typography" },
+      { "name": "The Eyebrow Lockup Rule", "body": "Every section opens with the same two-tone prompt: muted ~$ prefix, then the command in teal. The command is thematic and real-looking.", "section": "typography" },
+      { "name": "The Floating Terminal Rule", "body": "If you can click it, it floats and lifts on hover. If it's environment (a full-bleed panel, a background grid), it's flat with at most a hairline ring. Never shadow a dark panel.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do open every new section with the eyebrow lockup — a muted ~$ prefix and a thematic teal command — before the headline.",
+      "Do name every link and CTA as an executable: ./name for nav links, $ ./verb_noun.sh for buttons, # comment captions in gray-500 for context.",
+      "Do keep interactive objects dark and floating: gray-900 surface, green action text, shadow at rest, ~200ms hover lift.",
+      "Do reuse the content column (mx-auto max-w-7xl px-6 lg:px-8) for anything inside a panel, and stack text-first on mobile using lg:order-* for desktop swaps.",
+      "Do texture any new dark panel with the 45° blueprint grid (#3b3b78, 35% opacity, 36px cells) and separate it with ring-1 ring-gray-400/10."
+    ],
+    "donts": [
+      "Don't introduce a second typeface, ever — hierarchy is weight/size/color in JetBrains Mono.",
+      "Don't let a guest accent (indigo/blue, pink) escape its home section; site-wide accents are teal and green only.",
+      "Don't put shadows on full-bleed dark panels, and don't leave interactive cards shadowless — the depth rule is what separates object from environment.",
+      "Don't use Tailwind classes that aren't in this build (text-primary, text-body-color, text-dark came from a template and compile to nothing) — the config is stock Tailwind + JetBrains Mono.",
+      "Don't write buttons or links in sentence case ('View my projects') — the terminal grammar (./view_projects.sh) is the brand voice."
+    ]
+  }
+}
