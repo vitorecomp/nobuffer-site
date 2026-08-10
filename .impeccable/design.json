@@ -101,7 +101,7 @@
       "refersTo": "tag-chip",
       "description": "Quiet mono capability tag; accent follows the section (teal / indigo / pink).",
       "html": "<div class=\"ds-chip-row\"><span class=\"ds-chip\">rust</span><span class=\"ds-chip\">vector-search</span><span class=\"ds-chip ds-chip-pink\">racing-insights</span></div>",
-      "css": ".ds-chip-row { display: flex; gap: 8px; flex-wrap: wrap; } .ds-chip { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.75rem; color: #2dd4bf; border: 1px solid rgba(45, 212, 191, 0.4); border-radius: 4px; padding: 4px 8px; } .ds-chip-pink { color: #f9a8d4; border-color: rgba(244, 114, 182, 0.4); }"
+      "css": ".ds-chip-row { display: flex; gap: 8px; flex-wrap: wrap; } .ds-chip { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 0.75rem; color: #5eead4; border: 1px solid rgba(45, 212, 191, 0.4); border-radius: 4px; padding: 4px 8px; } .ds-chip-pink { color: #f9a8d4; border-color: rgba(244, 114, 182, 0.4); }"
     },
     {
       "name": "Terminal Window Card",
@@ -135,7 +135,7 @@
       { "name": "The Guest Accent Rule", "body": "A themed section may introduce exactly one accent family taken from its own artwork (indigo/blue from the anime promo, pink from Alissa's jacket). Guest accents never appear outside their section; the house accents (teal, green) appear everywhere.", "section": "colors" },
       { "name": "The One Font Rule", "body": "JetBrains Mono is the only typeface on the site. New work never introduces a second family — emphasis comes from weight, size, and the palette's voices.", "section": "typography" },
       { "name": "The Eyebrow Lockup Rule", "body": "Every section opens with the same two-tone prompt: muted ~$ prefix, then the command in teal. The command is thematic and real-looking.", "section": "typography" },
-      { "name": "The Floating Terminal Rule", "body": "If you can click it, it floats and lifts on hover. If it's environment (a full-bleed panel, a background grid), it's flat with at most a hairline ring. Never shadow a dark panel.", "section": "elevation" }
+      { "name": "The Floating Terminal Rule", "body": "If you can click it, it floats and lifts on hover. Environment (background grids, detail bands) stays flat. Section-level dark panels carry at most the showcase shadow plus their hairline ring — objects inside a dark panel never cast shadows of their own.", "section": "elevation" }
     ],
     "dos": [
       "Do open every new section with the eyebrow lockup — a muted ~$ prefix and a thematic teal command — before the headline.",

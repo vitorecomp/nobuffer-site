@@ -108,7 +108,7 @@ Light and dark alternate like a garage with the door open: a snow-white page for
 A near-monochrome terminal palette — ink, graphite, snow — with teal as the prompt voice, phosphor green as the action voice, and short-lived guest accents borrowed from each section's artwork.
 
 ### Primary
-- **Prompt Teal** (#0d9488): the site's ambient accent on light backgrounds — `~$` eyebrow commands, the hero's orbit line and cubes, the active dot-nav dot, the vertical detail band. It marks "the machine is talking."
+- **Prompt Teal** (#0d9488): the site's ambient accent on light backgrounds — the hero's orbit line and cubes, the active dot-nav dot, the vertical detail band. It marks "the machine is talking." Eyebrow *text* on light backgrounds uses its darker step (#0f766e, teal-700) so the command passes AA contrast on snow.
 - **Prompt Teal Bright** (#2dd4bf): the same voice adapted for dark panels — eyebrows and `»` caption markers on `midnight-garage` and `terminal-ink` surfaces.
 
 ### Secondary
@@ -164,10 +164,10 @@ A hybrid, governed by object type: **interactive terminal objects float; environ
 ### Shadow Vocabulary
 - **Resting card** (`box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)` — shadow-md): terminal buttons and cards at rest.
 - **Hover / prominent** (`0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)` — shadow-lg): hover state, link panels, mobile menu.
-- **Showcase** (`0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)` — shadow-xl): section panels that need presence (open-source glass card) and card hover peaks.
+- **Showcase** (`0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)` — shadow-xl): section panels that need presence (the open-source card) and card hover peaks.
 
 ### Named Rules
-**The Floating Terminal Rule.** If you can click it, it floats and lifts on hover. If it's environment (a full-bleed panel, a background grid), it's flat with at most a hairline ring. Never shadow a dark panel.
+**The Floating Terminal Rule.** If you can click it, it floats and lifts on hover. Environment (background grids, detail bands) stays flat. Section-level dark panels carry at most the showcase shadow (`shadow-xl`) plus their hairline ring — objects *inside* a dark panel never cast shadows of their own.
 
 ## Shapes
 
@@ -196,13 +196,13 @@ Softly rounded rectangles are the default: `rounded-lg` (0.5rem) for buttons, ca
 ### Navigation
 - **Desktop:** mono 0.875rem links named `./github`, `./portfolio`… — gray-900 text, `./` prefix in gray-400; hover inverts to a gray-900 pill with green text (`rounded-md`, 150ms).
 - **Mobile:** a `$ ls` button (gray-900, green mono) opens a gray-900 terminal panel headed by a faint `$ ls ./links` line; links are gray-300 rows that hover to gray-800/green.
-- **Dot-nav:** fixed right-edge column of 0.75rem gray-400 dots; active dot turns `prompt-teal` and stretches to 1.5rem height (200ms).
+- **Dot-nav:** fixed right-edge column of 0.75rem gray-500 dots (hidden on phones); active dot turns `prompt-teal`, stretches to 1.5rem height (200ms), and carries `aria-current`.
 
 ### The Eyebrow Lockup (signature)
-Every section header: `p` in mono label size — `~$ ` prefix (gray-400 on light / white on dark) + command text (teal-600 light / teal-400 dark) — followed by the mono headline, then body copy at mt-6. The hero and footer headlines append a pulsing `▌` cursor in teal (`animate-pulse`).
+Every section header: `p` in mono label size — `~$ ` prefix (gray-500 on light / white on dark) + command text (teal-700 + `font-bold` on light / teal-400 on dark) — followed by the mono headline, then body copy at mt-6. The hero and footer headlines append a pulsing `▌` cursor in teal (`animate-pulse`, aria-hidden).
 
 ### The Dark Showcase Panel (signature)
-Full-bleed `midnight-garage` (or `bg-gray-900/60` glass) container, `ring-1 ring-gray-400/10`, 45° blueprint grid overlay (#3b3b78 at 0.35, 36px cells), holding a two-column story: text lockup on one side, an art object (skewed slab, glowing character, 3D robot) on the other. Guest accent allowed inside; shadows not.
+Full-bleed `midnight-garage` (or solid `terminal-ink`) container, `ring-1 ring-gray-400/10`, 45° blueprint grid overlay (#3b3b78 at 0.35, 36px cells) on the midnight panels, holding a two-column story: text lockup on one side, an art object (skewed slab, glowing character, 3D robot) on the other. Guest accent allowed inside; interior shadows not. Panels are opaque — text contrast must never depend on what sits behind the card.
 
 ## Do's and Don'ts
 

@@ -29,7 +29,7 @@ A portfolio told entirely in the developer's own working idiom — terminal prom
 
 - Static site only — no backend; anything interactive must run client-side (Three.js robot, carousel, constellation background already do).
 - **Subdomain reality (confirmed 2026-08-09): only www.vitorx86.dev is live.** blog.vitorx86.dev, cases.vitorx86.dev, demo.vitorx86.dev (and any other *.vitorx86.dev) do NOT resolve yet — they are planned. Future work must not present them as live; the AI section's "running live right now" demo claim and the navbar/portfolio links to cases/blog currently point at dead hosts and need either the subdomains brought up or the copy/links softened.
-- Resume is served as a local PDF: `website/src/assets/files/curriculo-en.pdf` (linked from the contacts footer).
+- Resume is served as a local PDF: `website/src/assets/files/vitor-vieira-resume.pdf` (linked from the navbar, the hero CTA, and the contacts footer).
 - Open decision: whether the navbar's `./portfolio` should point at the in-page `#portfolio` section until cases.vitorx86.dev is live.
 
 ## Brand Commitments

@@ -5,7 +5,7 @@ div.text-center(class='sm:text-left lg:pr-4')
       | whoami
     h1.mt-2.font-mono.text-4xl.font-bold.tracking-tight.text-gray-900(class='sm:text-5xl lg:text-6xl')
       | Hi, I'm Vitor
-      span.text-teal-600.animate-pulse &#9612;
+      span.text-teal-600.animate-pulse(aria-hidden='true') &#9612;
     p.mt-6.font-mono.text-xl.leading-9.text-gray-700
       | Google developer who loves coding, tinkering with hardware, and everything open source.
     .mt-10
@@ -22,7 +22,8 @@ div.text-center(class='sm:text-left lg:pr-4')
           stroke='currentColor',
           stroke-width='2',
           viewBox='0 0 24 24',
-          xmlns='http://www.w3.org/2000/svg'
+          xmlns='http://www.w3.org/2000/svg',
+          aria-hidden='true'
         )
           path(
             stroke-linecap='round',
