@@ -1,4 +1,4 @@
-div
+div(class='lg:pl-12')
   //- Terminal eyebrow keeps the site identity inside the anime-style panel
   p.font-mono.text-sm.leading-7.text-teal-400
     span.text-white ~$&nbsp;
@@ -6,16 +6,18 @@ div
 
   //- Big tracked-out banner title with its Japanese subtitle,
   //- like the MESSAGE / メッセージ lockup on anime promo sites
-  h1.mt-4.font-mono.text-6xl.font-extrabold.text-white(class='sm:text-7xl tracking-[0.35em]') AI
+  h2.mt-4.font-mono.text-6xl.font-extrabold.text-white(class='sm:text-7xl tracking-[0.35em]') AI
   .mt-3.flex.items-center.gap-3
     span.text-xs.text-blue-400 ◤
-    span.font-mono.text-sm.tracking-widest.text-gray-400 人工知能 — artificial intelligence
+    span.font-mono.text-sm.tracking-widest.text-gray-400
+      span(lang='ja') 人工知能
+      |  — artificial intelligence
 
   //- The quiet three-line whisper before the loud statement
   p.mt-8.font-mono.text-sm.leading-7.text-gray-300
     | Before the hype. Genetic algorithms, OCR, computer vision, LLMs.
     br
-    | Building it, was really amazing.
+    | Building it was really amazing.
 
   //- Bold statement as stacked white highlight boxes, black text
   .mt-8.space-y-3
@@ -24,7 +26,7 @@ div
 
   p.mt-8.font-mono.text-lg.leading-8.text-gray-300
     | More than a decade of AI projects — from genetic-algorithm training,
-    | advanced OCR, Fine tuning Models to document search. Most of them live in my
+    | advanced OCR, and model fine-tuning to document search. Most of them live in my
     | repos, but one is running live right now: an AI anime character
     | generator you can try in your browser.
 
@@ -38,10 +40,10 @@ div
   .mt-10
     a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
       href='https://demo.vitorx86.dev',
-      target='_blank',
+      target='_blank', rel='noopener',
       class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
     )
-      span.text-gray-500 $
+      span.text-gray-400 $
       span ./generate_character.sh
       svg.h-5.w-5.text-green-400(
         class='sm:h-6 sm:w-6',
@@ -57,4 +59,4 @@ div
           stroke-linejoin='round',
           d='M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z'
         )
-    p.mt-3.font-mono.text-xs.text-gray-500 # AI anime character generator — live demo
+    p.mt-3.font-mono.text-xs.text-gray-400 # AI anime character generator — live demo

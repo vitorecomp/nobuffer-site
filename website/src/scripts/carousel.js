@@ -6,22 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const slides = [
     {
-      photo: require('../assets/img/cars/subaru.png'),
+      photo: require('../assets/img/cars/subaru.webp'),
       title: 'Subaru',
-      subtitle: '// nick: subarin',
-      tagline: '// An abandoned GC8 that became my first restoration during the pandemic. Today it is a full racing build, running a custom Speeduino distro and a self-built body control system.'
+      subtitle: '# nick: subarin',
+      tagline: '# An abandoned GC8 that became my first restoration during the pandemic. Today it is a full racing build, running a custom Speeduino distro and a self-built body control system.'
     },
     {
-      photo: require('../assets/img/cars/peugeot.png'),
+      photo: require('../assets/img/cars/peugeot.webp'),
       title: 'NFS Peugeot',
-      subtitle: '// nick: 106 Peugeot',
-      tagline: "// My current daily driver — when it's running. Mostly stock: I modeled a few aero parts and let Alissa handle sound and body control."
+      subtitle: '# nick: 106 Peugeot',
+      tagline: "# My current daily driver — when it's running. Mostly stock: I modeled a few aero parts and let Alissa handle sound and body control."
     },
     {
-      photo: require('../assets/img/cars/tube-car.png'),
+      photo: require('../assets/img/cars/tube-car.webp'),
       title: 'Racing Dream',
-      subtitle: '// nick: tube car',
-      tagline: '// The most ambitious project of the three: a car built from zero, pushing Alissa to her maximum by combining combustion and electric motors.'
+      subtitle: '# nick: tube car',
+      tagline: '# The most ambitious project of the three: a car built from zero, pushing Alissa to her maximum by combining combustion and electric motors.'
     }
   ];
 
@@ -29,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const textContainer = document.getElementById('carousel-text-container');
   const counter = document.getElementById('carousel-counter');
   const nextButton = document.getElementById('carousel-next-button');
+  const prevButton = document.getElementById('carousel-prev-button');
 
-  if (!photoStage || !textContainer || !counter || !nextButton) return;
+  if (!photoStage || !textContainer || !counter || !nextButton || !prevButton) return;
 
   const photoEls = [];
   const textEls = [];
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const track = document.createElement('span');
     track.className =
       'carousel-connector relative mx-2 h-px overflow-hidden bg-gray-300 transition-all duration-500 ease-out ' +
-      (isActive ? 'w-15 sm:w-20' : 'w-6 sm:w-10');
+      (isActive ? 'w-16 sm:w-20' : 'w-6 sm:w-10');
     track.setAttribute('aria-hidden', 'true');
 
     const fill = document.createElement('span');
@@ -59,7 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const img = document.createElement('img');
     img.className = 'carousel-photo absolute inset-0 h-full w-full object-contain';
     if (index !== 0) img.classList.add('hidden');
-    img.src = slide.photo;
+    img.width = 1024;
+    img.height = 1024;
+    img.decoding = 'async';
+    // Only the first photo gets a src up front (and lazily at that -- the
+    // section is several screens down); the others wait until needed.
+    if (index === 0) {
+      img.loading = 'lazy';
+      img.src = slide.photo;
+    } else {
+      img.dataset.src = slide.photo;
+    }
     img.alt = slide.title;
     photoStage.appendChild(img);
     photoEls.push(img);
@@ -69,15 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index !== 0) text.classList.add('hidden');
 
     const subtitle = document.createElement('p');
-    subtitle.className = 'font-mono text-sm text-teal-600';
+    subtitle.className = 'font-mono text-lg text-teal-700';
     subtitle.textContent = slide.subtitle;
 
     const title = document.createElement('h3');
-    title.className = 'mt-3 font-mono text-4xl font-extrabold text-gray-900 sm:text-5xl';
+    title.className = 'mt-3 font-mono text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl';
     title.textContent = slide.title;
 
     const tagline = document.createElement('p');
-    tagline.className = 'mt-4 font-mono text-sm leading-6 text-gray-700';
+    tagline.className = 'mt-4 max-w-prose font-mono text-lg leading-8 text-gray-700';
     tagline.textContent = slide.tagline;
 
     text.appendChild(subtitle);
@@ -99,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const label = document.createElement('span');
     label.className =
       'carousel-index transition-colors duration-300 ' +
-      (index === 0 ? 'text-teal-600 font-bold' : 'text-gray-500');
+      (index === 0 ? 'text-teal-700 font-bold' : 'text-gray-500');
     label.textContent = String(index + 1).padStart(2, '0');
     counter.appendChild(label);
     indexEls.push(label);
@@ -113,6 +124,29 @@ document.addEventListener('DOMContentLoaded', () => {
   connectorEls.push({ track: lastTrack, fill: lastFill });
 
   let currentIndex = 0;
+
+  const ensureLoaded = (index) => {
+    const img = photoEls[index];
+    if (img && img.dataset.src) {
+      img.src = img.dataset.src;
+      delete img.dataset.src;
+    }
+  };
+
+  // When the carousel nears the viewport, fetch the upcoming slide so the
+  // first "next" click swaps instantly instead of flashing a blank stage.
+  if ('IntersectionObserver' in window) {
+    const preload = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          ensureLoaded((currentIndex + 1) % slides.length);
+          preload.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    preload.observe(photoStage);
+  }
 
   const showSlide = (index) => {
     photoEls.forEach((photo, i) => {
@@ -134,9 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
     indexEls.forEach((label, i) => {
       if (i === index) {
         label.classList.remove('text-gray-500');
-        label.classList.add('text-teal-600', 'font-bold');
+        label.classList.add('text-teal-700', 'font-bold');
       } else {
-        label.classList.remove('text-teal-600', 'font-bold');
+        label.classList.remove('text-teal-700', 'font-bold');
         label.classList.add('text-gray-500');
       }
     });
@@ -144,20 +178,66 @@ document.addEventListener('DOMContentLoaded', () => {
     connectorEls.forEach(({ track, fill }, i) => {
       if (i === index) {
         fill.classList.remove('scale-x-0');
-        fill.classList.add('scale-x-200');
+        fill.classList.add('scale-x-100');
         track.classList.remove('w-6', 'sm:w-10');
-        track.classList.add('w-15', 'sm:w-20');
+        track.classList.add('w-16', 'sm:w-20');
       } else {
-        fill.classList.remove('scale-x-200');
+        fill.classList.remove('scale-x-100');
         fill.classList.add('scale-x-0');
-        track.classList.remove('w-15', 'sm:w-20');
+        track.classList.remove('w-16', 'sm:w-20');
         track.classList.add('w-6', 'sm:w-10');
       }
     });
   };
 
-  nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % slides.length;
+  const step = (delta) => {
+    currentIndex = (currentIndex + delta + slides.length) % slides.length;
+    ensureLoaded(currentIndex);
+    ensureLoaded((currentIndex + 1) % slides.length);
+    ensureLoaded((currentIndex - 1 + slides.length) % slides.length);
     showSlide(currentIndex);
+  };
+
+  nextButton.addEventListener('click', () => step(1));
+  prevButton.addEventListener('click', () => step(-1));
+
+  // Arrow keys drive the carousel while it's on screen
+  let carouselVisible = false;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(
+      (entries) => {
+        carouselVisible = entries.some((e) => e.isIntersecting);
+      },
+      { threshold: 0.2 }
+    ).observe(photoStage);
+  }
+  document.addEventListener('keydown', (event) => {
+    if (!carouselVisible) return;
+    if (event.key === 'ArrowRight') step(1);
+    else if (event.key === 'ArrowLeft') step(-1);
   });
+
+  // Swipe on the photo: left = next car, right = previous. Passive listeners
+  // so vertical page scrolling over the photo is never blocked; the gesture
+  // only counts when it is clearly horizontal and longer than a tap.
+  let touchStartX = 0;
+  let touchStartY = 0;
+  photoStage.addEventListener(
+    'touchstart',
+    (event) => {
+      touchStartX = event.changedTouches[0].clientX;
+      touchStartY = event.changedTouches[0].clientY;
+    },
+    { passive: true }
+  );
+  photoStage.addEventListener(
+    'touchend',
+    (event) => {
+      const dx = event.changedTouches[0].clientX - touchStartX;
+      const dy = event.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      step(dx < 0 ? 1 : -1);
+    },
+    { passive: true }
+  );
 });

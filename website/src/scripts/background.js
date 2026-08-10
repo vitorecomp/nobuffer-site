@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let pass = 1;
 
   function changeState() {
+    if (document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     pass = pass * -1;
     // Fade out some boxes
 
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const aiSection = document.getElementById('ai');
   const layers = [
     document.getElementById('box-background'),
-    document.getElementById('planettary-background'),
+    document.getElementById('planetary-background'),
     document.getElementById('constellation-canvas-container'),
   ].filter(Boolean);
   if (!aiSection || !layers.length) return;

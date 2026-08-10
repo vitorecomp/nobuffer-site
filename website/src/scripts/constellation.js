@@ -3,7 +3,7 @@
 // left corner of the planetary section and follows the mouse over it.
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('constellation-canvas-container');
-  const section = document.getElementById('planettary-background');
+  const section = document.getElementById('planetary-background');
   if (!container || !section || typeof THREE === 'undefined') return;
 
   let width = container.clientWidth || window.innerWidth;
@@ -317,8 +317,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderer.render(scene, camera);
-    requestAnimationFrame(animate);
+    if (running) requestAnimationFrame(animate);
   }
 
-  animate();
+  // Only render while the canvas is on screen, the tab is visible, and the
+  // visitor hasn't asked for reduced motion -- an unthrottled rAF over a
+  // page-tall framebuffer burns CPU/GPU for nothing.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let running = false;
+  let onScreen = true;
+
+  const setRunning = () => {
+    const next = onScreen && !document.hidden && !reduceMotion.matches;
+    if (next && !running) {
+      running = true;
+      requestAnimationFrame(animate);
+    } else if (!next) {
+      running = false;
+    }
+  };
+
+  if ('IntersectionObserver' in window) {
+    onScreen = false;
+    const vis = new IntersectionObserver((entries) => {
+      onScreen = entries.some((e) => e.isIntersecting);
+      setRunning();
+    });
+    vis.observe(container);
+  }
+  document.addEventListener('visibilitychange', setRunning);
+  reduceMotion.addEventListener('change', setRunning);
+  setRunning();
+  // Reduced motion still deserves the scene -- render one static frame
+  if (reduceMotion.matches) renderer.render(scene, camera);
 });

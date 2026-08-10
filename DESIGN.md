@@ -139,7 +139,7 @@ A near-monochrome terminal palette — ink, graphite, snow — with teal as the 
 **Body Font:** JetBrains Mono (same stack)
 **Label/Mono Font:** JetBrains Mono — there is no second typeface.
 
-**Character:** A single monospace voice from hero to footer. Hierarchy is built entirely from size, weight (400/500/700/800), and color — never from a family change. The effect is a terminal that learned typography: technical, honest, quietly confident.
+**Character:** A single monospace voice from hero to footer. Hierarchy is built entirely from size, weight (400/700/800), and color — never from a family change. The effect is a terminal that learned typography: technical, honest, quietly confident.
 
 ### Hierarchy
 - **Display** (700, 2.25rem → 3.75rem in responsive steps, tracking-tight): the hero's "Hi, I'm Vitor" with its pulsing ▌ cursor. The AI section's banner variant goes bigger and louder: 800, 3.75–4.5rem, letter-spacing 0.35em.

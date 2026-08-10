@@ -1,28 +1,79 @@
-link(href=require('./assets/css/main.css'), rel='stylesheet')
-link(href=require('./assets/css/style.css'), rel='stylesheet')
-
-script(src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
-script(src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js")
-
-
 doctype html
 html.scroll-smooth(lang='en')
   head
     meta(charset='utf-8')
     meta(content='width=device-width, initial-scale=1', name='viewport')
     title Vitor Open Dev
-    link(rel="icon", type="image/png", href=require('./assets/img/favicon.png'))
+    meta(
+      name='description',
+      content='Vitor — Google developer who loves coding, tinkering with hardware, and everything open source. Rust, Go, AI and embedded projects, race cars included.'
+    )
+    meta(property='og:type', content='website')
+    meta(property='og:title', content='Vitor Open Dev')
+    meta(
+      property='og:description',
+      content='Google developer who loves coding, tinkering with hardware, and everything open source.'
+    )
+    meta(property='og:url', content='https://www.vitorx86.dev/')
+    - const ogImage = require('./assets/img/profile_picture.webp')
+    meta(property='og:image', content='https://www.vitorx86.dev/' + ogImage)
+    meta(name='twitter:card', content='summary')
+    link(rel='canonical', href='https://www.vitorx86.dev/')
+    //- Preconnect to the origins the page will hit early: Google Fonts
+    //- and the three.js CDNs
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
+    link(rel='preconnect', href='https://cdnjs.cloudflare.com')
+    link(rel='preconnect', href='https://unpkg.com')
+    //- Font loaded from head instead of a CSS @import, which added a
+    //- render-blocking discovery hop after main.css arrived
+    link(
+      rel='stylesheet',
+      href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap'
+    )
+    link(href=require('./assets/css/main.css'), rel='stylesheet')
+    link(href=require('./assets/css/style.css'), rel='stylesheet')
+    link(rel='icon', type='image/png', href=require('./assets/img/favicon.png'))
+    //- Deferred: all site scripts register DOMContentLoaded listeners, which
+    //- only fire after deferred scripts execute, so THREE is always ready.
+    //- SRI-pinned so a compromised CDN can't inject code.
+    script(
+      src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+      integrity='sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu',
+      crossorigin='anonymous',
+      defer
+    )
+    script(
+      src='https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js',
+      integrity='sha384-fljlqkjWlmSFjkESkQvm77heIZpoWmXEOzlCA7kOpGUH+95Zk0yGfQieWM2q136E',
+      crossorigin='anonymous',
+      defer
+    )
+    script(
+      src='https://unpkg.com/three@0.128.0/examples/js/loaders/DRACOLoader.js',
+      integrity='sha384-TNRcLasZnnfIJJskDY5XlrfmsKTjBSy98MtyLuX+3rQWRbpSQvtFIdikNpcOh3SN',
+      crossorigin='anonymous',
+      defer
+    )
   body
+    //- Keyboard users can jump straight past nav and backgrounds
+    a.sr-only(
+      href='#main',
+      class='focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-gray-900 focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-green-400'
+    ) Skip to content
+
     include sections/navbar.pug
     include sections/dot-nav.pug
 
     include views/background/background-main.pug
-    include views/main/main.pug
-    include views/portfolio/portfolio.pug
-    include views/open-source/open-source.pug
-    include views/ai/ai.pug
-    include views/backyard-mech/backyard-mech.pug
-    include views/ai-companion/ai-companion.pug
-  footer.relative.z-10.bg-white.pb-10(class='lg:pb-20')
-    include views/contacts/contacts.pug
-    //- p &copy; 2023 Vieira Vitor Dev Website. All rights reserved.
+
+    main
+      include views/main/main.pug
+      include views/portfolio/portfolio.pug
+      include views/open-source/open-source.pug
+      include views/ai/ai.pug
+      include views/backyard-mech/backyard-mech.pug
+      include views/ai-companion/ai-companion.pug
+
+    footer.relative.z-10.bg-white.pb-10(class='lg:pb-20')
+      include views/contacts/contacts.pug

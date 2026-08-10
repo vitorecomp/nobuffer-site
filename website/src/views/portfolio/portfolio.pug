@@ -44,10 +44,10 @@
   .mx-auto.max-w-7xl
     //- Terminal eyebrow + heading, light-background lockup (same as the hero)
     .max-w-2xl
-      p.font-mono.text-base.leading-7.text-teal-600
-        span.text-white ~$&nbsp;
+      p.font-mono.text-base.leading-7.text-teal-700
+        span.text-gray-500 ~$&nbsp;
         | ls ~/projects
-      h1.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
+      h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
         | Portfolio
       p.mt-6.font-mono.text-lg.leading-8.text-gray-700
         | Selected projects from my repos — systems code in Rust and Go, AI
@@ -59,7 +59,7 @@
         li
           a.group.flex.h-full.flex-col.overflow-hidden.rounded-lg.bg-gray-900.shadow-md.ring-1.transform.transition-all.duration-200(
             href=project.href,
-            target='_blank',
+            target='_blank', rel='noopener',
             class='ring-gray-400/10 hover:-translate-y-1 hover:shadow-xl'
           )
             //- Title bar with traffic-light dots
@@ -79,7 +79,7 @@
                     class='border-teal-400/40'
                   )= tag
               p.mt-auto.pt-5.font-mono.text-sm.text-green-400
-                span.text-gray-500 $&nbsp;
+                span.text-gray-400 $&nbsp;
                 | ./open_repo.sh
                 span.ml-2.inline-block.transition-transform.duration-200(
                   class='group-hover:translate-x-1'
@@ -89,10 +89,10 @@
     .mt-14.flex.flex-wrap.items-center.justify-center.gap-4(class='sm:gap-6')
       a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
         href='https://github.com/vitorecomp?tab=repositories',
-        target='_blank',
+        target='_blank', rel='noopener',
         class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
       )
-        span.text-gray-500 $
+        span.text-gray-400 $
         span ./view_all_repos.sh
         svg.h-5.w-5.text-green-400(
           class='sm:h-6 sm:w-6',
@@ -106,10 +106,10 @@
           path(stroke-linecap='round', stroke-linejoin='round', d='M8.25 4.5l7.5 7.5-7.5 7.5')
       a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
         href='https://cases.vitorx86.dev',
-        target='_blank',
+        target='_blank', rel='noopener',
         class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
       )
-        span.text-gray-500 $
+        span.text-gray-400 $
         span ./open_cases.sh
         svg.h-5.w-5.text-green-400(
           class='sm:h-6 sm:w-6',

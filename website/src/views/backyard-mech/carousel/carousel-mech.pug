@@ -1,31 +1,65 @@
 //- Same content-column idiom as main/ai/ai-companion (mx-auto max-w-7xl
 //- px-8) so the carousel's image/text align with the rest of the site,
 //- instead of the ad-hoc padding this used before.
-.relative.mx-auto.w-full.max-w-7xl.px-6.py-6(class='sm:px-10 sm:py-10 lg:px-8 lg:py-0')
+.relative.mx-auto.w-full.max-w-7xl.px-6(class='sm:px-10 sm:pb-32 lg:px-8 lg:pb-0')
   //- lg:grid-cols-3 with the photo spanning 2 of the 3 columns gives it 2/3
   //- of the row's width, text the remaining 1/3.
-  #carousel-mech.grid.grid-cols-1.items-center.gap-8(class='sm:gap-10 lg:grid-cols-3 lg:gap-12')
+  #carousel-mech.grid.grid-cols-1.items-start.gap-8(class='sm:gap-10 lg:grid-cols-3 lg:gap-12')
     .relative.order-1.flex.justify-center(class='lg:order-2 lg:col-span-2')
       #carousel-photo-stage.relative.w-full.max-w-2xl.aspect-square
+        //- Without JS the carousel never renders; show the first car statically
+        noscript
+          img.absolute.inset-0.h-full.w-full.object-contain(
+            src=require('../../../assets/img/cars/subaru.webp'),
+            alt='Subaru GC8 race build',
+            width='1024',
+            height='1024'
+          )
 
-    .relative.order-2(class='lg:order-1 lg:col-span-1')
-      #carousel-text-container
+    .relative.order-2(class='lg:order-1 lg:col-span-1 lg:self-stretch lg:flex lg:flex-col')
+      #carousel-text-container(aria-live='polite')
+        noscript
+          p.font-mono.text-lg.text-teal-700 # nick: subarin
+          h3.mt-3.font-mono.text-4xl.font-bold.tracking-tight.text-gray-900(class='sm:text-5xl') Subaru
+          p.mt-4.max-w-prose.font-mono.text-lg.leading-8.text-gray-700
+            | # An abandoned GC8 that became my first restoration during the
+            | pandemic. Today it is a full racing build, running a custom
+            | Speeduino distro and a self-built body control system.
 
-      .mt-8.flex.items-center(class='sm:mt-10')
+      .mt-8.flex.flex-col.items-start(class='sm:mt-10 sm:pb-10 lg:pb-40 lg:mt-auto')
         #carousel-counter.flex.items-center.font-mono.text-sm
 
-        button#carousel-next-button.flex.items-center.justify-center.rounded-full.bg-gray-900.text-white.shadow-lg.transition-transform.duration-200.h-12.w-12(
-          type='button',
-          class='sm:h-14 sm:w-14 hover:scale-105',
-          aria-label='Show next car'
-        )
-          svg.h-5.w-5(
-            class='sm:h-6 sm:w-6',
-            fill='none',
-            stroke='currentColor',
-            stroke-width='2',
-            viewBox='0 0 24 24',
-            xmlns='http://www.w3.org/2000/svg',
-            aria-hidden='true'
+        //- Both controls below the counter, following the terminal-button
+        //- rules: green on ink, shadow at rest, lift on hover (never scale)
+        .mt-6.flex.items-center.self-end
+          button#carousel-prev-button.flex.items-center.justify-center.rounded-lg.border.border-gray-700.bg-gray-900.text-green-400.shadow-md.transform.transition-all.duration-200.h-12.w-12(
+            type='button',
+            class='sm:h-14 sm:w-14 hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5',
+            aria-label='Show previous car'
           )
-            path(stroke-linecap='round', stroke-linejoin='round', d='M9 5l7 7-7 7')
+            svg.h-5.w-5(
+              class='sm:h-6 sm:w-6',
+              fill='none',
+              stroke='currentColor',
+              stroke-width='2',
+              viewBox='0 0 24 24',
+              xmlns='http://www.w3.org/2000/svg',
+              aria-hidden='true'
+            )
+              path(stroke-linecap='round', stroke-linejoin='round', d='M15 19l-7-7 7-7')
+
+          button#carousel-next-button.ml-3.flex.items-center.justify-center.rounded-lg.border.border-gray-700.bg-gray-900.text-green-400.shadow-md.transform.transition-all.duration-200.h-12.w-12(
+            type='button',
+            class='sm:h-14 sm:w-14 hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5',
+            aria-label='Show next car'
+          )
+            svg.h-5.w-5(
+              class='sm:h-6 sm:w-6',
+              fill='none',
+              stroke='currentColor',
+              stroke-width='2',
+              viewBox='0 0 24 24',
+              xmlns='http://www.w3.org/2000/svg',
+              aria-hidden='true'
+            )
+              path(stroke-linecap='round', stroke-linejoin='round', d='M9 5l7 7-7 7')

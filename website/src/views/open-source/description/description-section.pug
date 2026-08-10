@@ -5,16 +5,16 @@ div(class='lg:pr-4')
     p.font-mono.text-sm.leading-7.text-teal-400
       span.text-white ~$&nbsp;
       | git log --author=vitor
-    h1.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-white(class='sm:text-4xl') Some of my contributions to the community
-    #open-source-title.p.mt-6.font-mono.text-lg.leading-8.text-gray-300
+    h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-white(class='sm:text-4xl') Some of my contributions to the community
+    p#open-source-title.mt-6.font-mono.text-lg.leading-8.text-gray-300
       | I love open source — it's where I learned to code, where I go to tinker, and where I give back. Building in the open, reading other people's code, and shipping patches that anyone can use is what makes software fun for me. Take a look at my GitHub to find the projects I've built and contributed to.
     .mt-8
       a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
         href='https://github.com/vitorecomp',
-        target='_blank',
+        target='_blank', rel='noopener',
         class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
       )
-        span.text-gray-500 $
+        span.text-gray-400 $
         span ./open_github.sh
         svg.w-5.h-5.text-green-400(
           class='sm:w-6 sm:h-6',

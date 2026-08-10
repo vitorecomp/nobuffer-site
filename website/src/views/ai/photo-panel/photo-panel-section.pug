@@ -3,7 +3,7 @@
 .flex.flex-col.items-center
   a.group.relative.block(
     href='https://demo.vitorx86.dev',
-    target='_blank',
+    target='_blank', rel='noopener',
     class='w-[230px] h-[330px] sm:w-[340px] sm:h-[470px]',
     aria-label='Open the AI anime character generator'
   )
@@ -18,7 +18,9 @@
     )
       //- Giant watermark kanji: 生成 — "generate"
       span.absolute.-bottom-6.-left-2.select-none.font-bold(
-        class='text-[9rem] sm:text-[13rem] leading-none text-white/10'
+        class='text-[9rem] sm:text-[13rem] leading-none text-white/10',
+        aria-hidden='true',
+        lang='ja'
       ) 生成
 
     //- Un-skewed content floating over the slab
@@ -31,11 +33,17 @@
           span.font-mono.text-5xl.text-gray-400(class='sm:text-6xl') ?
         //- Sparkle badge pinned to the card corner
         span.absolute.-top-3.-right-3.flex.h-8.w-8.items-center.justify-center.rounded-full.bg-indigo-600.text-base.text-white.shadow-md ✦
-      p.px-4.text-center.font-mono.text-xs.tracking-widest.text-blue-100(class='sm:text-sm') 「キャラクター生成」
+      p.px-4.text-center.font-mono.text-xs.tracking-widest.text-white(
+        class='sm:text-sm',
+        aria-hidden='true',
+        lang='ja'
+      ) 「キャラクター生成」
 
     //- Vertical kana strip along the edge
     span.absolute.top-6.select-none.font-mono.text-xs.tracking-widest(
-      class='-right-1 sm:right-0 text-blue-200/80 [writing-mode:vertical-rl]'
+      class='-right-1 sm:right-0 text-blue-200/80 [writing-mode:vertical-rl]',
+      aria-hidden='true',
+      lang='ja'
     ) AIアニメキャラクター
 
     //- Floating white cards drifting around the slab
@@ -44,6 +52,6 @@
     .absolute.-right-8.h-9.w-7.rotate-45.rounded-sm.shadow(class='top-1/3 bg-white/70')
 
   //- Caption under the panel
-  p.mt-10.font-mono.text-xs.text-gray-500
+  p.mt-10.font-mono.text-xs.text-gray-400
     span.text-teal-400 »&nbsp;
     | click to open — demo.vitorx86.dev

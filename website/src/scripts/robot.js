@@ -226,7 +226,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // The model sits below the fold: fetch the GLB only when the panel is
   // close to scrolling into view instead of on DOMContentLoaded.
   function loadRobot() {
-    new THREE.GLTFLoader().load(MODEL_URL, (gltf) => {
+    const loader = new THREE.GLTFLoader();
+    // robot.glb ships Draco-compressed; wire the matching r128 decoder when
+    // its loader script made it in (if not, the load errors and the panel
+    // stays empty instead of crashing the page)
+    if (typeof THREE.DRACOLoader !== 'undefined') {
+      const draco = new THREE.DRACOLoader();
+      draco.setDecoderPath('https://unpkg.com/three@0.128.0/examples/js/libs/draco/');
+      loader.setDRACOLoader(draco);
+    }
+    loader.load(MODEL_URL, (gltf) => {
       const meshes = [];
       gltf.scene.traverse((child) => {
         if (child.isMesh) meshes.push(child);
@@ -260,6 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
         holder.add(mesh);
         addOutline(mesh);
       });
+      // If the loop is paused (reduced motion / off-screen), still show the
+      // freshly dressed arm as a static frame
+      if (!running) renderer.render(scene, camera);
     });
   }
   if ('IntersectionObserver' in window) {
@@ -516,8 +528,36 @@ document.addEventListener('DOMContentLoaded', () => {
     fingerR.position.x += (grip - fingerR.position.x) * 0.1;
 
     renderer.render(scene, camera);
-    requestAnimationFrame(animate);
+    if (running) requestAnimationFrame(animate);
   }
 
-  requestAnimationFrame(animate);
+  // Run the loop only while the panel is on screen, the tab is visible and
+  // the visitor allows motion (same gating as constellation.js). Reduced
+  // motion still gets the posed static frame rendered on model load.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let running = false;
+  let onScreen = true;
+
+  const setRunning = () => {
+    const next = onScreen && !document.hidden && !reduceMotion.matches;
+    if (next && !running) {
+      running = true;
+      lastTime = performance.now();
+      requestAnimationFrame(animate);
+    } else if (!next) {
+      running = false;
+    }
+  };
+
+  if ('IntersectionObserver' in window) {
+    onScreen = false;
+    const vis = new IntersectionObserver((entries) => {
+      onScreen = entries.some((e) => e.isIntersecting);
+      setRunning();
+    });
+    vis.observe(panel);
+  }
+  document.addEventListener('visibilitychange', setRunning);
+  reduceMotion.addEventListener('change', setRunning);
+  setRunning();
 });

@@ -13,11 +13,15 @@
       aria-hidden='true'
     )
     img.relative.w-full(
-      src=require('../../../assets/img/alissa.png'),
-      alt='Alissa, the AI racing companion — an anime girl in a pink racing jacket'
+      src=require('../../../assets/img/alissa.webp'),
+      alt='Alissa, the AI racing companion — an anime girl in a pink racing jacket',
+      width='768',
+      height='768',
+      loading='lazy',
+      decoding='async'
     )
 
   //- Caption under the panel
-  p.mt-8.font-mono.text-xs.text-gray-500
+  p.mt-8.font-mono.text-xs.text-gray-400
     span.text-teal-400 »&nbsp;
     | alissa — pit crew online

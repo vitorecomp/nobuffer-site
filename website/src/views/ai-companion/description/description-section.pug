@@ -5,11 +5,11 @@ div(class='lg:max-w-lg')
     span.text-white ~$&nbsp;
     | ./alissa --diagnose ./old-shitbox
 
-  h1.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-white(class='sm:text-4xl')
-    | Meet Alissa, a AI racing companion
+  h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-white(class='sm:text-4xl')
+    | Meet Alissa, an AI racing companion
 
   p.mt-6.font-mono.text-lg.leading-8.text-gray-300
-    | Alissa is an open-source AI racing companion can be used together of your
+    | Alissa is an open-source AI racing companion that rides along with your
     | racing shitbox. She reads the car's telemetry and OBD data to help with tuning,
     | runs diagnostics when something inevitably breaks, and turns lap data
     | into racing insights — a pit crew for cars that never had one.
@@ -24,10 +24,10 @@ div(class='lg:max-w-lg')
   .mt-10
     a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
       href='https://github.com/vitorecomp/alissa-ai-racing-companion',
-      target='_blank',
+      target='_blank', rel='noopener',
       class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
     )
-      span.text-gray-500 $
+      span.text-gray-400 $
       span ./clone_alissa.sh
       svg.h-5.w-5.text-green-400(
         class='sm:h-6 sm:w-6',
@@ -43,4 +43,4 @@ div(class='lg:max-w-lg')
           stroke-linejoin='round',
           d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'
         )
-    p.mt-3.font-mono.text-xs.text-gray-500 # github.com/vitorecomp/alissa-ai-racing-companion
+    p.mt-3.font-mono.text-xs.text-gray-400 # github.com/vitorecomp/alissa-ai-racing-companion
