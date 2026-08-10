@@ -23,6 +23,9 @@ concurrency:
   group: deploy-nginx
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     name: deploy
