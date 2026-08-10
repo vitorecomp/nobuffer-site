@@ -1,6 +1,7 @@
 div(class='lg:max-w-lg')
   //- Terminal eyebrow, dark-panel variant (same lockup as the AI section)
-  p.font-mono.text-sm.leading-7.text-teal-400
+  //- Extra top padding on phone screens only, where the panel stacks
+  p.pt-8.font-mono.text-sm.leading-7.text-teal-400(class='sm:pt-0')
     span.text-white ~$&nbsp;
     | ./alissa --diagnose ./old-shitbox
 
