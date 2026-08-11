@@ -1,0 +1,56 @@
+//- Shared terminal-style mixins. Included once at the top of main.pug,
+//- so every template in its include chain can call these directly.
+
+//- Eyebrow command line above a section heading — dark-panel palette.
+//- Extra classes (e.g. responsive padding) pass through &attributes.
+mixin terminalEyebrow(command)
+  p.font-mono.font-bold.text-sm.leading-7.text-teal-400&attributes(attributes)
+    span.text-white ~$&nbsp;
+    | #{command}
+
+//- Same eyebrow on the light page background.
+mixin terminalEyebrowLight(command)
+  p.font-mono.font-bold.text-base.leading-7.text-teal-700&attributes(attributes)
+    span.text-gray-500 ~$&nbsp;
+    | #{command}
+
+//- Terminal CTA button: "$ ./command.sh" plus a trailing icon.
+//- The SVG icon comes in as the mixin block so each caller keeps its own glyph.
+mixin terminalCta(href, label)
+  a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.shadow-md.transform.transition-all.duration-200(
+    href=href,
+    target='_blank', rel='noopener',
+    class='sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5'
+  )
+    span.text-gray-400 $
+    span= label
+    block
+
+//- Quiet mono tag chips; palette carries the text + border color pair.
+mixin tagChips(tags, palette)
+  .flex.flex-wrap.gap-2&attributes(attributes)
+    each tag in tags
+      span.rounded.border.px-2.py-1.font-mono.text-xs(class=palette)= tag
+
+//- "./label" link for the desktop navbar strip.
+//- Links marked external: false stay in-page (no new tab).
+mixin navLink(link)
+  a.group.rounded-md.px-3.py-2.text-gray-900.transition-colors.duration-150(
+    href=link.href,
+    target=link.external === false ? null : '_blank',
+    rel=link.external === false ? null : 'noopener',
+    class='hover:bg-gray-900 hover:text-green-400'
+  )
+    span.text-gray-500(class='group-hover:text-gray-400') ./
+    | #{link.label}
+
+//- "./label" link for the dark terminal panels (mobile menu, noscript
+//- fallback, contacts). Hover classes pass through &attributes where wanted.
+mixin panelLink(link)
+  a.block.rounded-md.px-3.py-2.text-gray-300(
+    href=link.href,
+    target=link.external === false ? null : '_blank',
+    rel=link.external === false ? null : 'noopener'
+  )&attributes(attributes)
+    span.text-gray-400 ./
+    | #{link.label}
