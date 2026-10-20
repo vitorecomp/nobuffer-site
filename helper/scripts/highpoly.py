@@ -12,7 +12,7 @@ import re
 from mathutils import Euler, Vector
 
 ROOT = "/home/vitor/workspace/personal/nobuffer-site"
-GLB = os.path.join(ROOT, "website/src/assets/models/robot.glb")
+GLB = os.path.join(ROOT, "src/assets/models/robot.glb")
 SHARP = math.radians(32)  # feature edges: creased + sharp (crisp), rest rounds
 LEVELS = 1
 

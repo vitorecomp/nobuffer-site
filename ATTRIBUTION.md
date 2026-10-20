@@ -1,6 +1,6 @@
 # AR3 robot meshes
 
-`website/src/assets/models/robot.glb` is derived from the AR3 robot link STL
+`src/assets/models/robot.glb` is derived from the AR3 robot link STL
 meshes of the open-source `ar3_core` ROS package
 (https://github.com/ongdexter/ar3_core), MIT License,
 Copyright (c) 2021 Dexter Ong. (The original STLs were removed once

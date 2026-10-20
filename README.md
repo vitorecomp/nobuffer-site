@@ -23,7 +23,7 @@ The code for the following sites is in this repo:
 
 ## Directory Structure
 
-- `website`: Source code for the main website (Pug, Tailwind, Webpack).
+- `src`: Source code for the main website (Pug, Tailwind, Webpack).
 - `build`: Compiled site output — automatically generated, do not edit by hand.
 - `helper`: Blender/Python tooling behind the site's robot model (`robot.glb`) — see `helper/README.md`.
 - `assets`: Source image files (.xcf) for site artwork.
@@ -32,19 +32,13 @@ The code for the following sites is in this repo:
 
 To run the main website locally:
 
-1. Navigate to the `website` directory:
-
-   ```bash
-   cd website
-   ```
-
-2. Install dependencies:
+1. Install dependencies:
 
    ```bash
    npm install
    ```
 
-3. Start the development server:
+2. Start the development server:
 
    ```bash
    npm run dev

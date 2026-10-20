@@ -6,7 +6,7 @@ import os
 from mathutils import Euler, Matrix, Vector
 
 ROOT = "/home/vitor/workspace/personal/nobuffer-site"
-MODELS = os.path.join(ROOT, "website/src/assets/models")
+MODELS = os.path.join(ROOT, "src/assets/models")
 CHAIN = [
     {"mesh": "base_link"},
     {"xyz": (0, 0, 0.003445), "rpy": (3.1416, 0, -0.0000167), "mesh": "link_1"},

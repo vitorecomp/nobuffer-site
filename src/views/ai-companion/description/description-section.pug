@@ -1,0 +1,34 @@
+div(class='lg:max-w-lg')
+  //- Terminal eyebrow, dark-panel variant (same lockup as the AI section)
+  //- Extra top padding on phone screens only, where the panel stacks
+  +terminalEyebrow('./alissa --diagnose ./old-shitbox').pt-8(class='sm:pt-0')
+
+  h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-white(class='sm:text-4xl')
+    | Meet Alissa, an AI racing companion
+
+  p.mt-6.font-mono.text-lg.leading-8.text-garage-body
+    | Alissa is an open-source AI racing companion that rides along with your
+    | racing shitbox. She reads the car's telemetry and OBD data to help with tuning,
+    | runs diagnostics when something inevitably breaks, and turns lap data
+    | into racing insights — a pit crew for cars that never had one.
+
+  //- Capabilities as quiet mono tags, pink to match her race jacket
+  +tagChips(['tuning', 'diagnostics', 'racing-insights', 'obd-telemetry'], 'border-pink-400/40 text-pink-300').mt-6
+
+  .mt-10
+    +terminalCta('https://github.com/vitorecomp/alissa-ai-racing-companion', './clone_alissa.sh', true)
+      svg.h-5.w-5.text-green-400(
+        class='sm:h-6 sm:w-6',
+        fill='none',
+        stroke='currentColor',
+        stroke-width='2',
+        viewBox='0 0 24 24',
+        xmlns='http://www.w3.org/2000/svg',
+        aria-hidden='true'
+      )
+        path(
+          stroke-linecap='round',
+          stroke-linejoin='round',
+          d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'
+        )
+    p.mt-3.font-mono.text-xs.text-garage-muted # github.com/vitorecomp/alissa-ai-racing-companion

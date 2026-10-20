@@ -13,7 +13,7 @@ import sys
 from mathutils import Euler, Matrix, Vector
 
 ROOT = "/home/vitor/workspace/personal/nobuffer-site"
-MODELS = os.path.join(ROOT, "website/src/assets/models")
+MODELS = os.path.join(ROOT, "src/assets/models")
 OUTDIR = os.path.join(ROOT, "helper/renders")
 MODE = (sys.argv[sys.argv.index("--") + 1] if "--" in sys.argv else "beauty").strip()
 os.makedirs(OUTDIR, exist_ok=True)

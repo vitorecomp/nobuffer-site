@@ -10,7 +10,7 @@ import re
 from mathutils import Euler, Vector
 
 ROOT = "/home/vitor/workspace/personal/nobuffer-site"
-GLB = os.path.join(ROOT, "website/src/assets/models/robot.glb")
+GLB = os.path.join(ROOT, "src/assets/models/robot.glb")
 ATLAS = os.path.join(ROOT, "helper/blender/robot_atlas_comic_ai.png")
 
 bpy.ops.wm.read_factory_settings(use_empty=True)

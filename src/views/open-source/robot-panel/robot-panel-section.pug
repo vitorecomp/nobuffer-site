@@ -1,0 +1,20 @@
+//- Self-contained robot card, the counterpart of the main section's photo
+//- panel: fills its column in the section's inner grid
+//- lg: top margin matches the description block's p-12, so the canvas and
+//- the text column start together; height trimmed so the card stays level
+.flex.flex-col.items-center.w-full
+  #robot-arm-container.relative.overflow-hidden.w-full(
+    class='h-[28rem] sm:h-[32rem] lg:mt-12 lg:h-[28rem]'
+  )
+    #robot-arm-stage.absolute.inset-0
+    //- Placeholder: no-JS visitors read the static text; robot.js swaps it to
+    //- a loading line, removes it when the model boots, or reports failure
+    #robot-arm-placeholder.absolute.inset-0.flex.items-center.justify-center
+      p.px-6.text-center.font-mono.text-xs.text-gray-400
+        | # ar3 robot arm — interactive 3D (needs JavaScript + WebGL)
+
+  p.mt-2.pb-6.font-mono.text-xs.text-gray-400(class='lg:pb-8')
+    span.text-teal-400 »&nbsp;
+    | ar3 6-axis arm — move cursor to drive IK
+
+script(src=require('../../../scripts/robot.js'))

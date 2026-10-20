@@ -1,0 +1,57 @@
+div(class='lg:pl-12')
+  //- Terminal eyebrow keeps the site identity inside the anime-style panel
+  +terminalEyebrow('git log --grep=ai --since=2012')
+
+  //- Big tracked-out banner title with its Japanese subtitle,
+  //- like the MESSAGE / メッセージ lockup on anime promo sites
+  h2.mt-4.font-mono.text-6xl.font-extrabold.text-white(class='sm:text-7xl tracking-[0.35em]') AI
+  .mt-3.flex.items-center.gap-3
+    span.text-xs.text-blue-400 ◤
+    span.font-mono.text-sm.tracking-widest.text-garage-muted
+      span(lang='ja') 人工知能
+      |  — artificial intelligence
+
+  //- The quiet three-line whisper before the loud statement
+  p.mt-8.font-mono.text-sm.leading-7.text-garage-body
+    | Before the hype. Genetic algorithms, OCR, computer vision, LLMs.
+    br
+    | Building it was really amazing.
+
+  //- Bold statement as stacked terminal/indigo highlight boxes
+  .mt-8.space-y-3
+    p.w-fit.max-w-full.rounded-md.border.px-4.py-3.font-mono.text-xl.font-bold.leading-none.text-white(
+      class='border-indigo-400/50 bg-gray-900/90 sm:px-5 sm:text-2xl'
+    )
+      span.text-teal-400 »&nbsp;
+      | Working with AI
+    p.ml-4.w-fit.max-w-full.rounded-md.border.px-4.py-3.font-mono.text-xl.font-bold.leading-none.text-white(
+      class='border-indigo-400/50 bg-gray-900/90 sm:ml-8 sm:px-5 sm:text-2xl'
+    )
+      | since 2012.
+
+  p.mt-8.font-mono.text-lg.leading-8.text-garage-body
+    | More than a decade of AI projects — from genetic-algorithm training,
+    | advanced OCR, and model fine-tuning to document search. Most of them live in my
+    | repos, but one is running live right now: an AI anime character
+    | generator you can try in your browser.
+
+  //- A few of those projects, as quiet mono tags
+  +tagChips(['genetic-training', 'ai-advanced-ocr', 'gemini-document-search', 'cpp-ai-libs'], 'border-indigo-400/40 text-indigo-300').mt-6
+
+  .mt-10
+    +terminalCta('https://demo.vitorx86.dev', './generate_character.sh', true)
+      svg.h-5.w-5.text-green-400(
+        class='sm:h-6 sm:w-6',
+        fill='none',
+        stroke='currentColor',
+        stroke-width='2',
+        viewBox='0 0 24 24',
+        xmlns='http://www.w3.org/2000/svg',
+        aria-hidden='true'
+      )
+        path(
+          stroke-linecap='round',
+          stroke-linejoin='round',
+          d='M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z'
+        )
+    p.mt-3.font-mono.text-xs.text-garage-muted # AI anime character generator — live demo

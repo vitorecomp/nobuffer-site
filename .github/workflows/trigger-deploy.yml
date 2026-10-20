@@ -4,7 +4,12 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - "website/**"
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - "webpack.config.js"
+      - "tailwind.config.js"
+      - "postcss.config.js"
 
 permissions:
   contents: read

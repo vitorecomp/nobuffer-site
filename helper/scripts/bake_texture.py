@@ -13,7 +13,7 @@ import numpy as np
 from mathutils import Euler, Vector
 
 ROOT = "/home/vitor/workspace/personal/nobuffer-site"
-GLB = os.path.join(ROOT, "website/src/assets/models/robot.glb")
+GLB = os.path.join(ROOT, "src/assets/models/robot.glb")
 SIZE = 2048
 AO_STRENGTH = 0.6  # 0 = no darkening, 1 = full AO multiply
 

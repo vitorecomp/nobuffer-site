@@ -1,0 +1,65 @@
+-
+  const dotSections = [
+    { id: 'main', label: 'Main', slug: 'main' },
+    { id: 'portfolio', label: 'Portfolio', slug: 'portfolio' },
+    { id: 'open-source', label: 'Open Source', slug: 'open-source' },
+    { id: 'ai', label: 'AI', slug: 'ai' },
+    { id: 'backyard-mech', label: 'Backyard Mech', slug: 'garage' },
+    { id: 'ai-companion', label: 'AI Companion', slug: 'alissa' },
+    { id: 'contacts', label: 'Contacts', slug: 'contacts' },
+  ]
+
+//- Desktop/tablet accelerator only: on phones the dots overlap the content
+//- edge and duplicate what thumb-scrolling already does
+nav.fixed.inset-y-0.right-0.pointer-events-none.z-50.hidden.w-full(class='sm:block', aria-label='Sections')
+  .max-w-7xl.mx-auto.h-full.relative
+    .absolute.right-6.transform.pointer-events-auto(class='lg:right-8 top-1/2 -translate-y-1/2')
+      ul.space-y-8.flex.flex-col.items-center
+        each sec in dotSections
+          li
+            a.dot-nav-item.group.block.w-3.h-3.bg-gray-500.rounded-full.ring-1.duration-200(
+              href='#' + sec.id,
+              class='ring-white/50 transition-[height,background-color] hover:bg-teal-600',
+              aria-label=sec.label
+            )
+              span.pointer-events-none.absolute.right-6.whitespace-nowrap.rounded.border.border-gray-700.bg-gray-900.px-2.font-mono.text-xs.text-green-400.opacity-0.shadow-md.transition-opacity.duration-150(
+                class='top-1/2 -translate-y-1/2 py-0.5 group-hover:opacity-100 group-focus-visible:opacity-100',
+                aria-hidden='true'
+              )
+                span.text-gray-400 ./
+                | #{sec.slug}
+
+script.
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('#main, #open-source, #ai, #backyard-mech, #ai-companion, #portfolio, #contacts');
+    const dots = document.querySelectorAll('.dot-nav-item');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.2,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          dots.forEach((dot) => {
+            if (dot.getAttribute('href') === `#${id}`) {
+              dot.classList.remove('bg-gray-500', 'h-3');
+              dot.classList.add('bg-teal-600', 'h-6');
+              dot.setAttribute('aria-current', 'location');
+            } else {
+              dot.classList.add('bg-gray-500', 'h-3');
+              dot.classList.remove('bg-teal-600', 'h-6');
+              dot.removeAttribute('aria-current');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+  });

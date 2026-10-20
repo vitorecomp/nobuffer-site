@@ -1,0 +1,99 @@
+-
+  const navLinks = [
+    { label: 'github', href: 'https://github.com/vitorecomp' },
+    { label: 'portfolio', href: 'https://cases.vitorx86.dev' },
+    { label: 'blog', href: 'https://blog.vitorx86.dev' },
+    { label: 'resume', href: require('../assets/files/vitor-vieira-resume.pdf') },
+    { label: 'linkedin', href: 'https://www.linkedin.com/in/vieiravitor' },
+  ]
+  const mobileNavLinks = [
+    ...navLinks,
+    { label: 'contacts', href: '#contacts', external: false },
+  ]
+
+nav(class="relative z-20", aria-label='Primary')
+  .mx-auto.max-w-7xl.px-6(class='lg:px-8')
+    .relative.flex.h-16.items-center.justify-between
+      .flex.flex-1.items-center.justify-start(class='sm:items-stretch sm:justify-start')
+        a.group.inline-flex.items-center.rounded-md.px-3.py-2.font-mono.text-sm.font-bold.text-gray-900.transition-colors.duration-150(
+          href='#main',
+          class='min-h-[44px] hover:bg-gray-900 hover:text-green-400'
+        )
+          span.text-teal-700(class='group-hover:text-teal-400') ~/
+          | vitorx86
+      .absolute.inset-y-0.right-0.flex.items-center.pr-2(class='sm:static sm:inset-auto sm:ml-6 sm:pr-0')
+        //- Mobile hamburger: "$ ls" to list the links
+        button#mobile-menu-button.inline-flex.items-center.gap-2.rounded-md.bg-gray-900.px-3.py-2.font-mono.text-sm.text-green-400.shadow-md(
+          type='button',
+          class='sm:hidden hover:bg-gray-800',
+          aria-controls='mobile-menu',
+          aria-expanded='false',
+          aria-label='Open links menu'
+        )
+          svg.w-5.h-5(
+            fill='none',
+            stroke='currentColor',
+            stroke-width='2',
+            viewBox='0 0 24 24',
+            xmlns='http://www.w3.org/2000/svg',
+            aria-hidden='true'
+          )
+            path(
+              stroke-linecap='round',
+              stroke-linejoin='round',
+              d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+            )
+          span
+            span.text-gray-400 $&nbsp;
+            | ls
+
+        .hidden(class='sm:ml-6 sm:block')
+          .flex.items-center.space-x-2.font-mono.text-sm
+            each link in navLinks
+              +navLink(link)
+
+  //- Without JS the $ ls toggle is dead; hide the button and give phones a static link panel
+  noscript
+    style #mobile-menu-button { display: none !important; }
+    .mx-4.mb-3.rounded-lg.bg-gray-900.p-3.font-mono.text-base.shadow-lg(class='sm:hidden')
+      p.px-3.pb-2.text-xs.text-gray-400 $ ls ./links
+      .space-y-1
+        each link in mobileNavLinks
+          +panelLink(link)
+
+  //- Mobile menu — terminal panel, toggled by the "$ ls" button
+  #mobile-menu.hidden(class='sm:hidden')
+    .mx-4.mb-3.rounded-lg.bg-gray-900.p-3.font-mono.text-base.shadow-lg
+      p.px-3.pb-2.text-xs.text-gray-400 $ ls ./links
+      .space-y-1
+        each link in mobileNavLinks
+          +panelLink(link)(class='hover:bg-gray-800 hover:text-green-400')
+
+script.
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    if (!button || !menu) return;
+
+    const closeMenu = () => {
+      menu.classList.add('hidden');
+      button.setAttribute('aria-expanded', 'false');
+    };
+
+    button.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      button.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.classList.contains('hidden')) {
+        closeMenu();
+        button.focus();
+      }
+    });
+  });

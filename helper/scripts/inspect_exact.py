@@ -6,7 +6,7 @@ import json
 import os
 import sys
 
-MODELS_DIR = "/home/vitor/workspace/personal/nobuffer-site/website/src/assets/models"
+MODELS_DIR = "/home/vitor/workspace/personal/nobuffer-site/src/assets/models"
 OUT = "/home/vitor/workspace/personal/nobuffer-site/helper/data/components_exact.json"
 LINKS = ["base_link", "link_1", "link_2", "link_3", "link_4", "link_5", "link_6"]
 

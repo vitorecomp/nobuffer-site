@@ -9,7 +9,7 @@ import os
 import re
 
 ROOT = "/home/vitor/workspace/personal/nobuffer-site"
-GLB = os.path.join(ROOT, "website/src/assets/models/robot.glb")
+GLB = os.path.join(ROOT, "src/assets/models/robot.glb")
 OUTDIR = os.path.join(ROOT, "helper/renders")
 SIZE = 4096
 

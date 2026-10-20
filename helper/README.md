@@ -1,13 +1,13 @@
 # helper — robot model tooling
 
-Tooling and assets behind `website/src/assets/models/robot.glb` (the AR2/AR3
+Tooling and assets behind `src/assets/models/robot.glb` (the AR2/AR3
 arm on the site). See `ATTRIBUTION.md` at the repo root for mesh provenance.
 
 ## blender/
 
 - `robot_textured.blend` — **texture-paint master**. Open it, enter Texture
   Paint mode, paint on the model (writes into the `robot_atlas` image), then
-  `File > Export > glTF Binary` over `website/src/assets/models/robot.glb`
+  `File > Export > glTF Binary` over `src/assets/models/robot.glb`
   and rebuild the site.
 - `robot_atlas.png` — the baked 2048px atlas (base color x ambient
   occlusion) embedded in robot.glb.
@@ -36,7 +36,7 @@ arm on the site). See `ATTRIBUTION.md` at the repo root for mesh provenance.
   STLs, split every solid body by triangle ranges, painted it to match the
   reference photo, rendered turntables/close-ups, and exported the first
   robot.glb. NOTE: needs the original STLs, which were removed from
-  `website/src/assets/models/` — recover them from git history to rerun.
+  `src/assets/models/` — recover them from git history to rerun.
 - `highpoly.py` — low-poly CAD -> high-poly: welds the flat-shading splits,
   rebuilds quads from the triangulation, creases every sharp feature edge
   (>32 deg), applies crease-preserving Catmull-Clark subdivision (curves round
