@@ -21,8 +21,7 @@ A portfolio told entirely in the developer's own working idiom — terminal prom
 ## Operating Context
 
 - Monorepo of static sites (`nobuffer-site`), main site source in `website/` (Pug + Tailwind 3 + Webpack, JetBrains Mono via Google Fonts). Dev: `npm run dev` in `website/`; build output goes to `build/website/`.
-- Deployed via GitHub Actions → Google Cloud Build → Google Cloud Storage bucket, fronted by an nginx reverse proxy (`reverse-proxy/`) for subdomains.
-- Repo also holds `maintenance/` and `myself/` static pages and infra config.
+- Infrastructure, Cloud Build deployment, maintenance page, and nginx reverse-proxy configs are managed in `personal-infra/cloud/nobuffer-site`.
 - Main page is a single scrolling page: hero → portfolio → open-source → AI → backyard-mech (cars) → AI companion (Alissa) → contacts footer, with a dot side-nav.
 
 ## Capabilities and Constraints
