@@ -40,70 +40,78 @@
     },
   ]
 
-#portfolio.relative.px-6.pt-16.pb-16(class='sm:pt-24 sm:pb-24 lg:px-8')
-  .mx-auto.max-w-7xl
-    //- Terminal eyebrow + heading, light-background lockup (same as the hero)
-    .max-w-2xl
-      +terminalEyebrowLight('ls ~/projects')
-      h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
-        | Portfolio
-      p.mt-6.font-mono.text-lg.leading-8.text-gray-700
-        | Selected projects from my repos — systems code in Rust and Go, AI
-        | experiments, embedded toys, and the tools in between. All open source.
+#portfolio.relative.px-6.pt-16.pb-16(class='sm:pt-24 sm:pb-24 lg:px-0')
+  .relative.mx-auto.w-full.max-w-2xl(
+    class='lg:mx-0 lg:ml-auto lg:max-w-none lg:w-[90vw]'
+  )
+    .relative.grid.grid-cols-1.gap-x-8(class='lg:grid-cols-12')
+      div(
+        class='px-6 lg:px-0 lg:pl-12 lg:col-span-11 lg:col-start-1 lg:ml-[max(0px,50%_-_46rem)] lg:w-full lg:max-w-7xl'
+      )
+        //- Terminal eyebrow + heading, light-background lockup (same as the hero)
+        .max-w-2xl
+          +terminalEyebrowLight('ls ~/projects')
+          h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
+            | Portfolio
+          p.mt-6.font-mono.text-lg.leading-8.text-gray-700
+            | Selected projects from my repos — systems code in Rust and Go, AI
+            | experiments, embedded toys, and the tools in between. All open source.
 
-    //- Each project is a little terminal window; the whole card is a link
-    ul.mt-12.mx-auto.w-full.max-w-5xl.grid.grid-cols-1.gap-6(class='sm:grid-cols-2 lg:grid-cols-3')
-      each project in projects
-        li
-          a.group.flex.h-full.flex-col.overflow-hidden.rounded-lg.bg-gray-900.shadow-md.ring-1.transform.duration-200(
-            href=project.href,
-            target='_blank', rel='noopener',
-            class='ring-gray-400/10 transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-xl'
-          )
-            //- Title bar with traffic-light dots
-            .flex.items-center.gap-2.border-b.px-4.py-3(
-              class='border-gray-700/60 bg-gray-800/60'
+        //- Each project is a little terminal window; the whole card is a link
+        ul.mt-12.grid.w-full.grid-cols-1.gap-6(class='sm:grid-cols-2 lg:grid-cols-3 lg:gap-8')
+          each project in projects
+            li
+              a.group.flex.h-full.flex-col.overflow-hidden.rounded-lg.bg-gray-900.shadow-md.ring-1.transform.duration-200.ease-out(
+                href=project.href,
+                target='_blank', rel='noopener',
+                class='ring-gray-400/10 transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-xl active:translate-y-0'
+              )
+                //- Title bar with traffic-light dots
+                .flex.items-center.gap-2.border-b.px-4.py-3(
+                  class='border-gray-700/60 bg-gray-800/60'
+                )
+                  span.h-3.w-3.rounded-full(class='bg-red-500/80', aria-hidden='true')
+                  span.h-3.w-3.rounded-full(class='bg-yellow-500/80', aria-hidden='true')
+                  span.h-3.w-3.rounded-full(class='bg-green-500/80', aria-hidden='true')
+                  h3.ml-2.truncate.font-mono.text-xs.font-normal.text-gray-400
+                    | ~/projects/
+                    span.font-bold.text-white.transition-colors.duration-150(class='group-hover:text-teal-300')= project.name
+                //- Window body
+                .flex.flex-1.flex-col.px-5.py-5
+                  p.font-mono.text-sm.leading-6.text-gray-300= project.desc
+                  +tagChips(project.tags, 'border-teal-400/40 text-teal-300').mt-auto.pt-4
+                  p.pt-5.font-mono.text-sm.text-green-400
+                    span.text-gray-400 $&nbsp;
+                    | ./open_repo.sh
+                    span.ml-2.inline-block.transition-transform.duration-200(
+                      class='group-hover:translate-x-1'
+                    ) &rarr;
+
+        //- Everything else lives on GitHub and on the cases site
+        .mt-14.flex.flex-wrap.items-center.justify-center.gap-4(class='sm:gap-6')
+          +terminalCta('https://github.com/vitorecomp?tab=repositories', './view_all_repos.sh')
+            svg.h-5.w-5.text-green-400(
+              class='sm:h-6 sm:w-6',
+              fill='none',
+              stroke='currentColor',
+              stroke-width='2',
+              viewBox='0 0 24 24',
+              xmlns='http://www.w3.org/2000/svg',
+              aria-hidden='true'
             )
-              span.h-3.w-3.rounded-full(class='bg-red-500/80', aria-hidden='true')
-              span.h-3.w-3.rounded-full(class='bg-yellow-500/80', aria-hidden='true')
-              span.h-3.w-3.rounded-full(class='bg-green-500/80', aria-hidden='true')
-              span.ml-2.truncate.font-mono.text-xs.text-gray-400= '~/projects/' + project.name
-            //- Window body
-            .flex.flex-1.flex-col.px-5.py-5
-              p.font-mono.text-sm.leading-6.text-gray-300= project.desc
-              +tagChips(project.tags, 'border-teal-400/40 text-teal-300').mt-4
-              p.mt-auto.pt-5.font-mono.text-sm.text-green-400
-                span.text-gray-400 $&nbsp;
-                | ./open_repo.sh
-                span.ml-2.inline-block.transition-transform.duration-200(
-                  class='group-hover:translate-x-1'
-                ) &rarr;
-
-    //- Everything else lives on GitHub and on the cases site
-    .mt-14.flex.flex-wrap.items-center.justify-center.gap-4(class='sm:gap-6')
-      +terminalCta('https://github.com/vitorecomp?tab=repositories', './view_all_repos.sh')
-        svg.h-5.w-5.text-green-400(
-          class='sm:h-6 sm:w-6',
-          fill='none',
-          stroke='currentColor',
-          stroke-width='2',
-          viewBox='0 0 24 24',
-          xmlns='http://www.w3.org/2000/svg',
-          aria-hidden='true'
-        )
-          path(stroke-linecap='round', stroke-linejoin='round', d='M8.25 4.5l7.5 7.5-7.5 7.5')
-      +terminalCta('https://cases.vitorx86.dev', './open_cases.sh')
-        svg.h-5.w-5.text-green-400(
-          class='sm:h-6 sm:w-6',
-          fill='none',
-          stroke='currentColor',
-          stroke-width='2',
-          viewBox='0 0 24 24',
-          xmlns='http://www.w3.org/2000/svg',
-          aria-hidden='true'
-        )
-          path(
-            stroke-linecap='round',
-            stroke-linejoin='round',
-            d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'
-          )
+              path(stroke-linecap='round', stroke-linejoin='round', d='M8.25 4.5l7.5 7.5-7.5 7.5')
+          +terminalCta('https://cases.vitorx86.dev', './open_cases.sh')
+            svg.h-5.w-5.text-green-400(
+              class='sm:h-6 sm:w-6',
+              fill='none',
+              stroke='currentColor',
+              stroke-width='2',
+              viewBox='0 0 24 24',
+              xmlns='http://www.w3.org/2000/svg',
+              aria-hidden='true'
+            )
+              path(
+                stroke-linecap='round',
+                stroke-linejoin='round',
+                d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'
+              )

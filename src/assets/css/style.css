@@ -10,14 +10,30 @@ body {
   /* Mono as the structural default: the One Font Rule holds even for
      elements that forget the font-mono class (symbols, fallback glyphs) */
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Terminal-themed selection highlight in prompt-teal */
+::selection {
+  background-color: #0d9488;
+  color: #FFFAFA;
 }
 
 /* Mono headings can produce single words wider than a 320px/200%-zoom
-   column ("contributions" at text-3xl); break instead of clipping */
+   column ("contributions" at text-3xl); break instead of clipping, and
+   balance multi-line wraps */
 h1,
 h2,
 h3 {
   overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+/* Eliminate trailing orphan words in body prose */
+p {
+  text-wrap: pretty;
 }
 
 /* The dot-nav dots are 12px; give them a 44x44px hit area without changing
@@ -63,5 +79,10 @@ button:focus-visible {
   }
   .orbit-cube {
     display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
   }
 }

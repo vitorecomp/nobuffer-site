@@ -19,11 +19,11 @@ mixin terminalEyebrowLight(command)
 //- Set insideDarkPanel=true when rendered inside a dark showcase panel so
 //- interior objects do not cast drop shadows (The Floating Terminal Rule).
 mixin terminalCta(href, label, insideDarkPanel)
-  a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.transform.duration-200(
+  a.group.inline-flex.items-center.gap-3.rounded-lg.border.border-gray-700.bg-gray-900.px-5.py-3.font-mono.text-sm.text-green-400.transform.duration-200.ease-out(
     href=href,
     target='_blank', rel='noopener',
     class=[
-      'sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:-translate-y-0.5',
+      'sm:px-6 sm:py-4 sm:text-base hover:bg-gray-800 hover:-translate-y-0.5 active:translate-y-0',
       insideDarkPanel ? 'transition-[transform,background-color]' : 'shadow-md hover:shadow-lg transition-[transform,background-color,box-shadow]',
     ]
   )&attributes(attributes)

@@ -178,9 +178,9 @@ Softly rounded rectangles are the default: `rounded-lg` (0.5rem) for buttons, ca
 ### Buttons (the terminal CTA)
 - **Character:** a one-line shell command you can press.
 - **Shape:** gently rounded (0.5rem), `border border-gray-700`.
-- **Primary:** `terminal-ink` background, `phosphor-green` mono text, muted `$ ` prefix in gray-500, padding 0.75rem 1.25rem (1rem 1.5rem from sm), `shadow-md`, optional trailing icon at h-5/w-5.
-- **Hover / Focus:** background to `panel-graphite`, `shadow-lg`, lift `-translate-y-0.5`, 200ms.
-- **Labels:** always shell-script style — `./download_resume.sh`, `./clone_alissa.sh` — often followed by a gray-500 `# comment` caption line below.
+- **Primary:** `terminal-ink` background, `phosphor-green` mono text, muted `$ ` prefix in gray-400, padding 0.75rem 1.25rem (1rem 1.5rem from sm), `shadow-md`, optional trailing icon at h-5/w-5.
+- **Hover / Focus / Active:** background to `panel-graphite`, `shadow-lg`, lift `-translate-y-0.5` (`active:translate-y-0`), 200ms `ease-out`.
+- **Labels:** always shell-script style — `./download_resume.sh`, `./clone_alissa.sh` — often followed by a gray-500 (on light) or `#9ca3af` `garage-muted` (on dark) `# comment` caption line below.
 
 ### Chips (tag chips)
 - **Style:** transparent background, 1px border in the accent at 40% opacity, accent-300 text, 0.75rem mono, `rounded` (0.25rem), padding 0.25rem 0.5rem.
@@ -189,14 +189,14 @@ Softly rounded rectangles are the default: `rounded-lg` (0.5rem) for buttons, ca
 ### Cards / Containers (terminal windows)
 - **Corner Style:** `rounded-lg` (0.5rem), overflow hidden.
 - **Background:** `terminal-ink`; title bar `panel-graphite` at 60% with bottom hairline `border-gray-700/60`.
-- **Title bar:** three traffic-light dots (red/yellow/green at 80%, 0.75rem circles) + `~/projects/<name>` path in gray-400 0.75rem.
-- **Shadow Strategy:** floating — `shadow-md` at rest, `shadow-xl` + `-translate-y-1` on hover (whole card is the link).
+- **Title bar:** three traffic-light dots (red/yellow/green at 80%, 0.75rem circles) + `~/projects/<name>` `<h3>` in 0.75rem (`~/projects/` in gray-400, `<name>` in bold white / group-hover teal-300).
+- **Shadow Strategy:** floating — `shadow-md` at rest, `shadow-xl` + `-translate-y-1` on hover (`active:translate-y-0`, whole card is the link).
 - **Internal Padding:** 1.25rem; footer action pinned to the bottom with `mt-auto` (`$ ./open_repo.sh` + arrow that slides right on group-hover).
 
 ### Navigation
-- **Desktop:** mono 0.875rem links named `./github`, `./portfolio`… — gray-900 text, `./` prefix in gray-400; hover inverts to a gray-900 pill with green text (`rounded-md`, 150ms).
+- **Desktop:** `~/vitorx86` brand link on the left + mono 0.875rem links named `./github`, `./portfolio`, `./blog`, `./resume`, `./linkedin` — gray-900 text, `./` prefix in gray-500 (`group-hover:text-gray-400`); hover inverts to a gray-900 pill with green text (`rounded-md`, 150ms).
 - **Mobile:** a `$ ls` button (gray-900, green mono) opens a gray-900 terminal panel headed by a faint `$ ls ./links` line; links are gray-300 rows that hover to gray-800/green.
-- **Dot-nav:** fixed right-edge column of 0.75rem gray-500 dots (hidden on phones); active dot turns `prompt-teal`, stretches to 1.5rem height (200ms), and carries `aria-current`.
+- **Dot-nav:** fixed right-edge column of 0.75rem gray-500 dots (hidden on phones); active dot turns `prompt-teal`, stretches to 1.5rem height (200ms `ease-out`), carries `aria-current`, and reveals a `./<slug>` terminal tooltip on hover/focus-visible.
 
 ### The Eyebrow Lockup (signature)
 Every section header: `p` in mono label size — `~$ ` prefix (gray-500 on light / white on dark) + command text (teal-700 + `font-bold` on light / teal-400 on dark) — followed by the mono headline, then body copy at mt-6. The hero and footer headlines append a pulsing `▌` cursor in teal (`animate-pulse`, aria-hidden).

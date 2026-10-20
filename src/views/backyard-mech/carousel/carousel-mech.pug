@@ -34,9 +34,9 @@
         //- Both controls below the counter, following the terminal-button
         //- rules: green on ink, shadow at rest, lift on hover (never scale)
         .mt-6.flex.items-center.self-end
-          button#carousel-prev-button.flex.items-center.justify-center.rounded-lg.border.border-gray-700.bg-gray-900.text-green-400.shadow-md.transform.duration-200.h-12.w-12(
+          button#carousel-prev-button.flex.items-center.justify-center.rounded-lg.border.border-gray-700.bg-gray-900.text-green-400.shadow-md.transform.duration-200.ease-out.h-12.w-12(
             type='button',
-            class='sm:h-14 sm:w-14 transition-[transform,background-color,box-shadow] hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5',
+            class='sm:h-14 sm:w-14 transition-[transform,background-color,box-shadow] hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0',
             aria-label='Show previous car'
           )
             svg.h-5.w-5(
@@ -50,9 +50,9 @@
             )
               path(stroke-linecap='round', stroke-linejoin='round', d='M15 19l-7-7 7-7')
 
-          button#carousel-next-button.ml-3.flex.items-center.justify-center.rounded-lg.border.border-gray-700.bg-gray-900.text-green-400.shadow-md.transform.duration-200.h-12.w-12(
+          button#carousel-next-button.ml-3.flex.items-center.justify-center.rounded-lg.border.border-gray-700.bg-gray-900.text-green-400.shadow-md.transform.duration-200.ease-out.h-12.w-12(
             type='button',
-            class='sm:h-14 sm:w-14 transition-[transform,background-color,box-shadow] hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5',
+            class='sm:h-14 sm:w-14 transition-[transform,background-color,box-shadow] hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0',
             aria-label='Show next car'
           )
             svg.h-5.w-5(
