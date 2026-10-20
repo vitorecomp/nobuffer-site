@@ -219,3 +219,4 @@ Full-bleed `midnight-garage` (or solid `terminal-ink`) container, `ring-1 ring-g
 - **Don't** put shadows on full-bleed dark panels, and don't leave interactive cards shadowless — the depth rule is what separates object from environment.
 - **Don't** use Tailwind classes that aren't in this build (`text-primary`, `text-body-color`, `text-dark` came from a template and compile to nothing) — the config is stock Tailwind + JetBrains Mono.
 - **Don't** write buttons or links in sentence case ("View my projects") — the terminal grammar (`./view_projects.sh`) is the brand voice.
+- **Don't** decouple the Floating Atom (`constellation.js`) from the 3D AR2/AR3 robot arm (`robot.js`) in `#open-source`: the atom is designed to float in front of the robot at the cursor so the robot reaches out to grab it and receives dynamic directional lighting/shadows (`window.__atomLight`) from the atom.

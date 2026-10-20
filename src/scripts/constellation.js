@@ -248,27 +248,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const target = home.clone();
   let mouseInside = false;
 
-  // The atom only chases the mouse inside the open-source section (excluding
-  // the 3D robot stage so hovering the robot drives only the robot's IK);
-  // anywhere else it drifts back to its rest point beside the heading
+  // The atom chases the mouse across the entire open-source section —
+  // including in front of the 3D robot stage, so the robot arm's IK and
+  // gripper reach toward the floating atom to try to grab it (while the atom
+  // also acts as the robot's dynamic shadow-casting light source via
+  // window.__atomLight). Elsewhere on the page it drifts back to its rest
+  // point beside the heading.
   const followArea = document.getElementById('open-source') || section;
-  const robotArea = document.getElementById('robot-arm-container');
 
   window.addEventListener('mousemove', (event) => {
     const sRect = followArea.getBoundingClientRect();
-    const inRobot =
-      robotArea &&
-      (() => {
-        const rRect = robotArea.getBoundingClientRect();
-        return (
-          event.clientX >= rRect.left &&
-          event.clientX <= rRect.right &&
-          event.clientY >= rRect.top &&
-          event.clientY <= rRect.bottom
-        );
-      })();
     mouseInside =
-      !inRobot &&
       event.clientX >= sRect.left &&
       event.clientX <= sRect.right &&
       event.clientY >= sRect.top &&
