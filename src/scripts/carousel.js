@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const label = document.createElement('button');
     label.type = 'button';
     label.className =
-      'carousel-index inline-flex min-h-[44px] min-w-[32px] items-center justify-center rounded px-1 transition-colors duration-300 hover:text-teal-700 ' +
+      'carousel-index inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded px-1 transition-colors duration-300 hover:text-teal-700 ' +
       (index === 0 ? 'text-teal-700 font-bold' : 'text-gray-500');
     label.textContent = String(index + 1).padStart(2, '0');
     label.setAttribute('aria-label', `Show car ${index + 1}: ${slide.title}`);
