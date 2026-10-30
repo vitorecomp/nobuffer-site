@@ -1,42 +1,210 @@
-//- Portfolio: terminal-window cards over the light page background.
-//- Add a project = add one entry to the array below.
+//- Portfolio & Dispatches: 60/40 split workspace with sharp 0px boxy geometry.
+//- Left (60%): Portfolio project cards on an interactive carousel (based on cases.vitorx86.dev).
+//- Right (40%): Recent Articles / Engineering Dispatches sidebar (based on blog.vitorx86.dev).
 -
   const projects = [
     {
+      index: '01',
+      name: 'sei-mcp',
+      title: 'SEI MCP Server',
+      domain: 'DOM.02 // AI & MCP AGENTS',
+      language: 'PYTHON // MCP',
+      schematic: 'mcp',
+      desc: 'Enterprise Model Context Protocol server exposing 72 official SEI v3.1+ SOAP, SIP, and RH tools with Google OAuth 2.0.',
+      highlights: [
+        'Full coverage of 72 official SEI, SIP, and RH administrative operations',
+        'Deterministic schema validation with bounded token pagination',
+        'Production Google OAuth 2.0 & stdio/SSE transport sandboxing',
+      ],
+      specs: [
+        { label: 'PROTOCOL', value: 'MCP STDIO/SSE' },
+        { label: 'SURFACE', value: '72 TOOLS' },
+        { label: 'AUTH', value: 'OAUTH 2.0' },
+      ],
+      tags: ['python', 'mcp', 'gemini', 'automation'],
+      href: 'https://github.com/vitorecomp/sei-mcp',
+      caseHref: 'https://cases.vitorx86.dev/ai/sei-mcp',
+    },
+    {
+      index: '02',
+      name: 'ruscene',
+      title: 'Ruscene',
+      domain: 'DOM.01 // SYSTEMS & CLI',
+      language: 'RUST // SEARCH',
+      schematic: 'search',
+      desc: 'A Lucene-style full-text search engine architecture implemented from scratch in Rust with inverted segments and BM25 scoring.',
+      highlights: [
+        'Immutable inverted index segments with skip-list postings traversal',
+        'Pluggable tokenizer pipeline and BM25 / TF-IDF relevance ranking',
+        'Zero-GC memory safety for predictable tail-latency query execution',
+      ],
+      specs: [
+        { label: 'ENGINE', value: 'INVERTED IDX' },
+        { label: 'RANKING', value: 'BM25 / TFIDF' },
+        { label: 'RUNTIME', value: 'ZERO-GC RUST' },
+      ],
+      tags: ['rust', 'search-engine', 'lucene'],
+      href: 'https://github.com/vitorecomp/ruscene',
+      caseHref: 'https://cases.vitorx86.dev/systems/ruscene',
+    },
+    {
+      index: '03',
+      name: 'open-judy',
+      title: 'Open Judy',
+      domain: 'DOM.02 // AI & MCP AGENTS',
+      language: 'TS // QUARKUS',
+      schematic: 'rag',
+      desc: 'Cloud-native judiciary AI platform with Gemini speaker diarization, automated hearing minutes, AlloyDB pgvector RAG, and Keycloak OIDC.',
+      highlights: [
+        'Multi-speaker courtroom audio diarization and timestamped transcripts',
+        'Legal precedent retrieval backed by AlloyDB pgvector hybrid search',
+        'Role-based access control and audit trails via Keycloak OIDC',
+      ],
+      specs: [
+        { label: 'BACKEND', value: 'QUARKUS + TS' },
+        { label: 'VECTOR DB', value: 'ALLOYDB RAG' },
+        { label: 'MODELS', value: 'GEMINI PRO' },
+      ],
+      tags: ['typescript', 'quarkus', 'gemini', 'pgvector'],
+      href: 'https://github.com/vitorecomp/open-judy',
+      caseHref: 'https://cases.vitorx86.dev/ai/open-judy',
+    },
+    {
+      index: '04',
+      name: 'esp32-watch-so',
+      title: 'ESP32 Watch OS',
+      domain: 'DOM.03 // BACKYARD MECH',
+      language: 'C++ // ESP32',
+      schematic: 'embedded',
+      desc: 'A close-to-the-metal operating system for ESP32-based smartwatches with SPI DMA double buffering, deep-sleep wake stubs, and BLE sync.',
+      highlights: [
+        '40 MHz SPI DMA double-buffered scanline renderer driving 60 FPS UI',
+        'EXT0 accelerometer wrist-tilt wake stubs drawing under 180 uA asleep',
+        'Custom FreeRTOS task scheduler and BLE GATT time/notification sync',
+      ],
+      specs: [
+        { label: 'TARGET', value: 'ESP32 RTOS' },
+        { label: 'DISPLAY', value: 'SPI DMA 60FPS' },
+        { label: 'POWER', value: '180uA SLEEP' },
+      ],
+      tags: ['c++', 'esp32', 'embedded', 'rtos'],
+      href: 'https://github.com/vitorecomp/esp32-watch-so',
+      caseHref: 'https://cases.vitorx86.dev/hardware/esp32-watch-so',
+    },
+    {
+      index: '05',
+      name: 'go-ls',
+      title: 'go-ls',
+      domain: 'DOM.01 // SYSTEMS & CLI',
+      language: 'GOLANG // CLI',
+      schematic: 'cli',
+      desc: 'A complete ls replacement in Go with getdents64 syscall batching, nerd-font glyphs, recursive tree views, and in-memory Git index parsing.',
+      highlights: [
+        'Batched 32 KB getdents64 directory reads avoiding per-file lstat storms',
+        'Direct binary .git/index header parser with zero subprocess overhead',
+        'Colorized permission masks, file-type icons, and recursive tree output',
+      ],
+      specs: [
+        { label: 'SYSCALL', value: 'GETDENTS64' },
+        { label: 'OUTPUT', value: 'TREE + ICONS' },
+        { label: 'VCS', value: 'GIT IDX PARSE' },
+      ],
+      tags: ['go', 'cli', 'filesystem'],
+      href: 'https://github.com/vitorecomp/go-ls',
+      caseHref: 'https://cases.vitorx86.dev/systems/go-ls',
+    },
+    {
+      index: '06',
       name: 'nos-system',
-      desc: 'A framework for controlling node-oriented services, built around a super-node concept.',
+      title: 'Nos-System',
+      domain: 'DOM.01 // SYSTEMS & CLI',
+      language: 'C++ // DISTRIBUTED',
+      schematic: 'nodes',
+      desc: 'A framework for controlling node-oriented services, built around a distributed super-node orchestration topology.',
+      highlights: [
+        'Hierarchical super-node routing for low-overhead cluster coordination',
+        'Polyglot C++ and Node.js worker runtime with heartbeat health probes',
+        'Deterministic service discovery and fault-isolated message dispatch',
+      ],
+      specs: [
+        { label: 'TOPOLOGY', value: 'SUPER-NODE' },
+        { label: 'CORE', value: 'C++ / NODE' },
+        { label: 'MODE', value: 'DISTRIBUTED' },
+      ],
       tags: ['c++', 'javascript', 'distributed'],
       href: 'https://github.com/vitorecomp/Nos-System',
+      caseHref: 'https://cases.vitorx86.dev/systems/nos-system',
     },
     {
-      name: 'ruscene',
-      desc: 'A Lucene-style full-text search engine implemented from scratch in Rust.',
-      tags: ['rust', 'search-engine'],
-      href: 'https://github.com/vitorecomp/ruscene',
-    },
-    {
+      index: '07',
       name: 'alissa',
-      desc: 'AI racing companion — tuning help, diagnostics and race insights for old shitboxes.',
+      title: 'Alissa Racing AI',
+      domain: 'DOM.03 // BACKYARD MECH',
+      language: 'AI // TELEMETRY',
+      schematic: 'telemetry',
+      desc: 'AI racing companion — ECU tuning help, live CAN-bus diagnostics, and telemetry insights for old shitboxes.',
+      highlights: [
+        'Real-time Speeduino & OBD-II telemetry ingestion over 500 kbps CAN-bus',
+        'Automated AFR/ignition map anomaly detection during track sessions',
+        'Low-latency voice synthesis and cockpit HUD alerts for the driver',
+      ],
+      specs: [
+        { label: 'BUS', value: 'CAN / OBD-II' },
+        { label: 'ECU', value: 'SPEEDUINO' },
+        { label: 'AGENT', value: 'VOICE + HUD' },
+      ],
       tags: ['ai', 'telemetry', 'racing'],
       href: 'https://github.com/vitorecomp/alissa-ai-racing-companion',
+      caseHref: 'https://cases.vitorx86.dev/ai/alissa-ai-racing-companion',
     },
     {
-      name: 'esp32-watch-so',
-      desc: 'A tiny operating system for ESP32-based watches, written close to the metal.',
-      tags: ['c++', 'esp32', 'embedded'],
-      href: 'https://github.com/vitorecomp/esp32-watch-so',
+      index: '08',
+      name: 'turbovec',
+      title: 'TurboVec',
+      domain: 'DOM.01 // SYSTEMS & CLI',
+      language: 'RUST // SIMD',
+      schematic: 'vector',
+      desc: 'Vector index built on Google Research TurboQuant in Rust with Python bindings and AVX-512 / NEON SIMD acceleration.',
+      highlights: [
+        '64-byte cache-aligned HNSW graph storage for minimal L3 cache misses',
+        'Asymmetric Int8 scalar quantization with SIMD L2 & cosine kernels',
+        'Zero-copy PyO3 Python bindings alongside native Rust crate API',
+      ],
+      specs: [
+        { label: 'INDEX', value: 'HNSW + INT8' },
+        { label: 'ACCEL', value: 'AVX512 / NEON' },
+        { label: 'BINDINGS', value: 'RUST + PYO3' },
+      ],
+      tags: ['rust', 'python', 'vector-index', 'simd'],
+      href: 'https://github.com/vitorecomp/turbovec',
+      caseHref: 'https://cases.vitorx86.dev/systems/turbovec',
+    },
+  ]
+
+  const blogArticles = [
+    {
+      slug: 'simd-vector-index-rust-turbovec',
+      channel: '#systems-and-cli',
+      readTime: '4 min read',
+      title: 'Building a SIMD-Accelerated Vector Index in Rust (turbovec)',
+      excerpt: 'Cache-aligned HNSW graph storage and quantized Int8 distance kernels to hit sub-millisecond recall.',
+      href: 'https://blog.vitorx86.dev/',
     },
     {
-      name: 'ai-advanced-ocr',
-      desc: 'Experiments pushing OCR beyond the basics with modern AI models.',
-      tags: ['python', 'ai', 'ocr'],
-      href: 'https://github.com/vitorecomp/ai-advanced-ocr',
+      slug: 'deterministic-mcp-tool-servers',
+      channel: '#ai-and-agents',
+      readTime: '5 min read',
+      title: 'Designing Deterministic MCP Tool Servers for Coding Agents',
+      excerpt: 'Strict schema validation, bounded token pagination, and dry-run contracts across 72 enterprise tools.',
+      href: 'https://blog.vitorx86.dev/',
     },
     {
-      name: 'go-ls',
-      desc: 'A complete ls rewritten in Go — everything the original does, plus extra features.',
-      tags: ['go', 'cli'],
-      href: 'https://github.com/vitorecomp/go-ls',
+      slug: 'esp32-s3-can-bus-telemetry-garage',
+      channel: '#hardware-and-garage',
+      readTime: '4 min read',
+      title: 'Reverse-Engineering CAN-Bus Telemetry with an ESP32-S3',
+      excerpt: 'Wiring a 3.3V transceiver to an ESP32-S3 TWAI controller to capture 500 kbps ECU frames over WebSockets.',
+      href: 'https://blog.vitorx86.dev/',
     },
   ]
 
@@ -48,70 +216,475 @@
       div(
         class='px-6 lg:px-0 lg:pl-12 lg:col-span-11 lg:col-start-1 lg:ml-[max(0px,50%_-_46rem)] lg:w-full lg:max-w-7xl'
       )
-        //- Terminal eyebrow + heading, light-background lockup (same as the hero)
-        .max-w-2xl
-          +terminalEyebrowLight('ls ~/projects')
-          h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
-            | Portfolio
-          p.mt-6.font-mono.text-lg.leading-8.text-gray-700
-            | Selected projects from my repos — systems code in Rust and Go, AI
-            | experiments, embedded toys, and the tools in between. All open source.
+        //- Portfolio-themed structural header box (0px Cyber-Brutalist geometry)
+        .relative.overflow-hidden.border.border-gray-300.bg-white.shadow-lg
+          //- Top structural specification bar
+          .flex.flex-wrap.items-center.justify-between.gap-2.border-b.border-gray-300.bg-gray-100.px-4.py-2.font-mono.text-xs.font-bold
+            .flex.items-center.gap-2
+              span.text-violet-600 //01
+              span.tracking-wider.text-gray-900 CASES.VITORX86.DEV // ENGINEERING INDEX
+            .flex.items-center.gap-2
+              span.border.border-gray-900.bg-lime-300.px-2.font-mono.text-xs.font-bold.text-gray-900(
+                class='py-0.5'
+              ) 93 REPOS // SYNCED
 
-        //- Each project is a little terminal window; the whole card is a link
-        ul.mt-12.grid.w-full.grid-cols-1.gap-6(class='sm:grid-cols-2 lg:grid-cols-3 lg:gap-8')
-          each project in projects
-            li
-              a.group.flex.h-full.flex-col.overflow-hidden.rounded-lg.bg-gray-900.shadow-md.ring-1.transform.duration-200.ease-out(
-                href=project.href,
-                target='_blank', rel='noopener',
-                class='ring-gray-400/10 transition-[transform,box-shadow] hover:-translate-y-1 hover:shadow-xl active:translate-y-0'
+          //- Split structural body: Main Copy + Right Telemetry Cell
+          .grid.grid-cols-1(class='lg:grid-cols-12')
+            //- Main eyebrow, title, and description cell
+            .p-6(class='sm:p-8 lg:col-span-8')
+              +terminalEyebrowLight('ls ~/projects --with-blog')
+              h2.mt-2.font-mono.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl')
+                | Portfolio &amp; Dispatches
+              p.mt-4.font-mono.text-base.leading-8.text-gray-700(class='sm:text-lg')
+                | Selected systems in Rust, Go, C++, and AI documented on my engineering
+                | portfolio, paired with technical dispatches from the garage blog.
+
+            //- Right portfolio telemetry cell (orthographic grid + live repo counters)
+            .relative.flex.flex-col.justify-between.border-t.border-gray-300.bg-gray-50.p-6(
+              class='lg:col-span-4 lg:border-t-0 lg:border-l'
+            )
+              .flex.items-center.justify-between.font-mono.text-xs.font-bold
+                span.text-violet-700 &bull; &gt; COMPILING_INDEX
+                span.text-gray-500 //SCN_01
+              .mt-4.grid.grid-cols-2(class='gap-2.5')
+                .border.border-gray-300.bg-white.px-3.py-2
+                  p.font-mono.text-lg.font-extrabold.leading-none.text-gray-900 93
+                  p.mt-1.font-mono.text-gray-600(class='text-[10px]') PUBLIC_REPOS
+                .border.border-gray-300.bg-white.px-3.py-2
+                  p.font-mono.text-lg.font-extrabold.leading-none.text-violet-700 26
+                  p.mt-1.font-mono.text-gray-600(class='text-[10px]') DOC_PAGES
+                .border.border-gray-300.bg-white.px-3.py-2
+                  p.font-mono.text-lg.font-extrabold.leading-none.text-gray-900 72
+                  p.mt-1.font-mono.text-gray-600(class='text-[10px]') MCP_TOOLS
+                .border.border-gray-900.bg-lime-200.px-3.py-2
+                  p.font-mono.text-lg.font-extrabold.leading-none.text-gray-900 04
+                  p.mt-1.font-mono.font-bold.text-gray-900(class='text-[10px]') ARCH_DOMAINS
+
+        //- 60 / 40 split: Left (3 of 5 cols = 60%) Portfolio Cards Carousel,
+        //- Right (2 of 5 cols = 40%) Recent Articles / Blog Sidebar
+        .mt-12.grid.grid-cols-1.gap-8(class='lg:grid-cols-5 lg:items-stretch')
+          //- ================================================================
+          //- LEFT 60% (lg:col-span-3): PORTFOLIO CARDS CAROUSEL (0px boxy)
+          //- ================================================================
+          #portfolio-carousel.flex.flex-col.overflow-hidden.border.bg-gray-900.shadow-xl(
+            class='lg:col-span-3 border-gray-700/80',
+            aria-roledescription='carousel',
+            aria-label='Featured portfolio projects'
+          )
+            //- Terminal window bar
+            .flex.items-center.justify-between.gap-2.border-b.px-4.py-3(
+              class='border-gray-700/60 bg-gray-800/70'
+            )
+              .flex.items-center.gap-2.min-w-0
+                span.h-3.w-3.shrink-0(class='bg-red-500/80', aria-hidden='true')
+                span.h-3.w-3.shrink-0(class='bg-yellow-500/80', aria-hidden='true')
+                span.h-3.w-3.shrink-0(class='bg-green-500/80', aria-hidden='true')
+                span.ml-2.truncate.font-mono.text-xs.text-gray-300
+                  | ~/cases.vitorx86.dev/featured
+              .flex.shrink-0.items-center.gap-2
+                span#portfolio-slide-domain.hidden.border.px-2.font-mono.text-xs.text-teal-300(
+                  class='py-0.5 sm:inline-block border-teal-400/30 bg-teal-950/40'
+                )= projects[0].domain
+                span#portfolio-slide-counter.font-mono.text-xs.font-bold.text-green-400
+                  | [01 / 08]
+
+            //- Carousel stage with side < > controls and active project card
+            .relative.flex.flex-1.flex-col
+              //- Blueprint schematic pattern definition shared by slides
+              svg.pointer-events-none.absolute.h-0.w-0(aria-hidden='true')
+                defs
+                  pattern#portfolio-blueprint-grid(
+                    width='36',
+                    height='36',
+                    patternUnits='userSpaceOnUse',
+                    patternTransform='rotate(45)'
+                  )
+                    path.stroke-blueprint-line(
+                      d='M 0 0 H 36 M 0 0 V 36',
+                      fill='none',
+                      stroke-opacity='0.35',
+                      stroke-width='1'
+                    )
+
+              //- Slides container (aria-live announces slide transitions)
+              .relative.flex.flex-1.flex-col(aria-live='polite')
+                each project, idx in projects
+                  article.flex.flex-1.flex-col(
+                    data-portfolio-slide=idx,
+                    data-slide-domain=project.domain,
+                    class=idx === 0 ? '' : 'hidden',
+                    aria-hidden=idx === 0 ? 'false' : 'true'
+                  )
+                    //- Top Architectural Blueprint Preview Banner (from cases.vitorx86.dev)
+                    .relative.overflow-hidden.border-b.bg-midnight-garage.px-6.pt-5.pb-5(
+                      class='sm:px-14 border-gray-700/60'
+                    )
+                      svg.pointer-events-none.absolute.inset-0.h-full.w-full(aria-hidden='true')
+                        rect(width='100%', height='100%', fill='url(#portfolio-blueprint-grid)')
+
+                      //- Top schematic telemetry strip
+                      .relative.z-10.flex.flex-wrap.items-center.justify-between.gap-2
+                        .flex.items-center.gap-2
+                          span.bg-teal-400.px-2.font-mono.text-xs.font-bold.text-gray-900(class='py-0.5')
+                            | //#{project.index}
+                          span.font-mono.text-xs.font-bold.tracking-wider.text-teal-300
+                            = project.domain
+                        span.border.font-mono.text-xs.font-bold.text-green-400(
+                          class='px-2.5 py-0.5 border-green-400/40 bg-gray-900/80'
+                        )= project.language
+
+                      //- Center schematic illustration + clone readout
+                      .relative.z-10.mt-5.grid.grid-cols-1.items-center.gap-4(class='sm:grid-cols-12')
+                        //- Orthographic SVG module schematic
+                        .flex.items-center.justify-center.border.p-3(
+                          class='sm:col-span-4 border-indigo-300/20 bg-gray-900/75'
+                        )
+                          if project.schematic === 'vector'
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              line(x1='24', y1='60', x2='68', y2='22', stroke='currentColor', stroke-width='1.5', stroke-opacity='0.5')
+                              line(x1='68', y1='22', x2='128', y2='28', stroke='currentColor', stroke-width='1.5', stroke-opacity='0.5')
+                              line(x1='24', y1='60', x2='86', y2='58', stroke='currentColor', stroke-width='1.5', stroke-opacity='0.5')
+                              line(x1='68', y1='22', x2='86', y2='58', stroke='#4ade80', stroke-width='1.75')
+                              line(x1='86', y1='58', x2='128', y2='28', stroke='#4ade80', stroke-width='1.75')
+                              rect(x='19', y='55', width='10', height='10', fill='#111827', stroke='currentColor', stroke-width='2')
+                              rect(x='62', y='16', width='12', height='12', fill='#0d9488', stroke='#2dd4bf', stroke-width='2')
+                              rect(x='79', y='51', width='14', height='14', fill='#4ade80')
+                              rect(x='123', y='23', width='10', height='10', fill='#111827', stroke='#4ade80', stroke-width='2')
+                              text(x='96', y='72', fill='#9ca3af', font-size='9', font-family='monospace') HNSW // SIMD
+                          else if project.schematic === 'mcp'
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              rect(x='14', y='18', width='42', height='44', fill='#111827', stroke='currentColor', stroke-width='1.75')
+                              text(x='23', y='44', fill='#2dd4bf', font-size='10', font-family='monospace', font-weight='bold') MCP
+                              line(x1='56', y1='30', x2='102', y2='30', stroke='#4ade80', stroke-width='1.75', stroke-dasharray='4 3')
+                              line(x1='56', y1='50', x2='102', y2='50', stroke='currentColor', stroke-width='1.5')
+                              rect(x='102', y='14', width='44', height='22', fill='#111827', stroke='#4ade80', stroke-width='1.5')
+                              rect(x='102', y='44', width='44', height='22', fill='#111827', stroke='currentColor', stroke-width='1.5')
+                              text(x='110', y='28', fill='#4ade80', font-size='8', font-family='monospace') 72 TOOLS
+                              text(x='110', y='58', fill='#9ca3af', font-size='8', font-family='monospace') OAUTH2
+                          else if project.schematic === 'search'
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              rect(x='16', y='14', width='34', height='14', stroke='currentColor', stroke-width='1.5')
+                              rect(x='16', y='33', width='34', height='14', stroke='#4ade80', stroke-width='1.75')
+                              rect(x='16', y='52', width='34', height='14', stroke='currentColor', stroke-width='1.5')
+                              line(x1='50', y1='40', x2='84', y2='40', stroke='#4ade80', stroke-width='1.75')
+                              rect(x='84', y='18', width='60', height='44', fill='#111827', stroke='#2dd4bf', stroke-width='1.75')
+                              text(x='94', y='37', fill='#4ade80', font-size='9', font-family='monospace') SEG_01..N
+                              text(x='94', y='51', fill='#9ca3af', font-size='8', font-family='monospace') BM25 RANK
+                          else if project.schematic === 'rag'
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              rect(x='16', y='22', width='36', height='36', fill='#111827', stroke='#2dd4bf', stroke-width='1.75')
+                              text(x='21', y='43', fill='#2dd4bf', font-size='8', font-family='monospace') AUDIO
+                              line(x1='52', y1='40', x2='88', y2='40', stroke='#4ade80', stroke-width='1.75')
+                              rect(x='88', y='20', width='56', height='40', fill='#111827', stroke='#4ade80', stroke-width='1.75')
+                              text(x='96', y='38', fill='#4ade80', font-size='8', font-family='monospace') PGVECTOR
+                              text(x='96', y='50', fill='#9ca3af', font-size='8', font-family='monospace') DIARIZE
+                          else if project.schematic === 'embedded'
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              rect(x='52', y='12', width='56', height='56', fill='#111827', stroke='#2dd4bf', stroke-width='2')
+                              rect(x='60', y='20', width='40', height='40', stroke='#4ade80', stroke-width='1.5')
+                              text(x='66', y='43', fill='#4ade80', font-size='9', font-family='monospace', font-weight='bold') ESP32
+                              line(x1='28', y1='28', x2='52', y2='28', stroke='currentColor', stroke-width='1.5')
+                              line(x1='28', y1='52', x2='52', y2='52', stroke='currentColor', stroke-width='1.5')
+                              line(x1='108', y1='28', x2='132', y2='28', stroke='currentColor', stroke-width='1.5')
+                              line(x1='108', y1='52', x2='132', y2='52', stroke='currentColor', stroke-width='1.5')
+                          else if project.schematic === 'cli'
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              rect(x='16', y='14', width='128', height='52', fill='#111827', stroke='currentColor', stroke-width='1.75')
+                              text(x='26', y='33', fill='#4ade80', font-size='9', font-family='monospace') $ go-ls --tree
+                              text(x='26', y='47', fill='#2dd4bf', font-size='8', font-family='monospace') ├── cmd/  ├── pkg/
+                              text(x='26', y='59', fill='#9ca3af', font-size='8', font-family='monospace') └── getdents64 [OK]
+                          else if project.schematic === 'nodes'
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              rect(x='67', y='27', width='26', height='26', fill='#111827', stroke='#4ade80', stroke-width='2')
+                              rect(x='23', y='15', width='14', height='14', fill='#111827', stroke='currentColor', stroke-width='1.75')
+                              rect(x='23', y='51', width='14', height='14', fill='#111827', stroke='currentColor', stroke-width='1.75')
+                              rect(x='123', y='15', width='14', height='14', fill='#111827', stroke='currentColor', stroke-width='1.75')
+                              rect(x='123', y='51', width='14', height='14', fill='#111827', stroke='currentColor', stroke-width='1.75')
+                              line(x1='37', y1='25', x2='67', y2='35', stroke='currentColor', stroke-width='1.5')
+                              line(x1='37', y1='55', x2='67', y2='45', stroke='currentColor', stroke-width='1.5')
+                              line(x1='93', y1='35', x2='123', y2='25', stroke='#4ade80', stroke-width='1.5')
+                              line(x1='93', y1='45', x2='123', y2='55', stroke='#4ade80', stroke-width='1.5')
+                          else
+                            svg.h-20.w-full.text-teal-400(viewBox='0 0 160 80', fill='none', aria-hidden='true')
+                              polyline(points='16,56 42,48 64,26 88,44 114,20 144,30', fill='none', stroke='#4ade80', stroke-width='2')
+                              line(x1='16', y1='64', x2='144', y2='64', stroke='currentColor', stroke-width='1.25', stroke-opacity='0.5')
+                              text(x='20', y='24', fill='#2dd4bf', font-size='8', font-family='monospace') CAN_BUS // 500KBPS
+
+                        //- Right schematic spec readout + clone command
+                        .flex.flex-col.justify-between.gap-3(class='sm:col-span-8')
+                          .border.bg-gray-900(class='px-3.5 py-2.5 border-gray-700/80')
+                            p.font-mono.text-xs.text-gray-400
+                              | $ git clone
+                            p.truncate.font-mono.text-xs.font-bold.text-green-400(class='mt-0.5')
+                              | github.com/vitorecomp/#{project.name}.git
+                          .grid.grid-cols-1.gap-2(class='sm:grid-cols-3')
+                            each spec in project.specs
+                              .flex.items-center.justify-between.border(
+                                class='px-2.5 py-1.5 sm:block border-gray-700/70 bg-gray-900/80'
+                              )
+                                p.font-mono.text-gray-400(class='text-[10px] leading-tight')= spec.label
+                                p.font-mono.font-bold.text-white(class='sm:mt-0.5 text-[11px]')= spec.value
+
+                    //- Card Body (project title, description, architecture highlights, tags, dual actions)
+                    .flex.flex-1.flex-col.justify-between.px-6.py-6(class='sm:px-14 sm:py-6')
+                      div
+                        p.font-mono.text-xs.text-gray-400
+                          | ~/projects/
+                          span.text-teal-300= project.name
+                        h3.mt-1.font-mono.text-2xl.font-bold.tracking-tight.text-white(class='sm:text-3xl')
+                          = project.title
+                        p.mt-3.font-mono.text-sm.leading-7.text-gray-300(class='sm:text-base')
+                          = project.desc
+
+                        //- Architecture spec highlights from cases.vitorx86.dev
+                        .mt-5.border.p-4(class='border-gray-800 bg-gray-800/40')
+                          p.font-mono.text-xs.font-bold.text-teal-400
+                            span.text-gray-400 ~$&nbsp;
+                            | cat ./architecture.spec
+                          ul.mt-2(class='space-y-1.5')
+                            each item in project.highlights
+                              li.flex.items-start.gap-2.font-mono.text-xs.leading-relaxed.text-gray-300
+                                span.font-bold.text-teal-400(aria-hidden='true') &raquo;
+                                span= item
+
+                        +tagChips(project.tags, 'rounded-none border-teal-400/40 text-teal-300').mt-5
+
+                      //- Dual Card Actions: Case Study on cases.vitorx86.dev + GitHub Repo
+                      .mt-6.flex.flex-wrap.items-center.justify-between.gap-4.border-t.pt-5(
+                        class='border-gray-800'
+                      )
+                        a.group.inline-flex.items-center.gap-2.border.border-gray-700.bg-gray-800.px-4.py-2.font-mono.text-xs.font-bold.text-green-400.transition-colors.duration-150(
+                          href=project.caseHref,
+                          target='_blank',
+                          rel='noopener',
+                          class='min-h-[44px] sm:text-sm hover:border-teal-400/60 hover:bg-gray-700'
+                        )
+                          span.text-gray-400 $
+                          span ./read_case_study.sh
+                          span.inline-block.transition-transform.duration-200(
+                            class='group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
+                          ) &#8599;
+
+                        a.group.inline-flex.items-center.px-2.py-2.font-mono.text-xs.font-bold.text-teal-300.transition-colors.duration-150(
+                          href=project.href,
+                          target='_blank',
+                          rel='noopener',
+                          class='min-h-[44px] gap-1.5 sm:text-sm hover:text-green-400'
+                        )
+                          span.text-gray-400 $&nbsp;
+                          span ./open_repo.sh
+                          span.ml-1.inline-block.transition-transform.duration-200(
+                            class='group-hover:translate-x-1'
+                          ) &rarr;
+
+              //- Side < and > slider buttons on desktop (0px boxy)
+              button.hidden.items-center.justify-center.border.border-gray-700.bg-gray-900.text-green-400.transition-colors.duration-150(
+                type='button',
+                data-portfolio-prev,
+                aria-label='Previous project card',
+                class='sm:flex absolute left-2.5 top-1/2 -translate-y-1/2 z-20 h-11 w-9 bg-gray-900/90 hover:border-teal-400/60 hover:bg-gray-800'
               )
-                //- Title bar with traffic-light dots
-                .flex.items-center.gap-2.border-b.px-4.py-3(
-                  class='border-gray-700/60 bg-gray-800/60'
+                svg.h-5.w-5(fill='none', stroke='currentColor', stroke-width='2.25', viewBox='0 0 24 24', aria-hidden='true')
+                  path(stroke-linecap='square', stroke-linejoin='miter', d='M15.75 19.5L8.25 12l7.5-7.5')
+
+              button.hidden.items-center.justify-center.border.border-gray-700.bg-gray-900.text-green-400.transition-colors.duration-150(
+                type='button',
+                data-portfolio-next,
+                aria-label='Next project card',
+                class='sm:flex absolute right-2.5 top-1/2 -translate-y-1/2 z-20 h-11 w-9 bg-gray-900/90 hover:border-teal-400/60 hover:bg-gray-800'
+              )
+                svg.h-5.w-5(fill='none', stroke='currentColor', stroke-width='2.25', viewBox='0 0 24 24', aria-hidden='true')
+                  path(stroke-linecap='square', stroke-linejoin='miter', d='M8.25 4.5l7.5 7.5-7.5 7.5')
+
+            //- Engineering domain directories strip (from cases.vitorx86.dev)
+            .grid.grid-cols-2.gap-2.border-t.px-4.py-3(
+              class='sm:grid-cols-4 sm:px-6 border-gray-800 bg-gray-900/90'
+            )
+              a.group.flex.items-center.justify-between.border.font-mono.text-xs.text-gray-300.transition-colors.duration-150(
+                href='https://cases.vitorx86.dev/systems',
+                target='_blank',
+                rel='noopener',
+                class='min-h-[44px] px-2.5 py-1.5 border-gray-800 bg-gray-800/50 hover:border-teal-400/50 hover:text-teal-300'
+              )
+                span.truncate ~/systems
+                span.ml-1.text-teal-400 [7]
+              a.group.flex.items-center.justify-between.border.font-mono.text-xs.text-gray-300.transition-colors.duration-150(
+                href='https://cases.vitorx86.dev/ai',
+                target='_blank',
+                rel='noopener',
+                class='min-h-[44px] px-2.5 py-1.5 border-gray-800 bg-gray-800/50 hover:border-teal-400/50 hover:text-teal-300'
+              )
+                span.truncate ~/ai-mcp
+                span.ml-1.text-teal-400 [8]
+              a.group.flex.items-center.justify-between.border.font-mono.text-xs.text-gray-300.transition-colors.duration-150(
+                href='https://cases.vitorx86.dev/hardware',
+                target='_blank',
+                rel='noopener',
+                class='min-h-[44px] px-2.5 py-1.5 border-gray-800 bg-gray-800/50 hover:border-teal-400/50 hover:text-teal-300'
+              )
+                span.truncate ~/mech
+                span.ml-1.text-teal-400 [6]
+              a.group.flex.items-center.justify-between.border.font-mono.text-xs.text-gray-300.transition-colors.duration-150(
+                href='https://cases.vitorx86.dev/cloud-devtools',
+                target='_blank',
+                rel='noopener',
+                class='min-h-[44px] px-2.5 py-1.5 border-gray-800 bg-gray-800/50 hover:border-teal-400/50 hover:text-teal-300'
+              )
+                span.truncate ~/cloud
+                span.ml-1.text-teal-400 [13]
+
+            //- Carousel bottom bar: mobile prev/next + centered pagination blocks
+            .flex.items-center.justify-between.gap-3.border-t.px-4(
+              class='py-2.5 border-gray-700/60 bg-gray-800/60 sm:justify-center'
+            )
+              button.inline-flex.items-center.justify-center.border.border-gray-700.bg-gray-900.px-3.font-mono.text-xs.text-green-400.transition-colors.duration-150(
+                type='button',
+                data-portfolio-prev,
+                aria-label='Show previous portfolio project',
+                class='min-h-[44px] min-w-[44px] sm:hidden hover:bg-gray-800'
+              )
+                svg.h-4.w-4(fill='none', stroke='currentColor', stroke-width='2.25', viewBox='0 0 24 24', aria-hidden='true')
+                  path(stroke-linecap='square', stroke-linejoin='miter', d='M15.75 19.5L8.25 12l7.5-7.5')
+
+              //- Interactive pagination blocks (0px boxy)
+              .flex.flex-wrap.items-center.justify-center.gap-1(role='tablist', aria-label='Select project slide')
+                each project, idx in projects
+                  button.group.inline-flex.items-center.justify-center.px-1(
+                    type='button',
+                    data-portfolio-dot=idx,
+                    aria-label=`Project ${idx + 1}: ${project.title}`,
+                    aria-current=idx === 0 ? 'true' : null,
+                    class='min-h-[44px] min-w-[28px]'
+                  )
+                    span.transition-all.duration-200(
+                      data-dot-pill,
+                      class=idx === 0 ? 'h-2.5 w-7 bg-teal-400' : 'h-2.5 w-2.5 bg-gray-600 group-hover:bg-gray-400'
+                    )
+
+              button.inline-flex.items-center.justify-center.border.border-gray-700.bg-gray-900.px-3.font-mono.text-xs.text-green-400.transition-colors.duration-150(
+                type='button',
+                data-portfolio-next,
+                aria-label='Show next portfolio project',
+                class='min-h-[44px] min-w-[44px] sm:hidden hover:bg-gray-800'
+              )
+                svg.h-4.w-4(fill='none', stroke='currentColor', stroke-width='2.25', viewBox='0 0 24 24', aria-hidden='true')
+                  path(stroke-linecap='square', stroke-linejoin='miter', d='M8.25 4.5l7.5 7.5-7.5 7.5')
+
+          //- ================================================================
+          //- RIGHT 40% (lg:col-span-2): INDUSTRIAL DATASHEET BLOG SIDEBAR
+          //- (Based on personal-blog's ARC P1 Engineering Datasheet right rail)
+          //- ================================================================
+          aside.grid.overflow-hidden.border.shadow-xl(
+            class='lg:col-span-2 grid-cols-[2.5rem_minmax(0,1fr)] border-[#18181b] bg-[#f4f4f1] text-[#141414]',
+            aria-label='Recent blog articles from blog.vitorx86.dev'
+          )
+            //- Left Signal-Orange Spine (#ff4814)
+            .flex.select-none.flex-col.items-center.justify-between.border-r.py-3(
+              class='border-[#18181b] bg-[#ff4814] text-[#141414]',
+              aria-hidden='true'
+            )
+              span.px-1.text-center.font-mono.font-extrabold.leading-tight(class='text-[10px]')
+                | 001
+                br
+                | v01
+              span.whitespace-nowrap.font-mono.text-xs.font-extrabold.uppercase.tracking-widest(
+                style='writing-mode: vertical-rl; transform: rotate(180deg);'
+              ) ENGINEERING LOG // BLOG
+              span.font-mono.text-base.font-extrabold.leading-none &#8599;
+
+            //- Right Main Datasheet Column
+            .flex.min-w-0.flex-col
+              //- Datasheet Top Spec Bar
+              .flex.items-center.justify-between.gap-2.border-b.px-4.py-2.font-mono.font-bold.uppercase.tracking-wider(
+                class='border-[#18181b] bg-[#e2e3df] text-[10px] text-[#18181b]'
+              )
+                span V86 / SYSTEMS FOR PRODUCTION
+                span SERIAL NO. 001
+
+              //- Datasheet Hero / Publication Block
+              .border-b.px-5.py-4(class='border-[#18181b]')
+                .flex.items-center.justify-between.gap-2
+                  span.font-mono.font-bold.uppercase.tracking-wider(class='text-[10px] text-[#3f3f46]')
+                    | BLOG.VITORX86.DEV // RECENT ARTICLES
+                  span.border.font-mono.font-bold.uppercase(
+                    class='px-1.5 py-0.5 border-[#18181b] bg-[#ff4814] text-[10px] text-[#141414]'
+                  ) LIVE FEED
+                h3.font-mono.text-xl.font-extrabold.tracking-tight(class='mt-1.5 text-[#141414] sm:text-2xl')
+                  | vitorx86.dev&reg;
+                  br
+                  | Engineering Blog
+                p.mt-2.font-mono.text-xs.leading-relaxed(class='text-[#27272a]')
+                  | Adaptive systems engineering log by Vitor Vieira (@vitorecomp) &mdash;
+                  | low-level Rust, Go, C++, MCP agents, and embedded garage robotics.
+
+              //- Stacked Recent Articles Datasheet Rows
+              .flex.flex-1.flex-col.divide-y(class='divide-[#18181b]')
+                each article, aIdx in blogArticles
+                  article.flex.flex-1.flex-col.justify-between.px-5.transition-colors.duration-150(
+                    class='py-3.5 hover:bg-[#e8e8e3]'
+                  )
+                    div
+                      .flex.items-center.justify-between.gap-2.font-mono(class='text-[11px]')
+                        .flex.items-center(class='gap-1.5')
+                          span.border.font-bold(
+                            class='px-1.5 py-0.5 border-[#18181b] bg-[#141414] text-[10px] text-[#f4f4f1]'
+                          ) 0#{aIdx + 1}
+                          span.font-bold(class='text-[#141414]')= article.channel
+                        span.font-semibold.uppercase(class='text-[#3f3f46]')= article.readTime
+                      h4.mt-2.font-mono.text-sm.font-extrabold.leading-snug(class='text-[#141414] sm:text-base')
+                        a.transition-colors.duration-150(
+                          href=article.href,
+                          target='_blank',
+                          rel='noopener',
+                          class='hover:text-[#c23008] hover:underline'
+                        )= article.title
+                      p.font-mono.text-xs.leading-relaxed(class='mt-1.5 text-[#27272a]')
+                        = article.excerpt
+                    .mt-2.flex.items-center.justify-between.border-t.pt-2(class='border-[#18181b]/20')
+                      span.font-mono.uppercase.tracking-wider(class='text-[10px] text-[#3f3f46]')
+                        | SPEC // ARTICLE_0#{aIdx + 1}
+                      a.group.inline-flex.items-center.gap-1.font-mono.text-xs.font-extrabold.uppercase.tracking-wider.transition-colors.duration-150(
+                        href=article.href,
+                        target='_blank',
+                        rel='noopener',
+                        class='min-h-[44px] text-[#141414] hover:text-[#c23008]'
+                      )
+                        span READ DISPATCH
+                        span.inline-block.transition-transform.duration-200(
+                          class='group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
+                        ) &#8599;
+
+              //- Datasheet Spec Header Strip
+              .flex.items-center.justify-between.gap-2.border-t.px-4.font-mono.font-bold.uppercase.tracking-wider(
+                class='py-1.5 border-[#18181b] bg-[#141414] text-[10px] text-[#f4f4f1]'
+              )
+                span CHANNEL: BLOG.VITORX86.DEV
+                span OUTPUT: CONTINUOUS DUTY
+
+              //- Split Action Footer Cells (Open Blog + RSS)
+              .grid.grid-cols-2.divide-x.border-t(class='divide-[#18181b] border-[#18181b] bg-[#e2e3df]')
+                a.group.flex.flex-col.justify-between.px-4.transition-colors.duration-150(
+                  href='https://blog.vitorx86.dev',
+                  target='_blank',
+                  rel='noopener',
+                  class='py-2.5 min-h-[44px] hover:bg-[#ff4814]'
                 )
-                  span.h-3.w-3.rounded-full(class='bg-red-500/80', aria-hidden='true')
-                  span.h-3.w-3.rounded-full(class='bg-yellow-500/80', aria-hidden='true')
-                  span.h-3.w-3.rounded-full(class='bg-green-500/80', aria-hidden='true')
-                  h3.ml-2.truncate.font-mono.text-xs.font-normal.text-gray-400
-                    | ~/projects/
-                    span.font-bold.text-white.transition-colors.duration-150(class='group-hover:text-teal-300')= project.name
-                //- Window body
-                .flex.flex-1.flex-col.px-5.py-5
-                  p.font-mono.text-sm.leading-6.text-gray-300= project.desc
-                  +tagChips(project.tags, 'border-teal-400/40 text-teal-300').mt-auto.pt-4
-                  p.pt-5.font-mono.text-sm.text-green-400
-                    span.text-gray-400 $&nbsp;
-                    | ./open_repo.sh
-                    span.ml-2.inline-block.transition-transform.duration-200(
-                      class='group-hover:translate-x-1'
-                    ) &rarr;
+                  span.font-mono.font-bold.uppercase.tracking-wider(class='text-[9px] text-[#3f3f46] group-hover:text-[#141414]')
+                    | PUBLICATION
+                  .flex.items-center.justify-between.font-mono.text-xs.font-extrabold(class='mt-0.5 text-[#141414]')
+                    span OPEN BLOG
+                    span &#8599;
 
-        //- Everything else lives on GitHub and on the cases site
-        .mt-14.flex.flex-wrap.items-center.justify-center.gap-4(class='sm:gap-6')
-          +terminalCta('https://github.com/vitorecomp?tab=repositories', './view_all_repos.sh')
-            svg.h-5.w-5.text-green-400(
-              class='sm:h-6 sm:w-6',
-              fill='none',
-              stroke='currentColor',
-              stroke-width='2',
-              viewBox='0 0 24 24',
-              xmlns='http://www.w3.org/2000/svg',
-              aria-hidden='true'
-            )
-              path(stroke-linecap='round', stroke-linejoin='round', d='M8.25 4.5l7.5 7.5-7.5 7.5')
-          +terminalCta('https://cases.vitorx86.dev', './open_cases.sh')
-            svg.h-5.w-5.text-green-400(
-              class='sm:h-6 sm:w-6',
-              fill='none',
-              stroke='currentColor',
-              stroke-width='2',
-              viewBox='0 0 24 24',
-              xmlns='http://www.w3.org/2000/svg',
-              aria-hidden='true'
-            )
-              path(
-                stroke-linecap='round',
-                stroke-linejoin='round',
-                d='M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'
-              )
+                a.group.flex.flex-col.justify-between.px-4.transition-colors.duration-150(
+                  href='https://blog.vitorx86.dev/rss/',
+                  target='_blank',
+                  rel='noopener',
+                  class='py-2.5 min-h-[44px] hover:bg-[#ff4814]'
+                )
+                  span.font-mono.font-bold.uppercase.tracking-wider(class='text-[9px] text-[#3f3f46] group-hover:text-[#141414]')
+                    | SYNDICATION
+                  .flex.items-center.justify-between.font-mono.text-xs.font-extrabold(class='mt-0.5 text-[#141414]')
+                    span RSS.XML
+                    span &#8599;
+
+script(src=require('../../scripts/portfolio-carousel.js'))
